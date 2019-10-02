@@ -1,2 +1,2 @@
-# TPG-
+# TPG++
 TPG written in C++
