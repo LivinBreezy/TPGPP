@@ -24,18 +24,17 @@ Header files should be self-contained (compile on their own) and end in .h.
 
 Template and inline functions should be declared in the same file as their declarations. 
 	
-# The #define Guard
+## The #define Guard
 All header files should have #define guards to prevent multiple inclusion. The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.
 
 To guarantee uniqueness, they should be based on the full path in a project's source tree. For example, the file foo/src/bar/baz.h in project foo should have the following guard:
-	```c++
-	#ifndef FOO_BAR_BAZ_H_
-	#define FOO_BAR_BAZ_H_
-	
-	...
+```c++
+#ifndef FOO_BAR_BAZ_H_
+#define FOO_BAR_BAZ_H_
 
-	#endif  // FOO_BAR_BAZ_H_
-	```
+...
+#endif  // FOO_BAR_BAZ_H_
+```
 
 ## Forward Declarations
 Function definitions should be included in a .h file. Don't use forward declarations in your .cpp files. 
@@ -57,19 +56,19 @@ Includes should be presented in the following order:
 		
 For example, if your project is in src/foo/internal/fooserver.cpp:
 	
-	```c++
-	#include "foo/server/fooserver.h"
+```c++
+#include "foo/server/fooserver.h"
 
-	#include <sys/types.h>
-	#include <unistd.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-	#include <string>
-	#include <vector>
+#include <string>
+#include <vector>
 
-	#include "base/basictypes.h"
-	#include "base/commandlineflags.h"
-	#include "foo/server/bar.h"
-	```
+#include "base/basictypes.h"
+#include "base/commandlineflags.h"
+#include "foo/server/bar.h"
+```
 
 ## Local Variables
 Local variables should always be declared with an initialization.
@@ -250,35 +249,35 @@ Do not use any tabs in your code. Set your editor to emit spaces on tabs.
 Return type on the same line as function name, parameters on the same line if they fit. Wrap parameter lists which do not fit on a single line as you would wrap arguments in a function call.
 		
 Functions look like this:
-	```c++
-	ReturnType ClassName::FunctionName(Type par_name1, Type par_name2) 
-	{
-		DoSomething();
-		...
-	}
-	```
+```c++
+ReturnType ClassName::FunctionName(Type par_name1, Type par_name2) 
+{
+	DoSomething();
+	...
+}
+```
 If you have too much text to fit on one line:
-	```c++
-	ReturnType ClassName::ReallyLongFunctionName(Type par_name1, Type par_name2,
-		Type par_name3) 
-	{
-		DoSomething();
-		...
-	}
-	```
+```c++
+ReturnType ClassName::ReallyLongFunctionName(Type par_name1, Type par_name2,
+	Type par_name3) 
+{
+	DoSomething();
+	...
+}
+```
 or if you cannot fit even the first parameter:
-
-	ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
-			// 8 space indent
-			Type par_name1,  
-			Type par_name2,
-			Type par_name3) 
-	{
-		// 4 space indent
-		DoSomething();  
-		...
-	}
-
+```c++
+ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
+		// 8 space indent
+		Type par_name1,  
+		Type par_name2,
+		Type par_name3) 
+{
+	// 4 space indent
+	DoSomething();  
+	...
+}
+```
 Some points to note:
 
 1. Choose good parameter names.
@@ -296,12 +295,12 @@ Format parameters and bodies as for any other function, and capture lists like o
 	
 ## Floating Point Literals
 Floating-point literals should always have a radix point, with digits on both sides, even if they use exponential notation. Example:
-	```c++	
-	float f = 1.0f;
-	float f2 = 1;
-	long double ld = -0.5L;
-	double d = 1248.0e6;
-	```
+```c++	
+float f = 1.0f;
+float f2 = 1;
+long double ld = -0.5L;
+double d = 1248.0e6;
+```
 ## Function Calls
 Either write the call all on a single line, wrap the arguments at the parenthesis, or start the arguments on a new line indented by four spaces and continue at that four space indent. In the absence of other considerations, use the minimum number of lines, including placing multiple arguments on each line where appropriate.
 	
@@ -310,20 +309,20 @@ Format a braced initializer list exactly like you would format a function call i
 	
 ## Conditionals
 Prefer no spaces inside parentheses. The if and else keywords belong on separate lines. All conditionals should have the open brace on its own line and every keyword/parameter should have braces, even if it will contain a single line of code, to promote creating easier to maintain code. Example:
-	```c++		
-	if (condition) 
-	{  
-		...
-	} 
-	else if (...)
-	{
-		...
-	} 
-	else 
-	{
-		...
-	}
-	```
+```c++		
+if (condition) 
+{  
+	...
+} 
+else if (...)
+{
+	...
+} 
+else 
+{
+	...
+}
+```
 ## Loops
 Loops should maintain the same format as described throughout functions and conditionals.
 	
@@ -331,22 +330,22 @@ Loops should maintain the same format as described throughout functions and cond
 No spaces around period or arrow. Pointer operators do not have trailing spaces.
 
 The following are examples of correctly-formatted pointer and reference expressions:
-	```c++
-	x = *p;
-	p = &x;
-	x = r.y;
-	x = r->y;
-	```
+```c++
+x = *p;
+p = &x;
+x = r.y;
+x = r->y;
+```
 Note that:
 
 1. There are no spaces around the period or arrow when accessing a member.
 2. Pointer operators have no space after the * or &.
 
 When declaring a pointer variable or argument, you must place the asterisk adjacent to the type:
-	```c++
-	char* c;
-	const std::string& str;
-	```	
+```c++
+char* c;
+const std::string& str;
+```
 Multiple variables should never be declared on a single line to prevent confusion with pointers, references, and value declarations.
 	
 ## Return Values
@@ -356,10 +355,10 @@ Use parentheses in return expr; only where you would use them in x = expr;.
 	
 ## Variable and Array Initialization
 Since our projects all use warning level 4 (one step before Wall), we will exclusively use = for variable value assignment:
-	```c++	
-	int x = 3;
-	std:string name = "Some Name";
-	```
+```c++	
+int x = 3;
+std:string name = "Some Name";
+```
 ## Class Format:
 Sections in public, protected, and private order, each indented two spaces.
 	
