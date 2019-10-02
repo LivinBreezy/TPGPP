@@ -238,7 +238,7 @@ A line may exceed 80 characters if it is:
 1. A comment line which is not feasible to split without harming readability, ease of cut and paste or auto-linking -- e.g. if a line contains an example command or a literal URL longer than 80 characters.
 2. A raw-string literal with content that exceeds 80 characters. Except for test code, such literals should appear near the top of a file.
 3. An include statement.
-4. A header guard
+4. A header guard.
 		
 ## Spaces vs. Tabs
 Use only spaces, and indent 4 spaces at a time. We will exclusively use spaces for indentation. 
