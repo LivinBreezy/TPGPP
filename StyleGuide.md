@@ -25,7 +25,7 @@ Header files should be self-contained (compile on their own) and end in .h.
 Template and inline functions should be declared in the same file as their declarations. 
 	
 ## The #define Guard
-All header files should have #define guards to prevent multiple inclusion. The format of the symbol name should be <PROJECT>_<PATH>_<FILE>_H_.
+All header files should have #define guards to prevent multiple inclusion. The format of the symbol name should be \<PROJECT\>\_\<PATH\>\_\<FILE\>\_H\_.
 
 To guarantee uniqueness, they should be based on the full path in a project's source tree. For example, the file foo/src/bar/baz.h in project foo should have the following guard:
 ```c++
@@ -91,7 +91,7 @@ Use a struct only for passive objects that carry data; everything else is a clas
 Prefer to use a structu in all cases, especially when the values contained can have meaningful names.
 
 ## Inheritance
-Inteface inheritance should be used almost exclusively, either through fully abstract classes and methods or via the use of templates. Implementation inheritance should be avoided as much as possible.
+Interface inheritance should be used almost exclusively, either through fully abstract classes and methods or via the use of templates. Implementation inheritance should be avoided as much as possible.
 		
 ## Operator Overloading
 Overload operators with good judgment and common sense. When overloading operators, try to stay	as close to the given operator's original functionality as possible. In the case where the intent of the overload is not immediately obvious, ensure a comment is added to any relevant statement with a reference to the overloaded operator in question.
