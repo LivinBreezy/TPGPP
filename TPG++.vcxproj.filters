@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\universal">
+      <UniqueIdentifier>{3a86a122-c409-48bb-aae1-5b26ea0c4a2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\training">
+      <UniqueIdentifier>{c7a098d8-fda9-4752-af9a-ab2bdd77f5cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\testing">
+      <UniqueIdentifier>{e92835d6-87c0-4ac0-a6ff-0dbedc3d56dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\universal">
+      <UniqueIdentifier>{570663f6-c6b6-4eef-a2cb-d11ad8886d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\training">
+      <UniqueIdentifier>{ddd1acf0-7b42-47fe-a0fb-7784035ceb57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\testing">
+      <UniqueIdentifier>{927238c0-201c-4852-b1df-8b9d6c62daa1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="tpg_main.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_team.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_learner.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_program.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_instruction.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_algorithm.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_action.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_reproduction.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_logger.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_memory_model.cpp">
+      <Filter>Source Files\universal</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_learn.cpp">
+      <Filter>Source Files\training</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_test.cpp">
+      <Filter>Source Files\testing</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tpg_action.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_algorithm.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_instruction.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_learner.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_logger.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_main.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_memory_model.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_program.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_reproduction.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_team.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_learn.h">
+      <Filter>Header Files\training</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_test.h">
+      <Filter>Header Files\testing</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_utility.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
