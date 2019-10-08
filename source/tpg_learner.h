@@ -8,6 +8,24 @@ class Action;
 class Program;
 class Team;
 
+/**
+ *  @brief     Holds a Program and an Action, using both to act on environment.
+ *  @details   The Learner class contains a Program and an Action. When a
+ *  Learner receives a feature set, it evaluates the feature set using its 
+ *  stored Program. The Program produces a bid, which the Learner's host team
+ *  compares against all other Learners under its control. The Learner with the
+ *  highest bid will then return its Action to the Team, which will be enacted
+ *  on the environment.
+ *  @author    Robert Smith
+ *  @author    Other
+ *  @version   v0.1 Beta
+ *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
+    or TPGPlay objects.
+ *  @bug       None yet marked.
+ *  @todo      Implementation and full commenting required.
+ *  @copyright Not Yet Decided.
+ */
 class Learner
 {
     int64 id;

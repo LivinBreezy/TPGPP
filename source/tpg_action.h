@@ -9,10 +9,24 @@
 // Dependent class forward declarations
 class Team;
 
-/** An Action holds either an atomic action or Team reference to help TPG navigate the graph. 
- * 
- *
- *
+/**
+ *  @brief     Holds either an atomic action or Team reference to help TPG 
+ *  navigate the graph.
+ *  @details   The Action class contains either an atomic action or a Team
+ *  object. If the Action holds an atomic action, then it will be returned
+ *  when the getAction(..) method is called. If it holds a Team, it will
+ *  instead provide the held Team with the feature set and ask it to begin
+ *  its own bidding process. Once that Team has received an atomic action,
+ *  the Action object will return it.
+ *  @author    Robert Smith
+ *  @author    Other
+ *  @version   v0.1 Beta
+ *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
+    or TPGPlay objects and creates a population of Learners for producing bids.
+ *  @bug       None yet marked.
+ *  @todo      Implementation and full commenting required.
+ *  @copyright Not Yet Decided.
  */
 class Action
 {
