@@ -1,0 +1,6 @@
+<map id="Learner" name="Learner">
+<area shape="rect" id="node1" title=" " alt="" coords="145,637,280,920"/>
+<area shape="rect" id="node2" href="$d7/dca/class_action.html" title="An Action holds either an atomic action or Team reference to help TPG navigate the graph." alt="" coords="19,395,150,560"/>
+<area shape="rect" id="node3" href="$d1/d35/class_team.html" title="A class which represents a collective of Learner objects." alt="" coords="5,5,164,317"/>
+<area shape="rect" id="node4" href="$d3/d8a/class_program.html" title="A class which represents a program using a collection of Instruction objects." alt="" coords="174,380,337,575"/>
+</map>
