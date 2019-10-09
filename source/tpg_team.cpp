@@ -1,9 +1,3 @@
-/** Defines a Team, which contains some number of Learners and collectively
- *  analyzes environment feature sets in order to act on said environment.
- *
- *
- *
- */
 
 #include "tpg_team.h"
 
@@ -15,11 +9,6 @@
 #include "tpg_action.h"
 #include "tpg_learner.h"
 
- /** Create a Team initialized with the given birthday.
-  *
-  *
-  *
-  */
 Team::Team(int64 birthday, TpgParameters* parameters)
 {
     this->id = parameters->nextTeamId++;
@@ -29,10 +18,6 @@ Team::Team(int64 birthday, TpgParameters* parameters)
     this->learnerReferences = 0;
 }
 
-/** Create a copy of a Team from the given input parameters. 
- *
- *
- */
 Team::Team(int64 id, int64 birthday, std::vector<Learner> learners, std::map<std::string, double> outcomes)
 {
     this->id = id;
@@ -42,10 +27,6 @@ Team::Team(int64 id, int64 birthday, std::vector<Learner> learners, std::map<std
     int32 learnerReferences = static_cast<int32>(this->learners.size());
 }
 
-/**
- *
- *
- */
 Team::~Team()
 {
 

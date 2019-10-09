@@ -8,5 +8,6 @@ var tpg__utility_8h =
     [ "int64", "df/d00/tpg__utility_8h.html#a7cde0074dfd288f2d70c0e035dacb28a", null ],
     [ "int64_fast", "df/d00/tpg__utility_8h.html#ae83214e996b8a8588a8b1a859f25a63c", null ],
     [ "int8", "df/d00/tpg__utility_8h.html#aa79c2d3de4fcd200458c406f40b2ae64", null ],
-    [ "int8_fast", "df/d00/tpg__utility_8h.html#a3d970e56a15e582347ab928595090fb1", null ]
+    [ "int8_fast", "df/d00/tpg__utility_8h.html#a3d970e56a15e582347ab928595090fb1", null ],
+    [ "Random", "df/d00/tpg__utility_8h.html#a1fa94ae873b9b87ce72c193df63f586b", null ]
 ];

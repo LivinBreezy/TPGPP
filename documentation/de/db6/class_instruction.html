@@ -96,13 +96,16 @@ $(document).ready(function(){initNavTree('de/db6/class_instruction.html','../../
 </div><!--header-->
 <div class="contents">
 
+<p>Represents a register-based instruction similar to assembly.  
+ <a href="../../de/db6/class_instruction.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for Instruction:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d3b/class_instruction__coll__graph.png" border="0" usemap="#_instruction_coll__map" alt="Collaboration graph"/></div>
 <map name="_instruction_coll__map" id="_instruction_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,108,171"/>
+<area shape="rect" title="Represents a register&#45;based instruction similar to assembly." alt="" coords="5,5,116,185"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -110,6 +113,8 @@ Collaboration diagram for Instruction:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a17e9757e08a2c58df3a514a69ea4a0ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db6/class_instruction.html#a17e9757e08a2c58df3a514a69ea4a0ee">Instruction</a> (<a class="el" href="../../df/d00/tpg__utility_8h.html#aa79c2d3de4fcd200458c406f40b2ae64">int8</a>, <a class="el" href="../../df/d00/tpg__utility_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>, <a class="el" href="../../df/d00/tpg__utility_8h.html#aa79c2d3de4fcd200458c406f40b2ae64">int8</a>, std::function&lt; double *(<a class="el" href="../../df/d00/tpg__utility_8h.html#aa79c2d3de4fcd200458c406f40b2ae64">int8</a>, <a class="el" href="../../df/d00/tpg__utility_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>, <a class="el" href="../../df/d00/tpg__utility_8h.html#aa79c2d3de4fcd200458c406f40b2ae64">int8</a>, double *, double *, <a class="el" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a> *)&gt;)</td></tr>
 <tr class="separator:a17e9757e08a2c58df3a514a69ea4a0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26eb634480beff1ad7a20235c11f521d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db6/class_instruction.html#a26eb634480beff1ad7a20235c11f521d">~Instruction</a> ()</td></tr>
+<tr class="separator:a26eb634480beff1ad7a20235c11f521d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3563982101f12726b174ee33653592c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db6/class_instruction.html#a3563982101f12726b174ee33653592c5">execute</a> (double *, double *, <a class="el" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a> *)</td></tr>
 <tr class="separator:a3563982101f12726b174ee33653592c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a391d59bcff0ad710167e28b974b0e104"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/db6/class_instruction.html#a391d59bcff0ad710167e28b974b0e104">mutate</a> (<a class="el" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a> *)</td></tr>
@@ -129,8 +134,18 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aaa6d336e695ac7c2cb9a080d240d91ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00009">9</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
+<div class="textblock"><p>Represents a register-based instruction similar to assembly. </p>
+<p>The <a class="el" href="../../de/db6/class_instruction.html" title="Represents a register-based instruction similar to assembly.">Instruction</a> class contains a variety of information as it pertains to register-based instructions. It holds a mode value (for determining the type of source to read from), a source index value (for determining which index of the given source structure to read from), and a destination index value (for determining the other value to operate on as well as where to store the result). The class also holds a function which represents the functionality of the defined operation. </p><dl class="section author"><dt>Author</dt><dd>Robert Smith </dd>
+<dd>
+Other </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v0.1 Beta </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Created on October 7, 2019. Last updated on October 7, 2019. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>When Learners are initialized, they will be given a <a class="el" href="../../d3/d8a/class_program.html" title="A class which represents a program using a collection of Instruction objects.">Program</a> which generates and holds Instructions. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000003">Bug:</a></b></dt><dd>None yet marked. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Implementation and full commenting required. </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Not Yet Decided. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00028">28</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a17e9757e08a2c58df3a514a69ea4a0ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a17e9757e08a2c58df3a514a69ea4a0ee">&#9670;&nbsp;</a></span>Instruction()</h2>
@@ -174,6 +189,25 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a26eb634480beff1ad7a20235c11f521d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26eb634480beff1ad7a20235c11f521d">&#9670;&nbsp;</a></span>~Instruction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Instruction::~Instruction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html">tpg_instruction.cpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a3563982101f12726b174ee33653592c5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3563982101f12726b174ee33653592c5">&#9670;&nbsp;</a></span>execute()</h2>
@@ -207,7 +241,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html#l00014">14</a> of file <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html">tpg_instruction.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html">tpg_instruction.cpp</a>.</p>
 
 </div>
 </div>
@@ -227,7 +261,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html#l00019">19</a> of file <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html">tpg_instruction.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html">tpg_instruction.cpp</a>.</p>
 
 </div>
 </div>
@@ -246,7 +280,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html#l00024">24</a> of file <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html">tpg_instruction.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html#l00029">29</a> of file <a class="el" href="../../d3/d43/tpg__instruction_8cpp_source.html">tpg_instruction.cpp</a>.</p>
 
 </div>
 </div>
@@ -271,7 +305,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00013">13</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00032">32</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
 
 </div>
 </div>
@@ -295,7 +329,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00011">11</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00030">30</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
 
 </div>
 </div>
@@ -319,7 +353,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00014">14</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00033">33</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
 
 </div>
 </div>
@@ -343,7 +377,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00012">12</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../da/dad/tpg__instruction_8h_source.html#l00031">31</a> of file <a class="el" href="../../da/dad/tpg__instruction_8h_source.html">tpg_instruction.h</a>.</p>
 
 </div>
 </div>

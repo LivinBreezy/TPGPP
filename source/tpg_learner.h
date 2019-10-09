@@ -40,6 +40,7 @@ public:
     Learner(int64, int64, TpgParameters*);
     Learner(int64, Team*, TpgParameters*);
     Learner(int64, Learner*, TpgParameters*);
+    ~Learner();
     int64 bid(double*);
     int32 programLength();
     int64 getID();

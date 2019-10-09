@@ -34,26 +34,10 @@ class Instruction
 
 public:
     Instruction(int8, int32, int8, std::function<double*(int8, int32, int8, double*, double*, TpgParameters*)>);
+    ~Instruction();
     bool execute(double*, double*, TpgParameters*);
     bool mutate(TpgParameters*);
     std::string* toString();
 };
 
 #endif
-
-/*
-Instruction
-    Class Variables
-        mode : int8
-        source : int32
-        destination : int8
-        operation : F*
-    Methods
-        Instruction : int8, string, int32, int8, struct (parameters)
-        execute : double[], double[], struct (parameters/memory)
-        mutate : struct (mutation parameters)
-        toString : None
-
-    Static Methods
-        generateOperations : None
-*/

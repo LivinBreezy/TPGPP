@@ -1,6 +1,9 @@
 <map id="tpg_learner.h" name="tpg_learner.h">
-<area shape="rect" id="node1" title=" " alt="" coords="85,5,183,32"/>
-<area shape="rect" id="node2" href="$d6/d7c/tpg__learner_8cpp.html" title=" " alt="" coords="5,155,116,181"/>
-<area shape="rect" id="node3" href="$d2/dc7/tpg__team_8h.html" title=" " alt="" coords="91,80,177,107"/>
-<area shape="rect" id="node4" href="$dd/d51/tpg__team_8cpp.html" title=" " alt="" coords="157,155,258,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="227,5,324,32"/>
+<area shape="rect" id="node2" href="$d6/d7c/tpg__learner_8cpp.html" title=" " alt="" coords="24,155,135,181"/>
+<area shape="rect" id="node3" href="$d2/dc7/tpg__team_8h.html" title=" " alt="" coords="232,80,319,107"/>
+<area shape="rect" id="node4" href="$db/d1b/tpg__logger_8h.html" title=" " alt="" coords="365,155,458,181"/>
+<area shape="rect" id="node5" href="$d8/d40/tpg__logger_8cpp.html" title=" " alt="" coords="119,229,226,256"/>
+<area shape="rect" id="node7" href="$dd/d51/tpg__team_8cpp.html" title=" " alt="" coords="482,155,583,181"/>
+<area shape="rect" id="node6" href="$d3/da6/tpg__reproduction_8h.html" title=" " alt="" coords="211,155,340,181"/>
 </map>

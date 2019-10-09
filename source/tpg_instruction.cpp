@@ -11,6 +11,11 @@ Instruction::Instruction(int8 mode, int32 source, int8 destination, std::functio
     this->operation = operation;
 }
 
+Instruction::~Instruction()
+{
+
+}
+
 bool Instruction::execute(double* inputFeatures, double* registers, TpgParameters* parameters)
 {
     return NULL;

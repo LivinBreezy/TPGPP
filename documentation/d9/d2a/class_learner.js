@@ -5,6 +5,7 @@ var class_learner =
     [ "Learner", "d9/d2a/class_learner.html#a750a4d758b70a1e8694eb073c1b4eab4", null ],
     [ "Learner", "d9/d2a/class_learner.html#a2d705415fa8ef1cde42a287460d060ec", null ],
     [ "Learner", "d9/d2a/class_learner.html#adac165ce9c17d92e8856d241a7f85307", null ],
+    [ "~Learner", "d9/d2a/class_learner.html#a9b8aa3de885559839bbe39203a8e0295", null ],
     [ "bid", "d9/d2a/class_learner.html#ab0b944682edbc5cc47c4cb1e7fa36dce", null ],
     [ "decreaseReferences", "d9/d2a/class_learner.html#ad3f937280e75bbdb1a76acf6b10d4514", null ],
     [ "getActionObject", "d9/d2a/class_learner.html#a12cea6ba052b6794c54cf75048ca49e7", null ],

@@ -91,12 +91,61 @@ $(document).ready(function(){initNavTree('d5/d99/tpg__memory__model_8cpp_source.
 <div class="title">tpg_memory_model.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d5/d99/tpg__memory__model_8cpp.html">Go to the documentation of this file.</a><div class="fragment"></div><!-- fragment --></div><!-- contents -->
+<a href="../../d5/d99/tpg__memory__model_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d8f/tpg__memory__model_8h.html">tpg_memory_model.h</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="../../df/d45/class_memory_model.html#a372c7d53fd5985436ab39ec31636d860">    4</a></span>&#160;<a class="code" href="../../df/d45/class_memory_model.html#a372c7d53fd5985436ab39ec31636d860">MemoryModel::MemoryModel</a>(<a class="code" href="../../df/d00/tpg__utility_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> rows, <a class="code" href="../../df/d00/tpg__utility_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> columns)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    this-&gt;<a class="code" href="../../df/d45/class_memory_model.html#a6c63ff7e1ff57c09372748bb20a8e4bb">memory</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    this-&gt;<a class="code" href="../../df/d45/class_memory_model.html#a5e8c0b82977fae4418d8e89762f3ece3">probabilities</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="../../df/d45/class_memory_model.html#a2457b50c102292aad9bc4480e29daa3e">   10</a></span>&#160;<a class="code" href="../../df/d45/class_memory_model.html#a372c7d53fd5985436ab39ec31636d860">MemoryModel::MemoryModel</a>(<span class="keywordtype">double</span>** other)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    this-&gt;<a class="code" href="../../df/d45/class_memory_model.html#a6c63ff7e1ff57c09372748bb20a8e4bb">memory</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    this-&gt;<a class="code" href="../../df/d45/class_memory_model.html#a5e8c0b82977fae4418d8e89762f3ece3">probabilities</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="../../df/d45/class_memory_model.html#a1205da3828c4d1cc050d145ccaaeadfc">   16</a></span>&#160;<a class="code" href="../../df/d45/class_memory_model.html#a1205da3828c4d1cc050d145ccaaeadfc">MemoryModel::~MemoryModel</a>()</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="../../df/d45/class_memory_model.html#aa6c189b7320ab17d245a667323b7fd6c">   21</a></span>&#160;<span class="keywordtype">double</span>* <a class="code" href="../../df/d45/class_memory_model.html#aa6c189b7320ab17d245a667323b7fd6c">MemoryModel::generateProbabilities</a>()</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="../../df/d45/class_memory_model.html#a4600ebfbb10d8f9e4f75fed3fddc18ab">   26</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="../../df/d45/class_memory_model.html#a4600ebfbb10d8f9e4f75fed3fddc18ab">MemoryModel::read</a>(<a class="code" href="../../df/d00/tpg__utility_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> index)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="../../df/d45/class_memory_model.html#a080bd1e3ec52643b6cb29bbb38370226">   31</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../df/d45/class_memory_model.html#a080bd1e3ec52643b6cb29bbb38370226">MemoryModel::write</a>(<span class="keywordtype">double</span>* registers)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="../../df/d45/class_memory_model.html#a89b8b619653299e4e3e887c45ca2756f">   36</a></span>&#160;std::string* <a class="code" href="../../df/d45/class_memory_model.html#a89b8b619653299e4e3e887c45ca2756f">MemoryModel::toString</a>()</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclass_memory_model_html_aa6c189b7320ab17d245a667323b7fd6c"><div class="ttname"><a href="../../df/d45/class_memory_model.html#aa6c189b7320ab17d245a667323b7fd6c">MemoryModel::generateProbabilities</a></div><div class="ttdeci">double * generateProbabilities()</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d99/tpg__memory__model_8cpp_source.html#l00021">tpg_memory_model.cpp:21</a></div></div>
+<div class="ttc" id="aclass_memory_model_html_a6c63ff7e1ff57c09372748bb20a8e4bb"><div class="ttname"><a href="../../df/d45/class_memory_model.html#a6c63ff7e1ff57c09372748bb20a8e4bb">MemoryModel::memory</a></div><div class="ttdeci">double ** memory</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d8f/tpg__memory__model_8h_source.html#l00029">tpg_memory_model.h:29</a></div></div>
+<div class="ttc" id="aclass_memory_model_html_a5e8c0b82977fae4418d8e89762f3ece3"><div class="ttname"><a href="../../df/d45/class_memory_model.html#a5e8c0b82977fae4418d8e89762f3ece3">MemoryModel::probabilities</a></div><div class="ttdeci">double * probabilities</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d8f/tpg__memory__model_8h_source.html#l00030">tpg_memory_model.h:30</a></div></div>
+<div class="ttc" id="atpg__memory__model_8h_html"><div class="ttname"><a href="../../df/d8f/tpg__memory__model_8h.html">tpg_memory_model.h</a></div></div>
+<div class="ttc" id="aclass_memory_model_html_a372c7d53fd5985436ab39ec31636d860"><div class="ttname"><a href="../../df/d45/class_memory_model.html#a372c7d53fd5985436ab39ec31636d860">MemoryModel::MemoryModel</a></div><div class="ttdeci">MemoryModel(int32, int32)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d99/tpg__memory__model_8cpp_source.html#l00004">tpg_memory_model.cpp:4</a></div></div>
+<div class="ttc" id="aclass_memory_model_html_a4600ebfbb10d8f9e4f75fed3fddc18ab"><div class="ttname"><a href="../../df/d45/class_memory_model.html#a4600ebfbb10d8f9e4f75fed3fddc18ab">MemoryModel::read</a></div><div class="ttdeci">double read(int32)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d99/tpg__memory__model_8cpp_source.html#l00026">tpg_memory_model.cpp:26</a></div></div>
+<div class="ttc" id="aclass_memory_model_html_a080bd1e3ec52643b6cb29bbb38370226"><div class="ttname"><a href="../../df/d45/class_memory_model.html#a080bd1e3ec52643b6cb29bbb38370226">MemoryModel::write</a></div><div class="ttdeci">bool write(double *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d99/tpg__memory__model_8cpp_source.html#l00031">tpg_memory_model.cpp:31</a></div></div>
+<div class="ttc" id="aclass_memory_model_html_a1205da3828c4d1cc050d145ccaaeadfc"><div class="ttname"><a href="../../df/d45/class_memory_model.html#a1205da3828c4d1cc050d145ccaaeadfc">MemoryModel::~MemoryModel</a></div><div class="ttdeci">~MemoryModel()</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d99/tpg__memory__model_8cpp_source.html#l00016">tpg_memory_model.cpp:16</a></div></div>
+<div class="ttc" id="aclass_memory_model_html_a89b8b619653299e4e3e887c45ca2756f"><div class="ttname"><a href="../../df/d45/class_memory_model.html#a89b8b619653299e4e3e887c45ca2756f">MemoryModel::toString</a></div><div class="ttdeci">std::string * toString()</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d99/tpg__memory__model_8cpp_source.html#l00036">tpg_memory_model.cpp:36</a></div></div>
+<div class="ttc" id="atpg__utility_8h_html_ab7903878916593daecbeb95b98115ab0"><div class="ttname"><a href="../../df/d00/tpg__utility_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a></div><div class="ttdeci">int32_t int32</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d00/tpg__utility_8h_source.html#l00012">tpg_utility.h:12</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_3ae0b5e832a4673c8d1cdaa9c598a62d.html">TPG++</a></li><li class="navelem"><a class="el" href="../../d5/d99/tpg__memory__model_8cpp.html">tpg_memory_model.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_0557d37590b4200516b3785d7bc02977.html">TPGPP</a></li><li class="navelem"><a class="el" href="../../dir_937c6f04fecfa5e752fb78d71b8a03bb.html">source</a></li><li class="navelem"><a class="el" href="../../d5/d99/tpg__memory__model_8cpp.html">tpg_memory_model.cpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.16 </li>

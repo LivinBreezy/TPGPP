@@ -40,7 +40,7 @@ public:
     int64 getAction(std::set<Team>*, double*);
     bool isAtomicAction();
     bool equals(Action*);
-    std::string toString();
+    std::string* toString();
 };
 
 #endif

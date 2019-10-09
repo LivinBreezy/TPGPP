@@ -159,10 +159,8 @@
     <ClCompile Include="tpg_learn.cpp" />
     <ClCompile Include="tpg_learner.cpp" />
     <ClCompile Include="tpg_logger.cpp" />
-    <ClCompile Include="tpg_main.cpp" />
     <ClCompile Include="tpg_memory_model.cpp" />
     <ClCompile Include="tpg_program.cpp" />
-    <ClCompile Include="tpg_reproduction.cpp" />
     <ClCompile Include="tpg_team.cpp" />
     <ClCompile Include="tpg_test.cpp" />
   </ItemGroup>
@@ -173,7 +171,6 @@
     <ClInclude Include="tpg_learn.h" />
     <ClInclude Include="tpg_learner.h" />
     <ClInclude Include="tpg_logger.h" />
-    <ClInclude Include="tpg_main.h" />
     <ClInclude Include="tpg_memory_model.h" />
     <ClInclude Include="tpg_program.h" />
     <ClInclude Include="tpg_reproduction.h" />

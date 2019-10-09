@@ -2,6 +2,7 @@ var class_program =
 [
     [ "Program", "d3/d8a/class_program.html#abfb63471514f045638a4c8da72a2ab99", null ],
     [ "Program", "d3/d8a/class_program.html#a306360299d048d902c95443d104bf822", null ],
+    [ "~Program", "d3/d8a/class_program.html#a986aef1c50e1d338a3315a47ba6df549", null ],
     [ "allInstructionCounts", "d3/d8a/class_program.html#aeeab6144a349a95c8b8a6123e9e6aeaf", null ],
     [ "execute", "d3/d8a/class_program.html#a2a2770560cb257f4cd539f8de081e7b5", null ],
     [ "instructionCount", "d3/d8a/class_program.html#aa6d1810561ca40263443b8c0fb999ce2", null ],

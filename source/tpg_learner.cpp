@@ -53,6 +53,11 @@ Learner::Learner(int64 birthday, Learner* other, TpgParameters* parameters)
     this->program = new Program(parameters);
 }
 
+Learner::~Learner()
+{
+
+}
+
 int64 Learner::bid(double*)
 {
     return NULL;

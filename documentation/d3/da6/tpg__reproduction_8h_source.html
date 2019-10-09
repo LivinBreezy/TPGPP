@@ -91,13 +91,38 @@ $(document).ready(function(){initNavTree('d3/da6/tpg__reproduction_8h_source.htm
 <div class="title">tpg_reproduction.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d3/da6/tpg__reproduction_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<a href="../../d3/da6/tpg__reproduction_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef TPG_UNIVERSAL_TPGREPRODUCTION_H_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define TPG_UNIVERSAL_TPGREPRODUCTION_H_</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d00/tpg__utility_8h.html">tpg_utility.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d2/dc7/tpg__team_8h.html">tpg_team.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="../../dd/d2d/class_reproduction.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../dd/d2d/class_reproduction.html">Reproduction</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> std::vector&lt;Team&gt;* <a class="code" href="../../dd/d2d/class_reproduction.html#a4b23382ad1e945614af80528997d8a53">teamSelection</a>(std::vector&lt;Team&gt;*, <a class="code" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a>*) = 0;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> std::vector&lt;Team&gt;* <a class="code" href="../../dd/d2d/class_reproduction.html#a615f3a3e32be390ec371bb95c440e6f9">teamReproduction</a>(std::vector&lt;Team&gt;*, <a class="code" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a>*) = 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> std::vector&lt;Team&gt;* <a class="code" href="../../dd/d2d/class_reproduction.html#a963c8aa8ed95d9068f3bfc16d268b887">teamMutation</a>(std::vector&lt;Team&gt;*, <a class="code" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a>*) = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> std::vector&lt;Team&gt;* <a class="code" href="../../dd/d2d/class_reproduction.html#a37d3c02fa55763c4b7d297e5144ee214">teamUnify</a>(std::vector&lt;Team&gt;*, std::vector&lt;Team&gt;*, <a class="code" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a>*) = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="atpg__team_8h_html"><div class="ttname"><a href="../../d2/dc7/tpg__team_8h.html">tpg_team.h</a></div></div>
+<div class="ttc" id="aclass_reproduction_html_a963c8aa8ed95d9068f3bfc16d268b887"><div class="ttname"><a href="../../dd/d2d/class_reproduction.html#a963c8aa8ed95d9068f3bfc16d268b887">Reproduction::teamMutation</a></div><div class="ttdeci">virtual std::vector&lt; Team &gt; * teamMutation(std::vector&lt; Team &gt; *, TpgParameters *)=0</div></div>
+<div class="ttc" id="aclass_reproduction_html_a4b23382ad1e945614af80528997d8a53"><div class="ttname"><a href="../../dd/d2d/class_reproduction.html#a4b23382ad1e945614af80528997d8a53">Reproduction::teamSelection</a></div><div class="ttdeci">virtual std::vector&lt; Team &gt; * teamSelection(std::vector&lt; Team &gt; *, TpgParameters *)=0</div></div>
+<div class="ttc" id="aclass_reproduction_html"><div class="ttname"><a href="../../dd/d2d/class_reproduction.html">Reproduction</a></div><div class="ttdoc">Base abstract class used for defining a reproductive class.</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/da6/tpg__reproduction_8h_source.html#l00034">tpg_reproduction.h:34</a></div></div>
+<div class="ttc" id="atpg__utility_8h_html"><div class="ttname"><a href="../../df/d00/tpg__utility_8h.html">tpg_utility.h</a></div></div>
+<div class="ttc" id="aclass_reproduction_html_a37d3c02fa55763c4b7d297e5144ee214"><div class="ttname"><a href="../../dd/d2d/class_reproduction.html#a37d3c02fa55763c4b7d297e5144ee214">Reproduction::teamUnify</a></div><div class="ttdeci">virtual std::vector&lt; Team &gt; * teamUnify(std::vector&lt; Team &gt; *, std::vector&lt; Team &gt; *, TpgParameters *)=0</div></div>
+<div class="ttc" id="astruct_tpg_parameters_html"><div class="ttname"><a href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="../../df/d00/tpg__utility_8h_source.html#l00022">tpg_utility.h:22</a></div></div>
+<div class="ttc" id="aclass_reproduction_html_a615f3a3e32be390ec371bb95c440e6f9"><div class="ttname"><a href="../../dd/d2d/class_reproduction.html#a615f3a3e32be390ec371bb95c440e6f9">Reproduction::teamReproduction</a></div><div class="ttdeci">virtual std::vector&lt; Team &gt; * teamReproduction(std::vector&lt; Team &gt; *, TpgParameters *)=0</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_3ae0b5e832a4673c8d1cdaa9c598a62d.html">TPG++</a></li><li class="navelem"><a class="el" href="../../d3/da6/tpg__reproduction_8h.html">tpg_reproduction.h</a></li>
+    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_0557d37590b4200516b3785d7bc02977.html">TPGPP</a></li><li class="navelem"><a class="el" href="../../dir_937c6f04fecfa5e752fb78d71b8a03bb.html">source</a></li><li class="navelem"><a class="el" href="../../d3/da6/tpg__reproduction_8h.html">tpg_reproduction.h</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.16 </li>

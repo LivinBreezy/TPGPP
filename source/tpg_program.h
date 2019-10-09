@@ -24,7 +24,7 @@
  *  general purpose register is available as a bid value for the Learner which
  *  executed a given Program.
  *  @author    Robert Smith
- *  @author    Other
+ *  @author    Other 
  *  @version   v0.1 Beta
  *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
@@ -42,9 +42,10 @@ class Program
     /**A 32-bit integer which sets a limit on the maximum size of a Program.*/
     int32 maximumProgramSize;
 
-public:
+  public:
     Program(TpgParameters*);
     Program(Program*);
+    ~Program();
     double execute(double*);
     bool mutate(TpgParameters*);
     int32 instructionCount(std::string*);

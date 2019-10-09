@@ -91,12 +91,86 @@ $(document).ready(function(){initNavTree('d0/d5e/tpg__algorithm_8cpp_source.html
 <div class="title">tpg_algorithm.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d0/d5e/tpg__algorithm_8cpp.html">Go to the documentation of this file.</a><div class="fragment"></div><!-- fragment --></div><!-- contents -->
+<a href="../../d0/d5e/tpg__algorithm_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d1/d5d/tpg__algorithm_8h.html">tpg_algorithm.h</a>&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d00/tpg__utility_8h.html">tpg_utility.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../da/d10/tpg__learn_8h.html">tpg_learn.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d7/de1/tpg__test_8h.html">tpg_test.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="../../dc/de7/class_tpg_algorithm.html#ab46330de6ea657ed43105e3e10207027">   10</a></span>&#160;<a class="code" href="../../dc/de7/class_tpg_algorithm.html#ab46330de6ea657ed43105e3e10207027">TpgAlgorithm::TpgAlgorithm</a>(std::string*, std::string*)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    this-&gt;<a class="code" href="../../dc/de7/class_tpg_algorithm.html#af40236b49dc51a676a51496f5f36593c">arguments</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    this-&gt;<a class="code" href="../../dc/de7/class_tpg_algorithm.html#a9477d63513ebfdc09741d8cff4d1416e">rng</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    this-&gt;<a class="code" href="../../dc/de7/class_tpg_algorithm.html#ade6b07774f00cc354075d714e1d841fd">tpgLearn</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    this-&gt;<a class="code" href="../../dc/de7/class_tpg_algorithm.html#a21ede269ec21f9cc3d88895dc622dc46">tpgTest</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="../../dc/de7/class_tpg_algorithm.html#ab8e98725a3ad9606b7aa231a677efbfc">   18</a></span>&#160;<a class="code" href="../../dc/de7/class_tpg_algorithm.html#ab8e98725a3ad9606b7aa231a677efbfc">TpgAlgorithm::~TpgAlgorithm</a>()</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="../../dc/de7/class_tpg_algorithm.html#a57259b3e0bd648a9a838c2683f5838d4">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../dc/de7/class_tpg_algorithm.html#a57259b3e0bd648a9a838c2683f5838d4">TpgAlgorithm::startLearning</a>(std::string*)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="../../dc/de7/class_tpg_algorithm.html#ae8d39a2e6399eb7c56a8403522af3d1c">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../dc/de7/class_tpg_algorithm.html#ae8d39a2e6399eb7c56a8403522af3d1c">TpgAlgorithm::startTesting</a>(std::string*)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="../../dc/de7/class_tpg_algorithm.html#a4c35440251a83dfee087fe5a5c7e3b63">   33</a></span>&#160;<a class="code" href="../../d9/d81/class_tpg_learn.html">TpgLearn</a>* <a class="code" href="../../dc/de7/class_tpg_algorithm.html#a4c35440251a83dfee087fe5a5c7e3b63">TpgAlgorithm::getTpgLearn</a>()</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="../../dc/de7/class_tpg_algorithm.html#a49ce2659b2b3f77f151b1ed161107f62">   38</a></span>&#160;<a class="code" href="../../d9/d0f/class_tpg_test.html">TpgTest</a>* <a class="code" href="../../dc/de7/class_tpg_algorithm.html#a49ce2659b2b3f77f151b1ed161107f62">TpgAlgorithm::getTpgTest</a>()</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="../../dc/de7/class_tpg_algorithm.html#ad3481f427494ab38f4b7b42ca6652226">   43</a></span>&#160;std::map&lt;std::string, std::string&gt;* <a class="code" href="../../dc/de7/class_tpg_algorithm.html#ad3481f427494ab38f4b7b42ca6652226">TpgAlgorithm::readArgumentsToMap</a>(std::string*)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">//                                                                       //</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">//                           MAIN FUNCTION                               //</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">//                                                                       //</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="../../d0/d5e/tpg__algorithm_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">   53</a></span>&#160;<span class="comment"></span><span class="keywordtype">int</span> <a class="code" href="../../d0/d5e/tpg__algorithm_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>()</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    printf(<span class="stringliteral">&quot;Main Function Called\n&quot;</span>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclass_tpg_algorithm_html_a4c35440251a83dfee087fe5a5c7e3b63"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#a4c35440251a83dfee087fe5a5c7e3b63">TpgAlgorithm::getTpgLearn</a></div><div class="ttdeci">TpgLearn * getTpgLearn()</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00033">tpg_algorithm.cpp:33</a></div></div>
+<div class="ttc" id="atpg__algorithm_8h_html"><div class="ttname"><a href="../../d1/d5d/tpg__algorithm_8h.html">tpg_algorithm.h</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_ab8e98725a3ad9606b7aa231a677efbfc"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#ab8e98725a3ad9606b7aa231a677efbfc">TpgAlgorithm::~TpgAlgorithm</a></div><div class="ttdeci">~TpgAlgorithm()</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00018">tpg_algorithm.cpp:18</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_ae8d39a2e6399eb7c56a8403522af3d1c"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#ae8d39a2e6399eb7c56a8403522af3d1c">TpgAlgorithm::startTesting</a></div><div class="ttdeci">void startTesting(std::string *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00028">tpg_algorithm.cpp:28</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_a21ede269ec21f9cc3d88895dc622dc46"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#a21ede269ec21f9cc3d88895dc622dc46">TpgAlgorithm::tpgTest</a></div><div class="ttdeci">TpgTest * tpgTest</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5d/tpg__algorithm_8h_source.html#l00034">tpg_algorithm.h:34</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_ad3481f427494ab38f4b7b42ca6652226"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#ad3481f427494ab38f4b7b42ca6652226">TpgAlgorithm::readArgumentsToMap</a></div><div class="ttdeci">std::map&lt; std::string, std::string &gt; * readArgumentsToMap(std::string *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00043">tpg_algorithm.cpp:43</a></div></div>
+<div class="ttc" id="atpg__learn_8h_html"><div class="ttname"><a href="../../da/d10/tpg__learn_8h.html">tpg_learn.h</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_a9477d63513ebfdc09741d8cff4d1416e"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#a9477d63513ebfdc09741d8cff4d1416e">TpgAlgorithm::rng</a></div><div class="ttdeci">Random * rng</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5d/tpg__algorithm_8h_source.html#l00032">tpg_algorithm.h:32</a></div></div>
+<div class="ttc" id="atpg__algorithm_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="../../d0/d5e/tpg__algorithm_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00053">tpg_algorithm.cpp:53</a></div></div>
+<div class="ttc" id="atpg__utility_8h_html"><div class="ttname"><a href="../../df/d00/tpg__utility_8h.html">tpg_utility.h</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_ade6b07774f00cc354075d714e1d841fd"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#ade6b07774f00cc354075d714e1d841fd">TpgAlgorithm::tpgLearn</a></div><div class="ttdeci">TpgLearn * tpgLearn</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5d/tpg__algorithm_8h_source.html#l00033">tpg_algorithm.h:33</a></div></div>
+<div class="ttc" id="aclass_tpg_learn_html"><div class="ttname"><a href="../../d9/d81/class_tpg_learn.html">TpgLearn</a></div><div class="ttdef"><b>Definition:</b> <a href="../../da/d10/tpg__learn_8h_source.html#l00004">tpg_learn.h:4</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_a57259b3e0bd648a9a838c2683f5838d4"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#a57259b3e0bd648a9a838c2683f5838d4">TpgAlgorithm::startLearning</a></div><div class="ttdeci">void startLearning(std::string *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00023">tpg_algorithm.cpp:23</a></div></div>
+<div class="ttc" id="aclass_tpg_test_html"><div class="ttname"><a href="../../d9/d0f/class_tpg_test.html">TpgTest</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d7/de1/tpg__test_8h_source.html#l00004">tpg_test.h:4</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_a49ce2659b2b3f77f151b1ed161107f62"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#a49ce2659b2b3f77f151b1ed161107f62">TpgAlgorithm::getTpgTest</a></div><div class="ttdeci">TpgTest * getTpgTest()</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00038">tpg_algorithm.cpp:38</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_af40236b49dc51a676a51496f5f36593c"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#af40236b49dc51a676a51496f5f36593c">TpgAlgorithm::arguments</a></div><div class="ttdeci">std::map&lt; std::string, std::string &gt; * arguments</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d5d/tpg__algorithm_8h_source.html#l00031">tpg_algorithm.h:31</a></div></div>
+<div class="ttc" id="aclass_tpg_algorithm_html_ab46330de6ea657ed43105e3e10207027"><div class="ttname"><a href="../../dc/de7/class_tpg_algorithm.html#ab46330de6ea657ed43105e3e10207027">TpgAlgorithm::TpgAlgorithm</a></div><div class="ttdeci">TpgAlgorithm(std::string *, std::string *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d5e/tpg__algorithm_8cpp_source.html#l00010">tpg_algorithm.cpp:10</a></div></div>
+<div class="ttc" id="atpg__test_8h_html"><div class="ttname"><a href="../../d7/de1/tpg__test_8h.html">tpg_test.h</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_3ae0b5e832a4673c8d1cdaa9c598a62d.html">TPG++</a></li><li class="navelem"><a class="el" href="../../d0/d5e/tpg__algorithm_8cpp.html">tpg_algorithm.cpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_0557d37590b4200516b3785d7bc02977.html">TPGPP</a></li><li class="navelem"><a class="el" href="../../dir_937c6f04fecfa5e752fb78d71b8a03bb.html">source</a></li><li class="navelem"><a class="el" href="../../d0/d5e/tpg__algorithm_8cpp.html">tpg_algorithm.cpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.16 </li>

@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include <map>
+#include <random>
 #include <string>
 
 typedef int8_t  int8;
@@ -15,6 +16,8 @@ typedef int_fast8_t   int8_fast;
 typedef int_fast16_t  int16_fast;
 typedef int_fast32_t  int32_fast;
 typedef int_fast64_t  int64_fast;
+
+typedef std::mt19937 Random;
 
 typedef struct
 {

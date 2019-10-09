@@ -31,11 +31,14 @@
     <Filter Include="Header Files\testing">
       <UniqueIdentifier>{927238c0-201c-4852-b1df-8b9d6c62daa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\reproduction">
+      <UniqueIdentifier>{d5ecddb8-b3ff-4471-91cf-24324474e475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\reproduction">
+      <UniqueIdentifier>{97ff752c-63ef-4f31-bc78-036577e107c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tpg_main.cpp">
-      <Filter>Source Files\universal</Filter>
-    </ClCompile>
     <ClCompile Include="tpg_team.cpp">
       <Filter>Source Files\universal</Filter>
     </ClCompile>
@@ -52,9 +55,6 @@
       <Filter>Source Files\universal</Filter>
     </ClCompile>
     <ClCompile Include="tpg_action.cpp">
-      <Filter>Source Files\universal</Filter>
-    </ClCompile>
-    <ClCompile Include="tpg_reproduction.cpp">
       <Filter>Source Files\universal</Filter>
     </ClCompile>
     <ClCompile Include="tpg_logger.cpp">
@@ -84,9 +84,6 @@
       <Filter>Header Files\universal</Filter>
     </ClInclude>
     <ClInclude Include="tpg_logger.h">
-      <Filter>Header Files\universal</Filter>
-    </ClInclude>
-    <ClInclude Include="tpg_main.h">
       <Filter>Header Files\universal</Filter>
     </ClInclude>
     <ClInclude Include="tpg_memory_model.h">

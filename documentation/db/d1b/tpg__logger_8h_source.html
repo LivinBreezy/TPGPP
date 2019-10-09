@@ -91,13 +91,48 @@ $(document).ready(function(){initNavTree('db/d1b/tpg__logger_8h_source.html','..
 <div class="title">tpg_logger.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="../../db/d1b/tpg__logger_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<a href="../../db/d1b/tpg__logger_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef TPG_UNIVERSAL_TPGLOGGER_H_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define TPG_UNIVERSAL_TPGLOGGER_H_</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/d00/tpg__utility_8h.html">tpg_utility.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../dd/ddf/tpg__learner_8h.html">tpg_learner.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d2/dc7/tpg__team_8h.html">tpg_team.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="../../d3/d42/class_logger.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d3/d42/class_logger.html">Logger</a></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="../../d3/d42/class_logger.html#abc41bfb031d896170c7675fa96a6b30c">Logger</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="../../d3/d42/class_logger.html#acb668a9e186a25fbaad2e4af6d1ed00a">~Logger</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="../../d3/d42/class_logger.html#a957cb8625decc49aef777e6a6f562fb6">savestate</a>(<a class="code" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a>*, std::string*);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="../../d3/d42/class_logger.html#aaa9cf825cc1a1ca53380b4ef4740cc79">saveTeam</a>(<a class="code" href="../../d1/d35/class_team.html">Team</a>*);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="../../d3/d42/class_logger.html#afcea7c315c6800537511f011ce30fb27">saveLearner</a>(<a class="code" href="../../d9/d2a/class_learner.html">Learner</a>*);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="../../d3/d42/class_logger.html#aba2dbdd783bd71da3f26fad75f0cf12c">consoleOutput</a>(std::string*);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclass_learner_html"><div class="ttname"><a href="../../d9/d2a/class_learner.html">Learner</a></div><div class="ttdoc">Holds a Program and an Action, using both to act on environment.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/ddf/tpg__learner_8h_source.html#l00029">tpg_learner.h:29</a></div></div>
+<div class="ttc" id="aclass_logger_html_acb668a9e186a25fbaad2e4af6d1ed00a"><div class="ttname"><a href="../../d3/d42/class_logger.html#acb668a9e186a25fbaad2e4af6d1ed00a">Logger::~Logger</a></div><div class="ttdeci">~Logger()</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/d40/tpg__logger_8cpp_source.html#l00014">tpg_logger.cpp:14</a></div></div>
+<div class="ttc" id="atpg__team_8h_html"><div class="ttname"><a href="../../d2/dc7/tpg__team_8h.html">tpg_team.h</a></div></div>
+<div class="ttc" id="aclass_logger_html_aaa9cf825cc1a1ca53380b4ef4740cc79"><div class="ttname"><a href="../../d3/d42/class_logger.html#aaa9cf825cc1a1ca53380b4ef4740cc79">Logger::saveTeam</a></div><div class="ttdeci">bool saveTeam(Team *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/d40/tpg__logger_8cpp_source.html#l00024">tpg_logger.cpp:24</a></div></div>
+<div class="ttc" id="atpg__utility_8h_html"><div class="ttname"><a href="../../df/d00/tpg__utility_8h.html">tpg_utility.h</a></div></div>
+<div class="ttc" id="aclass_team_html"><div class="ttname"><a href="../../d1/d35/class_team.html">Team</a></div><div class="ttdoc">A class which represents a collective of Learner objects.</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/tpg__team_8h_source.html#l00032">tpg_team.h:32</a></div></div>
+<div class="ttc" id="atpg__learner_8h_html"><div class="ttname"><a href="../../dd/ddf/tpg__learner_8h.html">tpg_learner.h</a></div></div>
+<div class="ttc" id="astruct_tpg_parameters_html"><div class="ttname"><a href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="../../df/d00/tpg__utility_8h_source.html#l00022">tpg_utility.h:22</a></div></div>
+<div class="ttc" id="aclass_logger_html_aba2dbdd783bd71da3f26fad75f0cf12c"><div class="ttname"><a href="../../d3/d42/class_logger.html#aba2dbdd783bd71da3f26fad75f0cf12c">Logger::consoleOutput</a></div><div class="ttdeci">bool consoleOutput(std::string *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/d40/tpg__logger_8cpp_source.html#l00034">tpg_logger.cpp:34</a></div></div>
+<div class="ttc" id="aclass_logger_html_abc41bfb031d896170c7675fa96a6b30c"><div class="ttname"><a href="../../d3/d42/class_logger.html#abc41bfb031d896170c7675fa96a6b30c">Logger::Logger</a></div><div class="ttdeci">Logger()</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/d40/tpg__logger_8cpp_source.html#l00009">tpg_logger.cpp:9</a></div></div>
+<div class="ttc" id="aclass_logger_html"><div class="ttname"><a href="../../d3/d42/class_logger.html">Logger</a></div><div class="ttdoc">Provides the TPG algorithm with logging and console output.</div><div class="ttdef"><b>Definition:</b> <a href="../../db/d1b/tpg__logger_8h_source.html#l00027">tpg_logger.h:27</a></div></div>
+<div class="ttc" id="aclass_logger_html_a957cb8625decc49aef777e6a6f562fb6"><div class="ttname"><a href="../../d3/d42/class_logger.html#a957cb8625decc49aef777e6a6f562fb6">Logger::savestate</a></div><div class="ttdeci">bool savestate(TpgParameters *, std::string *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/d40/tpg__logger_8cpp_source.html#l00019">tpg_logger.cpp:19</a></div></div>
+<div class="ttc" id="aclass_logger_html_afcea7c315c6800537511f011ce30fb27"><div class="ttname"><a href="../../d3/d42/class_logger.html#afcea7c315c6800537511f011ce30fb27">Logger::saveLearner</a></div><div class="ttdeci">bool saveLearner(Learner *)</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/d40/tpg__logger_8cpp_source.html#l00029">tpg_logger.cpp:29</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_3ae0b5e832a4673c8d1cdaa9c598a62d.html">TPG++</a></li><li class="navelem"><a class="el" href="../../db/d1b/tpg__logger_8h.html">tpg_logger.h</a></li>
+    <li class="navelem"><a class="el" href="../../dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="../../dir_da92606663f4ecb03aa66c183f15dac3.html">repos</a></li><li class="navelem"><a class="el" href="../../dir_0557d37590b4200516b3785d7bc02977.html">TPGPP</a></li><li class="navelem"><a class="el" href="../../dir_937c6f04fecfa5e752fb78d71b8a03bb.html">source</a></li><li class="navelem"><a class="el" href="../../db/d1b/tpg__logger_8h.html">tpg_logger.h</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.16 </li>

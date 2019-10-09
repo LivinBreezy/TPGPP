@@ -38,12 +38,24 @@ Program::Program(Program* other)
 }
 
 /**
+ *  @brief     Destructor for freeing a Program.
+ *  @details   This destructor frees all Instructions, frees its register
+ *  set, then ends.
+  *  @todo      Implementation and full commenting required.
+ */
+Program::~Program()
+{
+
+}
+
+/**
  *  @brief     Execute a Program on the provided feature set.
  *  @details   Upon receiving a feature set, this method will execute each
  *  stored Instruction on the feature set in conjuction with the general
  *  purpose registers held by this Program, then return the first value
  *  in the registers as a bid value.
- *  @param     other A pointer to a Program object to be copied.
+ *  @param     inputFeatures A double array representing the environment's
+ *  complete feature set.
  *  @return    A double value representing a Learner bid.
  *  @todo      Implementation and full commenting required.
  */
@@ -98,7 +110,7 @@ int32 Program::instructionCount(std::string* operationName)
  *  operation appears in the Instructions list.
  *  @todo      Implementation and full commenting required.
  */
-std::map<std::string, int32>* Program::allInstructionCounts(TpgParameters*)
+std::map<std::string, int32>* Program::allInstructionCounts(TpgParameters* parameters)
 {
     return nullptr;
 }
@@ -106,7 +118,6 @@ std::map<std::string, int32>* Program::allInstructionCounts(TpgParameters*)
 /**
  *  @brief     Return a string representation of a Program object.
  *  @details   TBD. It could be a full Instruction list in plain language.
- *  @param     None
  *  @return    A pointer to a string, which represents a Program object.
  *  @todo      Implementation and full commenting required.
  */

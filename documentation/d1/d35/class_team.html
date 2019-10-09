@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('d1/d35/class_team.html','../../');});
 </div><!--header-->
 <div class="contents">
 
-<p>A class which represents a collective of <a class="el" href="../../d9/d2a/class_learner.html">Learner</a> objects.  
+<p>A class which represents a collective of <a class="el" href="../../d9/d2a/class_learner.html" title="Holds a Program and an Action, using both to act on environment.">Learner</a> objects.  
  <a href="../../d1/d35/class_team.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d2/dc7/tpg__team_8h_source.html">tpg_team.h</a>&gt;</code></p>
@@ -113,10 +113,8 @@ Collaboration diagram for Team:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a37413f4dad54c1f7ca5119b7a9d932a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d35/class_team.html#a37413f4dad54c1f7ca5119b7a9d932a1">Team</a> (<a class="el" href="../../df/d00/tpg__utility_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a>, <a class="el" href="../../d7/dc4/struct_tpg_parameters.html">TpgParameters</a> *)</td></tr>
-<tr class="memdesc:a37413f4dad54c1f7ca5119b7a9d932a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a <a class="el" href="../../d1/d35/class_team.html" title="A class which represents a collective of Learner objects.">Team</a>, which contains some number of Learners and collectively analyzes environment feature sets in order to act on said environment.  <a href="../../d1/d35/class_team.html#a37413f4dad54c1f7ca5119b7a9d932a1">More...</a><br /></td></tr>
 <tr class="separator:a37413f4dad54c1f7ca5119b7a9d932a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8617cd3959fd1cf36c900853c194f5d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d35/class_team.html#a8617cd3959fd1cf36c900853c194f5d2">Team</a> (<a class="el" href="../../df/d00/tpg__utility_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a>, <a class="el" href="../../df/d00/tpg__utility_8h.html#a7cde0074dfd288f2d70c0e035dacb28a">int64</a>, std::vector&lt; <a class="el" href="../../d9/d2a/class_learner.html">Learner</a> &gt;, std::map&lt; std::string, double &gt;)</td></tr>
-<tr class="memdesc:a8617cd3959fd1cf36c900853c194f5d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a copy of a <a class="el" href="../../d1/d35/class_team.html" title="A class which represents a collective of Learner objects.">Team</a> from the given input parameters.  <a href="../../d1/d35/class_team.html#a8617cd3959fd1cf36c900853c194f5d2">More...</a><br /></td></tr>
 <tr class="separator:a8617cd3959fd1cf36c900853c194f5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4218fddd612d52bab47bec4feeb49de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d35/class_team.html#ab4218fddd612d52bab47bec4feeb49de">~Team</a> ()</td></tr>
 <tr class="separator:ab4218fddd612d52bab47bec4feeb49de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,15 +178,15 @@ Private Attributes</h2></td></tr>
 <tr class="separator:afd820a8a2eb9699ffcc1f4f5bf41c02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A class which represents a collective of <a class="el" href="../../d9/d2a/class_learner.html">Learner</a> objects. </p>
-<p>The <a class="el" href="../../d1/d35/class_team.html" title="A class which represents a collective of Learner objects.">Team</a> class contains a list of <a class="el" href="../../d9/d2a/class_learner.html">Learner</a> objects which accept values representing an environment and use them to calculate bids. The <a class="el" href="../../d9/d2a/class_learner.html">Learner</a> which wins the bidding process by generating the highest bid is considered the most sure of their success and their assigned <a class="el" href="../../d7/dca/class_action.html" title="An Action holds either an atomic action or Team reference to help TPG navigate the graph.">Action</a> is enforced on the environment. </p><dl class="section author"><dt>Author</dt><dd>Robert Smith </dd>
+<div class="textblock"><p>A class which represents a collective of <a class="el" href="../../d9/d2a/class_learner.html" title="Holds a Program and an Action, using both to act on environment.">Learner</a> objects. </p>
+<p>The <a class="el" href="../../d1/d35/class_team.html" title="A class which represents a collective of Learner objects.">Team</a> class contains a list of <a class="el" href="../../d9/d2a/class_learner.html" title="Holds a Program and an Action, using both to act on environment.">Learner</a> objects which accept values representing an environment and use them to calculate bids. The <a class="el" href="../../d9/d2a/class_learner.html" title="Holds a Program and an Action, using both to act on environment.">Learner</a> which wins the bidding process by generating the highest bid is considered the most sure of their success and their assigned <a class="el" href="../../d7/dca/class_action.html" title="Holds either an atomic action or Team reference to help TPG navigate the graph.">Action</a> is enforced on the environment. </p><dl class="section author"><dt>Author</dt><dd>Robert Smith </dd>
 <dd>
 Other </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>v0.1 Beta </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>Created on October 7, 2019. Last updated on October 7, 2019. </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd>Initialize the TPGAlgorithm object, which generates a TPGLearn or TPGPlay objects and creates a population of Teams for producing bids. </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000002">Bug:</a></b></dt><dd>None yet marked. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000009">Todo:</a></b></dt><dd>Implementation and full commenting required. </dd></dl>
+<dl class="bug"><dt><b><a class="el" href="../../de/da5/bug.html#_bug000009">Bug:</a></b></dt><dd>None yet marked. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000017">Todo:</a></b></dt><dd>Implementation and full commenting required. </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Not Yet Decided. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/dc7/tpg__team_8h_source.html#l00032">32</a> of file <a class="el" href="../../d2/dc7/tpg__team_8h_source.html">tpg_team.h</a>.</p>
@@ -219,10 +217,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Defines a <a class="el" href="../../d1/d35/class_team.html" title="A class which represents a collective of Learner objects.">Team</a>, which contains some number of Learners and collectively analyzes environment feature sets in order to act on said environment. </p>
-<p>Create a <a class="el" href="../../d1/d35/class_team.html" title="A class which represents a collective of Learner objects.">Team</a> initialized with the given birthday. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00023">23</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00012">12</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -264,9 +259,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Create a copy of a <a class="el" href="../../d1/d35/class_team.html" title="A class which represents a collective of Learner objects.">Team</a> from the given input parameters. </p>
-
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00036">36</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00021">21</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -285,7 +278,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00049">49</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00030">30</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -306,7 +299,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00114">114</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00095">95</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -326,7 +319,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00134">134</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00115">115</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -345,7 +338,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00129">129</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00110">110</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -365,7 +358,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00109">109</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00090">90</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +378,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00084">84</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00065">65</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -404,7 +397,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00094">94</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00075">75</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -423,7 +416,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00069">69</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00050">50</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -442,7 +435,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00074">74</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00055">55</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -461,7 +454,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00079">79</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00060">60</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -481,7 +474,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00099">99</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00080">80</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -500,7 +493,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00089">89</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00070">70</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -519,7 +512,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00124">124</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00105">105</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -547,7 +540,7 @@ Other </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00154">154</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00135">135</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -567,7 +560,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00054">54</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00035">35</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -586,7 +579,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00064">64</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00045">45</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -606,7 +599,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00144">144</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00125">125</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -626,7 +619,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00119">119</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00100">100</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -670,7 +663,7 @@ Other </dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00149">149</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00130">130</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -700,7 +693,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00104">104</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00085">85</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -719,7 +712,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00059">59</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00040">40</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>
@@ -738,7 +731,7 @@ Other </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00139">139</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html#l00120">120</a> of file <a class="el" href="../../dd/d51/tpg__team_8cpp_source.html">tpg_team.cpp</a>.</p>
 
 </div>
 </div>

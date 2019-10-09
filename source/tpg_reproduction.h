@@ -1,6 +1,11 @@
 #ifndef TPG_UNIVERSAL_TPGREPRODUCTION_H_
 #define TPG_UNIVERSAL_TPGREPRODUCTION_H_
 
+#include "tpg_utility.h"
+
+#include <vector>
+
+#include "tpg_team.h"
 
 /**
  *  @brief     Base abstract class used for defining a reproductive class.
