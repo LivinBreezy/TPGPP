@@ -15,6 +15,20 @@ Action::Action(Team* team)
     this->team = team;
 }
 
+Action::Action(Action& const other)
+{
+    if (other.isAtomicAction()) 
+    {
+        this->action = other.action;
+        this->team = nullptr;
+    }
+    else
+    {
+        this->action = -1;
+        this->team = other.team;
+    }
+}
+
 Action::~Action()
 {
 

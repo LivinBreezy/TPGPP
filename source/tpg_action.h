@@ -37,6 +37,7 @@ class Action
 public:
     Action(int64);
     Action(Team*);
+    Action(Action& const);
     ~Action();
     int64 getAction(std::set<Team>*, double*);
     int64 getAtomic();

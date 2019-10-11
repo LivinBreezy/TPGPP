@@ -46,7 +46,7 @@ Learner::Learner(int64 birthday, Learner* other, TpgParameters* parameters)
 {
     this->id = parameters->nextLearnerId++;
     this->birthday = birthday;
-    this->action = other->getActionObject();
+    this->action = new Action(other->getActionObject());
     this->teamReferences = other->getReferences();
     // TODO: (Robert) Set up Program to make a copy from a previous program,
     //                rather than just defaulting to something random.
@@ -55,7 +55,11 @@ Learner::Learner(int64 birthday, Learner* other, TpgParameters* parameters)
 
 Learner::~Learner()
 {
+    delete action;
+    action = nullptr;
 
+    delete program;
+    program = nullptr;
 }
 
 /**
