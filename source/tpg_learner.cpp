@@ -58,14 +58,28 @@ Learner::~Learner()
 
 }
 
-int64 Learner::bid(double*)
+/**
+ *  @brief     Returns a bid value by executing the program.
+ *  @details   
+ *  @param     inputFeatures A double array representing the environment's
+ *  complete feature set.
+ *  @return    A double value representing this Learner's bid.
+ *  @todo      Testing required.
+ */
+int64 Learner::bid(double* inputFeatures)
 {
-    return NULL;
+	return program->execute(inputFeatures);
 }
 
+/**
+ *  @brief     Returns the length of this Learner's Program (number of Instructions).
+ *  @details   
+ *  @return    An int representing the length of the Learner's Program.
+ *  @todo      Testing required.
+ */
 int32 Learner::programLength()
 {
-    return NULL;
+    return program->getProgramLength();
 }
 
 int64 Learner::getID()

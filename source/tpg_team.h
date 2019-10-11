@@ -20,9 +20,9 @@ class Action;
  *  considered the most sure of their success and their assigned Action is 
  *  enforced on the environment.
  *  @author    Robert Smith
- *  @author    Other
+ *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 11, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn 
     or TPGPlay objects and creates a population of Teams for producing bids.
  *  @bug       None yet marked.
@@ -47,7 +47,7 @@ public:
     int64 getBirthday();
     int64 getId();
     std::vector<Learner>* getLearners();
-    Action* getAction(double*);
+    int64 getAction(std::set<Team>*, double*);
     int32 getReferences();
     int32 getAtomicActionCount();
     double getOutcome(std::string);

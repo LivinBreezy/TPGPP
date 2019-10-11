@@ -10,7 +10,7 @@
 class Team;
 
 /**
- *  @brief     Holds either an atomic action or Team reference to help TPG 
+ *  @brief     Holds either an atomic action or Team reference to help TPG
  *  navigate the graph.
  *  @details   The Action class contains either an atomic action or a Team
  *  object. If the Action holds an atomic action, then it will be returned
@@ -19,13 +19,14 @@ class Team;
  *  its own bidding process. Once that Team has received an atomic action,
  *  the Action object will return it.
  *  @author    Robert Smith
- *  @author    Other
+ *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 11, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
-    or TPGPlay objects and creates a population of Learners for producing bids.
+	or TPGPlay objects and creates a population of Learners for producing bids.
  *  @bug       None yet marked.
- *  @todo      Implementation and full commenting required.
+ *  @todo      Implementation and full commenting required. Perhaps add a mutate
+ *             function.
  *  @copyright Not Yet Decided.
  */
 class Action

@@ -115,6 +115,11 @@ std::map<std::string, int32>* Program::allInstructionCounts(TpgParameters* param
     return nullptr;
 }
 
+std::vector<Instruction>* Program::getProgram()
+{
+    return instructions;
+}
+
 /**
  *  @brief     Return a string representation of a Program object.
  *  @details   TBD. It could be a full Instruction list in plain language.

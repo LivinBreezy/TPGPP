@@ -36,7 +36,7 @@
 class Program
 {
     /**A vector of Instruction objects which represent a complete TPG program.*/
-    std::vector<Instruction> instructions;
+    std::vector<Instruction>* instructions;
     /**A double array which acts as a set of general purpose registers.*/
     double* registers;
     /**A 32-bit integer which sets a limit on the maximum size of a Program.*/
@@ -50,6 +50,7 @@ class Program
     bool mutate(TpgParameters*);
     int32 instructionCount(std::string*);
     std::map<std::string, int32>* allInstructionCounts(TpgParameters*);
+    std::vector<Instruction>* getProgram();
     std::string* toString();
 };
 

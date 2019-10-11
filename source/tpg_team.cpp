@@ -62,9 +62,9 @@ std::vector<Learner>* Team::getLearners()
     return nullptr;
 }
 
-Action* Team::getAction(double* inputFeatures)
+int64 Team::getAction(std::set<Team>* visited, double* inputFeatures)
 {
-    return nullptr;
+    return NULL;
 }
 
 int32 Team::getReferences()
