@@ -48,6 +48,16 @@ int64 Action::getAction(std::set<Team>* visited, double* inputFeatures)
     }
 }
 
+int64 Action::getAtomic()
+{
+    return action;
+}
+
+Team* Action::getTeam()
+{
+    return team;
+}
+
 /**
  *  @brief     Returns whether the action is atomic (int) or not (team).
  *  @details   Decides based on the value of the team variable whether the

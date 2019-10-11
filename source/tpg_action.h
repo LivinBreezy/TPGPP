@@ -39,6 +39,8 @@ public:
     Action(Team*);
     ~Action();
     int64 getAction(std::set<Team>*, double*);
+    int64 getAtomic();
+    Team* getTeam();
     bool isAtomicAction();
     bool equals(Action*);
     std::string* toString();

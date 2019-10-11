@@ -44,6 +44,7 @@ public:
     int64 bid(double*);
     int32 programLength();
     int64 getID();
+    Program* getProgram();
     Action* getActionObject();
     std::string* getActionType();
     int64 getBirthday();

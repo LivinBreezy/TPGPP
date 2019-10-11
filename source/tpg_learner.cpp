@@ -87,6 +87,11 @@ int64 Learner::getID()
     return NULL;
 }
 
+Program* Learner::getProgram()
+{
+    return program;
+}
+
 Action* Learner::getActionObject()
 {
     return nullptr;
