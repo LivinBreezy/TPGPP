@@ -50,7 +50,7 @@ class Program
     bool mutate(TpgParameters*);
     int32 instructionCount(std::string*);
     std::map<std::string, int32>* allInstructionCounts(TpgParameters*);
-    std::vector<Instruction>* getProgram();
+    std::vector<Instruction>* getInstructions();
     std::string* toString();
 };
 

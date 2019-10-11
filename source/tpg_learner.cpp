@@ -68,7 +68,7 @@ Learner::~Learner()
  */
 int64 Learner::bid(double* inputFeatures)
 {
-	return program->execute(inputFeatures);
+    return program->execute(inputFeatures);
 }
 
 /**
@@ -79,7 +79,7 @@ int64 Learner::bid(double* inputFeatures)
  */
 int32 Learner::programLength()
 {
-    return program->getProgramLength();
+    return program->getInstructions()->size();
 }
 
 int64 Learner::getID()

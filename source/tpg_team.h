@@ -61,7 +61,7 @@ public:
     std::string* toString();
     bool operator<(const Team& rhs) const;
     static bool saveToFile(Team*, std::string*, std::string*);
-	static Team* loadFromFile(std::string*);
+    static Team* loadFromFile(std::string*);
 };
 
 #endif

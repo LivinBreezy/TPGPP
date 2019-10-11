@@ -5,14 +5,14 @@
 
 Action::Action(int64 action)
 {
-	this->action = action;
-	this->team = nullptr;
+    this->action = action;
+    this->team = nullptr;
 }
 
 Action::Action(Team* team)
 {
-	this->action = -1;
-	this->team = team;
+    this->action = -1;
+    this->team = team;
 }
 
 Action::~Action()
@@ -29,23 +29,23 @@ Action::~Action()
  *  @param     visited The set of teams already visited. To be passed on to the 
  *             team to avoid revisiting teams in action selection.
  *  @param     inputFeatures The features that the program is ran on, from the
- *			   environment.
+ *             environment.
  *  @return    An int action from either the team in this Action, or the atomic
  *             action.
  *  @todo      Testing required.
  */
 int64 Action::getAction(std::set<Team>* visited, double* inputFeatures)
 {
-	// just return atomic action if applicable
-	if (isAtomicAction())
-	{
-		return action;
-	}
-	// delegate action selection to the team
-	else
-	{
-		return team->getAction(visited, inputFeatures);
-	}
+    // just return atomic action if applicable
+    if (isAtomicAction())
+    {
+        return action;
+    }
+    // delegate action selection to the team
+    else
+    {
+        return team->getAction(visited, inputFeatures);
+    }
 }
 
 /**
@@ -57,8 +57,8 @@ int64 Action::getAction(std::set<Team>* visited, double* inputFeatures)
  */
 bool Action::isAtomicAction()
 {
-	return !team;
-	return true;
+    return !team;
+    return true;
 }
 
 /**
@@ -74,24 +74,24 @@ bool Action::isAtomicAction()
  */
 bool Action::equals(Action* other)
 {
-	// different action types, return false
-	if ((other->team && !this->team) || (!other->team && this->team)) 
-	{
-		return false;
-	}
-	// both are teams, compare team address
-	else if (team) 
-	{
-		return other->team == this->team;
-	}
-	// both are ints, compare values
-	else 
-	{
-		return other->action == this->action;
-	}
+    // different action types, return false
+    if ((other->team && !this->team) || (!other->team && this->team)) 
+    {
+        return false;
+    }
+    // both are teams, compare team address
+    else if (team) 
+    {
+        return other->team == this->team;
+    }
+    // both are ints, compare values
+    else 
+    {
+        return other->action == this->action;
+    }
 }
 
 std::string* Action::toString()
 {
-	return nullptr;
+    return nullptr;
 }

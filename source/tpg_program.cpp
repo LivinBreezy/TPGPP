@@ -115,7 +115,7 @@ std::map<std::string, int32>* Program::allInstructionCounts(TpgParameters* param
     return nullptr;
 }
 
-std::vector<Instruction>* Program::getProgram()
+std::vector<Instruction>* Program::getInstructions()
 {
     return instructions;
 }
