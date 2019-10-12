@@ -17,9 +17,9 @@ class Team;
  *  highest bid will then return its Action to the Team, which will be enacted
  *  on the environment.
  *  @author    Robert Smith
- *  @author    Other
+ *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
     or TPGPlay objects.
  *  @bug       None yet marked.
@@ -35,28 +35,28 @@ class Learner
     Program* program;
 
 public:
-    Learner(int64, int64, int64, int16, Program*);
-    Learner(int64, int64, Team*, int16, Program*);
-    Learner(int64, int64, TpgParameters*);
-    Learner(int64, Team*, TpgParameters*);
-    Learner(int64, Learner*, TpgParameters*);
+    Learner(int64, int64, int64, int16, Program&);
+    Learner(int64, int64, Team&, int16, Program&);
+    Learner(int64, int64, TpgParameters&);
+    Learner(int64, Team&, TpgParameters&);
+    Learner(int64, const Learner&, TpgParameters&);
     ~Learner();
-    int64 bid(double*);
-    int32 programLength();
-    int64 getID();
-    Program* getProgram();
-    Action* getActionObject();
-    std::string* getActionType();
-    int64 getBirthday();
-    int32 getReferences();
-    bool mutateAction(Action*);
-    bool mutateProgram(TpgParameters*);
-    bool mutate(TpgParameters*);
+    double bid(const double*);
+    int32 programLength() const;
+    int64 getID() const;
+    Program* getProgram() const;
+    Action* getActionObject() const;
+    std::string* getActionType() const;
+    int64 getBirthday() const;
+    int32 getReferences() const;
+    bool mutateAction(const Action&);
+    bool mutateProgram(const TpgParameters&);
+    bool mutate(const TpgParameters&);
     int32 increaseReferences();
     int32 decreaseReferences();
-    std::string* toString();
-    static bool saveToFile(Learner*, std::string*, std::string*);
-    static Learner* loadFromFile(std::string*);
+    std::string* toString() const;
+    static bool saveToFile(const Learner&, const std::string&, const std::string&);
+    static Learner* loadFromFile(const std::string&);
 };
 
 #endif

@@ -15,9 +15,9 @@
  *  Once the probabilities are created, the memory is available for reading
  *  and writing. 
  *  @author    Robert Smith
- *  @author    Other
+ *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
     or TPGPlay object.
  *  @bug       None yet marked.
@@ -31,12 +31,12 @@ class MemoryModel
 
 public:
     MemoryModel(int32, int32);
-    MemoryModel(double**);
+    MemoryModel(const double**);
     ~MemoryModel();
     double* generateProbabilities();
-    double read(int32);
-    bool write(double*);
-    std::string* toString();
+    double read(int32) const;
+    bool write(const double*);
+    std::string* toString() const;
 };
 
 #endif

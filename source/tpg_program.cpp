@@ -15,7 +15,7 @@
  *  for the current environment.
  *  @todo      Implementation and full commenting required.
  */
-Program::Program(TpgParameters* parameters)
+Program::Program(const TpgParameters& parameters)
 {
     this->instructions = {};
     this->registers = nullptr;
@@ -30,7 +30,7 @@ Program::Program(TpgParameters* parameters)
  *  @param     other A pointer to a Program object to be copied.
  *  @todo      Implementation and full commenting required.
  */
-Program::Program(Program* other)
+Program::Program(const Program& other)
 {
     this->instructions = {};
     this->registers = nullptr;
@@ -59,7 +59,7 @@ Program::~Program()
  *  @return    A double value representing a Learner bid.
  *  @todo      Implementation and full commenting required.
  */
-double Program::execute(double* inputFeatures)
+double Program::execute(const double* inputFeatures)
 {
     return NULL;
 }
@@ -76,7 +76,7 @@ double Program::execute(double* inputFeatures)
  *  Otherwise return false.
  *  @todo      Implementation and full commenting required.
  */
-bool Program::mutate(TpgParameters* parameters)
+bool Program::mutate(const TpgParameters& parameters)
 {
     return NULL;
 }
@@ -92,7 +92,7 @@ bool Program::mutate(TpgParameters* parameters)
  *  operator was found.
  *  @todo      Implementation and full commenting required.
  */
-int32 Program::instructionCount(std::string* operationName)
+int32 Program::instructionCount(const std::string& operationName) const
 {
     return NULL;
 }
@@ -110,12 +110,12 @@ int32 Program::instructionCount(std::string* operationName)
  *  operation appears in the Instructions list.
  *  @todo      Implementation and full commenting required.
  */
-std::map<std::string, int32>* Program::allInstructionCounts(TpgParameters* parameters)
+std::map<std::string, int32>* Program::allInstructionCounts(const TpgParameters& parameters) const
 {
     return nullptr;
 }
 
-std::vector<Instruction>* Program::getInstructions()
+std::vector<Instruction>* Program::getInstructions() const
 {
     return instructions;
 }
@@ -126,7 +126,7 @@ std::vector<Instruction>* Program::getInstructions()
  *  @return    A pointer to a string, which represents a Program object.
  *  @todo      Implementation and full commenting required.
  */
-std::string* Program::toString()
+std::string* Program::toString() const
 {
     return nullptr;
 }

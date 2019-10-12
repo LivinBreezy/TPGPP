@@ -6,48 +6,49 @@
 #include "tpg_program.h"
 #include "tpg_team.h"
 
-Learner::Learner(int64 id, int64 birthday, int64 action, int16 teamReferences, Program* program)
+Learner::Learner(int64 id, int64 birthday, int64 action, int16 teamReferences, 
+                  Program& program)
 {
     this->id = id;
     this->birthday = birthday;
     this->action = new Action(action);
     this->teamReferences = teamReferences;
-    this->program = program;
+    this->program = &program;
 }
 
-Learner::Learner(int64 id, int64 birthday, Team* team, int16 teamReferences, Program* program)
+Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences, Program& program)
 {
     this->id = id;
     this->birthday = birthday;
     this->action = new Action(team);
     this->teamReferences = teamReferences;
-    this->program = program;
+    this->program = &program;
 }
 
-Learner::Learner(int64 birthday, int64 action, TpgParameters* parameters)
+Learner::Learner(int64 birthday, int64 action, TpgParameters& parameters)
 {
-    this->id = parameters->nextLearnerId++;
+    this->id = parameters.nextLearnerId++;
     this->birthday = birthday;
     this->action = new Action(action);
     this->teamReferences = 0;
     this->program = new Program(parameters);
 }
 
-Learner::Learner(int64 birthday, Team* team, TpgParameters* parameters)
+Learner::Learner(int64 birthday, Team& team, TpgParameters& parameters)
 {
-    this->id = parameters->nextLearnerId++;
+    this->id = parameters.nextLearnerId++;
     this->birthday = birthday;
     this->action = new Action(team);
     this->teamReferences = 0;
     this->program = new Program(parameters);
 }
 
-Learner::Learner(int64 birthday, Learner* other, TpgParameters* parameters)
+Learner::Learner(int64 birthday, const Learner& other, TpgParameters& parameters)
 {
-    this->id = parameters->nextLearnerId++;
+    this->id = parameters.nextLearnerId++;
     this->birthday = birthday;
-    this->action = new Action(other->getActionObject());
-    this->teamReferences = other->getReferences();
+    this->action = new Action(*other.getActionObject());
+    this->teamReferences = other.getReferences();
     // TODO: (Robert) Set up Program to make a copy from a previous program,
     //                rather than just defaulting to something random.
     this->program = new Program(parameters);
@@ -70,7 +71,7 @@ Learner::~Learner()
  *  @return    A double value representing this Learner's bid.
  *  @todo      Testing required.
  */
-int64 Learner::bid(double* inputFeatures)
+double Learner::bid(const double* inputFeatures)
 {
     return program->execute(inputFeatures);
 }
@@ -81,52 +82,52 @@ int64 Learner::bid(double* inputFeatures)
  *  @return    An int representing the length of the Learner's Program.
  *  @todo      Testing required.
  */
-int32 Learner::programLength()
+int32 Learner::programLength() const
 {
-    return program->getInstructions()->size();
+    return static_cast<int32>(program->getInstructions()->size());
 }
 
-int64 Learner::getID()
+int64 Learner::getID() const
 {
     return NULL;
 }
 
-Program* Learner::getProgram()
+Program* Learner::getProgram() const
 {
     return program;
 }
 
-Action* Learner::getActionObject()
+Action* Learner::getActionObject() const
 {
     return nullptr;
 }
 
-std::string* Learner::getActionType()
+std::string* Learner::getActionType() const
 {
     return nullptr;
 }
 
-int64 Learner::getBirthday()
+int64 Learner::getBirthday() const
 {
     return NULL;
 }
 
-int32 Learner::getReferences()
+int32 Learner::getReferences() const
 {
     return NULL;
 }
 
-bool Learner::mutateAction(Action*)
+bool Learner::mutateAction(const Action&)
 {
     return NULL;
 }
 
-bool Learner::mutateProgram(TpgParameters*)
+bool Learner::mutateProgram(const TpgParameters&)
 {
     return NULL;
 }
 
-bool Learner::mutate(TpgParameters*)
+bool Learner::mutate(const TpgParameters&)
 {
     return NULL;
 }
@@ -141,17 +142,17 @@ int32 Learner::decreaseReferences()
     return NULL;
 }
 
-std::string* Learner::toString()
+std::string* Learner::toString() const
 {
     return nullptr;
 }
 
-bool Learner::saveToFile(Learner*, std::string*, std::string*)
+bool Learner::saveToFile(const Learner&, const std::string&, const std::string&)
 {
     return NULL;
 }
 
-Learner* Learner::loadFromFile(std::string*)
+Learner* Learner::loadFromFile(const std::string&)
 {
     return nullptr;
 }

@@ -16,17 +16,18 @@ Instruction::~Instruction()
 
 }
 
-bool Instruction::execute(double* inputFeatures, double* registers, TpgParameters* parameters)
+bool Instruction::execute(const double* inputFeatures, double* registers, 
+                          const TpgParameters& parameters)
 {
     return NULL;
 }
 
-bool Instruction::mutate(TpgParameters* parameters)
+bool Instruction::mutate(const TpgParameters& parameters)
 {
     return NULL;
 }
 
-std::string* Instruction::toString()
+std::string* Instruction::toString() const
 {
     return nullptr;
 }

@@ -16,9 +16,9 @@
  *  we standardize our output and also provide extendability if we want to also
  *  log those outputs in the future.
  *  @author    Robert Smith
- *  @author    Other
+ *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
  *  @pre       Initialize the TPGAlgorithm object.
  *  @bug       None yet marked.
  *  @todo      Implementation and full commenting required.
@@ -30,10 +30,10 @@ class Logger
 public:
     Logger();
     ~Logger();
-    bool savestate(TpgParameters*, std::string*);
-    bool saveTeam(Team*);
-    bool saveLearner(Learner*);
-    bool consoleOutput(std::string*);
+    bool savestate(const TpgParameters&, const std::string&) const;
+    bool saveTeam(const Team&) const;
+    bool saveLearner(const Learner&) const;
+    bool consoleOutput(const std::string&) const;
 };
 
 #endif

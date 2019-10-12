@@ -24,9 +24,9 @@
  *  general purpose register is available as a bid value for the Learner which
  *  executed a given Program.
  *  @author    Robert Smith
- *  @author    Other 
+ *  @author    Ryan Amaral 
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 7, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
     or TPGPlay objects and creates a population of Learners for producing bids.
  *  @bug       None yet marked.
@@ -43,15 +43,15 @@ class Program
     int32 maximumProgramSize;
 
   public:
-    Program(TpgParameters*);
-    Program(Program*);
+    Program(const TpgParameters&);
+    Program(const Program&);
     ~Program();
-    double execute(double*);
-    bool mutate(TpgParameters*);
-    int32 instructionCount(std::string*);
-    std::map<std::string, int32>* allInstructionCounts(TpgParameters*);
-    std::vector<Instruction>* getInstructions();
-    std::string* toString();
+    double execute(const double*);
+    bool mutate(const TpgParameters&);
+    int32 instructionCount(const std::string&) const;
+    std::map<std::string, int32>* allInstructionCounts(const TpgParameters&) const;
+    std::vector<Instruction>* getInstructions() const;
+    std::string* toString() const;
 };
 
 #endif

@@ -16,22 +16,22 @@ Logger::~Logger()
 
 }
 
-bool Logger::savestate(TpgParameters* parameters, std::string* filePath)
+bool Logger::savestate(const TpgParameters& parameters, const std::string& filePath) const
 {
     return NULL;
 }
 
-bool Logger::saveTeam(Team* team)
+bool Logger::saveTeam(const Team& team) const
 {
     return NULL;
 }
 
-bool Logger::saveLearner(Learner* learner)
+bool Logger::saveLearner(const Learner& learner) const
 {
     return NULL;
 }
 
-bool Logger::consoleOutput(std::string* message)
+bool Logger::consoleOutput(const std::string& message) const
 {
     return NULL;
 }
