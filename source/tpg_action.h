@@ -21,7 +21,7 @@ class Team;
  *  @author    Robert Smith
  *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 11, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
 	or TPGPlay objects and creates a population of Learners for producing bids.
  *  @bug       None yet marked.
@@ -36,15 +36,15 @@ class Action
    
 public:
     Action(int64);
-    Action(Team*);
-    Action(Action& const);
+    Action(Team&);
+    Action(const Action&);
     ~Action();
-    int64 getAction(std::set<Team>*, double*);
-    int64 getAtomic();
-    Team* getTeam();
-    bool isAtomicAction();
-    bool equals(Action*);
-    std::string* toString();
+    int64 getAction(std::set<Team>&, const double*) const;
+    int64 getAtomic() const;
+    Team* getTeam() const;
+    bool isAtomicAction() const;
+    bool equals(const Action&) const;
+    std::string* toString() const;
 };
 
 #endif

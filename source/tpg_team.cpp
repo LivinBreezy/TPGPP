@@ -9,9 +9,9 @@
 #include "tpg_action.h"
 #include "tpg_learner.h"
 
-Team::Team(int64 birthday, TpgParameters* parameters)
+Team::Team(int64 birthday, TpgParameters& parameters)
 {
-    this->id = parameters->nextTeamId++;
+    this->id = parameters.nextTeamId++;
     this->birthday = birthday;
     this->learners = {};
     this->outcomes = {};
@@ -32,52 +32,52 @@ Team::~Team()
 
 }
 
-bool Team::mutate(TpgParameters* parameters)
+bool Team::mutate(const TpgParameters& parameters)
 {
     return NULL;
 }
 
-int32 Team::size()
+int32 Team::size() const
 {
     return NULL;
 }
 
-int32 Team::numberOfOutcomes()
+int32 Team::numberOfOutcomes() const
 {
     return NULL;
 }
 
-int64 Team::getBirthday()
+int64 Team::getBirthday() const
 {
     return this->birthday;
 }
 
-int64 Team::getId()
+int64 Team::getId() const
 {
     return this->id;
 }
 
-std::vector<Learner>* Team::getLearners()
+std::vector<Learner>* Team::getLearners() const
 {
     return nullptr;
 }
 
-int64 Team::getAction(std::set<Team>* visited, double* inputFeatures)
+int64 Team::getAction(std::set<Team>& visited, const double* inputFeatures)
 {
     return NULL;
 }
 
-int32 Team::getReferences()
+int32 Team::getReferences() const
 {
     return NULL;
 }
 
-int32 Team::getAtomicActionCount()
+int32 Team::getAtomicActionCount() const
 {
     return NULL;
 }
 
-double Team::getOutcome(std::string outcomeName)
+double Team::getOutcome(std::string outcomeName) const
 {
     return NULL;
 }
@@ -92,12 +92,12 @@ bool Team::deleteOutcome(std::string outcomeName)
     return NULL;
 }
 
-bool Team::addLearner(Learner* learner)
+bool Team::addLearner(Learner& learner)
 {
     return NULL;
 }
 
-bool Team::removeLearner(Learner* learner)
+bool Team::removeLearner(Learner& learner)
 {
     return NULL;
 }
@@ -112,12 +112,12 @@ int32 Team::decreaseReferences()
     return NULL;
 }
 
-int32 Team::compareTo(Team* other)
+int32 Team::compareTo(const Team& other) const
 {
     return NULL;
 }
 
-std::string* Team::toString()
+std::string* Team::toString() const
 {
     return nullptr;
 }
@@ -127,12 +127,12 @@ bool Team::operator<(const Team& rhs) const
     return id < rhs.id;
 }
 
-bool Team::saveToFile(Team* teamPointer, std::string* filePath, std::string* fileMode)
+bool Team::saveToFile(const Team& teamPointer, const std::string& filePath, const std::string& fileMode)
 {
     return NULL;
 }
 
-Team* Team::loadFromFile(std::string* filePath)
+Team* Team::loadFromFile(const std::string& filePath)
 {
     return nullptr;
 }

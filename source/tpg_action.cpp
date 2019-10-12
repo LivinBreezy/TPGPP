@@ -9,13 +9,13 @@ Action::Action(int64 action)
     this->team = nullptr;
 }
 
-Action::Action(Team* team)
+Action::Action(Team& team)
 {
     this->action = -1;
-    this->team = team;
+    this->team = &team;
 }
 
-Action::Action(Action& const other)
+Action::Action(const Action& other)
 {
     if (other.isAtomicAction()) 
     {
@@ -48,7 +48,7 @@ Action::~Action()
  *             action.
  *  @todo      Testing required.
  */
-int64 Action::getAction(std::set<Team>* visited, double* inputFeatures)
+int64 Action::getAction(std::set<Team>& visited, const double* inputFeatures) const
 {
     // just return atomic action if applicable
     if (isAtomicAction())
@@ -62,12 +62,12 @@ int64 Action::getAction(std::set<Team>* visited, double* inputFeatures)
     }
 }
 
-int64 Action::getAtomic()
+int64 Action::getAtomic() const 
 {
     return action;
 }
 
-Team* Action::getTeam()
+Team* Action::getTeam() const
 {
     return team;
 }
@@ -79,7 +79,7 @@ Team* Action::getTeam()
  *  @return    A boolean representing whether the action is atomic.
  *  @todo      Testing required.
  */
-bool Action::isAtomicAction()
+bool Action::isAtomicAction() const
 {
     return !team;
     return true;
@@ -96,26 +96,26 @@ bool Action::isAtomicAction()
  *  @return    A boolean representing whether the actions are equivalent.
  *  @todo      Testing required.
  */
-bool Action::equals(Action* other)
+bool Action::equals(const Action& other) const
 {
     // different action types, return false
-    if ((other->team && !this->team) || (!other->team && this->team)) 
+    if ((other.team && !this->team) || (!other.team && this->team)) 
     {
         return false;
     }
     // both are teams, compare team address
     else if (team) 
     {
-        return other->team == this->team;
+        return other.team == this->team;
     }
     // both are ints, compare values
     else 
     {
-        return other->action == this->action;
+        return other.action == this->action;
     }
 }
 
-std::string* Action::toString()
+std::string* Action::toString() const
 {
     return nullptr;
 }
