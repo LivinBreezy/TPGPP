@@ -39,7 +39,7 @@ public:
     Action(Team&);
     Action(const Action&);
     ~Action();
-    int64 getAction(std::set<Team>&, const double*) const;
+    int64 getAction(std::set<Team*>&, const double*) const;
     int64 getAtomic() const;
     Team* getTeam() const;
     bool isAtomicAction() const;

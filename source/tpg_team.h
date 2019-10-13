@@ -3,8 +3,9 @@
 
 #include "tpg_utility.h"
 
-#include <map>
+#include <unordered_map>
 #include <string>
+#include <string_view>
 #include <vector>
 #include <set>
 
@@ -34,26 +35,26 @@ class Team
 {
     int64 id;
     int64 birthday;
-    std::vector<Learner> learners;
-    std::map<std::string, double> outcomes;
+    std::vector<Learner*> learners;
+    std::unordered_map<std::string, double> outcomes;
     int32 learnerReferences;
 
 public:
-    Team(int64, TpgParameters&);
-    Team(int64, int64, std::vector<Learner>, std::map<std::string, double>);
+    Team(const int64, TpgParameters&);
+    Team(const int64, const int64, std::vector<Learner*>, std::unordered_map<std::string, double>);
     ~Team();
     bool mutate(const TpgParameters&);
-    int32 size() const;
+    int32 numberOfLearners() const;
     int32 numberOfOutcomes() const;
     int64 getBirthday() const;
     int64 getId() const;
-    std::vector<Learner>* getLearners() const;
-    int64 getAction(std::set<Team>&, const double*);
+    std::vector<Learner*>& getLearners();
+    int64 getAction(std::set<Team*>&, const double*);
     int32 getReferences() const;
     int32 getAtomicActionCount() const;
-    double getOutcome(std::string) const;
-    bool setOutcome(std::string, double);
-    bool deleteOutcome(std::string);
+    double getOutcome(const std::string_view) const;
+    bool setOutcome(const std::string_view, const double);
+    bool deleteOutcome(const std::string_view);
     bool addLearner(Learner&);
     bool removeLearner(Learner&);
     int32 increaseReferences();
@@ -61,8 +62,8 @@ public:
     int32 compareTo(const Team&) const;
     std::string* toString() const;
     bool operator<(const Team& rhs) const;
-    static bool saveToFile(const Team&, const std::string&, const std::string&);
-    static Team* loadFromFile(const std::string&);
+    static bool saveToFile(const Team&, const std::string_view, const std::string_view);
+    static Team* loadFromFile(const std::string_view);
 };
 
 #endif
