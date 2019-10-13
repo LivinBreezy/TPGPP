@@ -42,6 +42,7 @@ class Team
 public:
     Team(const int64, TpgParameters&);
     Team(const int64, const int64, std::vector<Learner*>, std::unordered_map<std::string, double>);
+    Team(const Team&, const int64 birthday, TpgParameters&);
     ~Team();
     bool mutate(const TpgParameters&);
     int32 numberOfLearners() const;
