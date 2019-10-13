@@ -325,7 +325,10 @@ else
 ```
 ## Loops
 Loops should maintain the same format as described throughout functions and conditionals.
-	
+
+## Loop Iteration
+Prioritize iterators wherevever possible. If iterators are not possible or infeasible, use a loop and leave a comment explaining the design decision so that the reader can avoid any pitfalls that may arise from an iterator implementation.
+
 ## Pointer and Reference Expressions
 No spaces around period or arrow. Pointer operators do not have trailing spaces.
 
