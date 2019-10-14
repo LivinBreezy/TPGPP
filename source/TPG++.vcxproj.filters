@@ -37,6 +37,9 @@
     <Filter Include="Source Files\reproduction">
       <UniqueIdentifier>{97ff752c-63ef-4f31-bc78-036577e107c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Parameters">
+      <UniqueIdentifier>{26ebfe58-bacf-4f35-a9fb-d883a3f0c266}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tpg_team.cpp">
@@ -107,5 +110,13 @@
     <ClInclude Include="tpg_utility.h">
       <Filter>Header Files\universal</Filter>
     </ClInclude>
+    <ClInclude Include="tpg_algorithm_mode.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="parameters.arg">
+      <Filter>Parameters</Filter>
+    </None>
   </ItemGroup>
 </Project>

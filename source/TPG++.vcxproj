@@ -166,6 +166,7 @@
     <ClCompile Include="tpg_test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="tpg_algorithm_mode.h" />
     <ClInclude Include="tpg_action.h" />
     <ClInclude Include="tpg_algorithm.h" />
     <ClInclude Include="tpg_instruction.h" />
@@ -178,6 +179,9 @@
     <ClInclude Include="tpg_team.h" />
     <ClInclude Include="tpg_test.h" />
     <ClInclude Include="tpg_utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="parameters.arg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

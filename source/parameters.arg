@@ -1,0 +1,14 @@
+randomSeed=0
+teamPopulationSize=36
+teamGap=0.5
+maximumTeamSize=25
+maximumProgramSize=1024
+probLearnerAdd=0.7
+probLearnerDelete=0.7
+probMutateAction=0.2
+probActionIsTeam=0.5
+probProgramDelete=0.5
+probProgramAdd=0.5
+probProgramSwap=1.0
+probProgramMutate=1.0
+learnerRegisterSize=8

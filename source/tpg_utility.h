@@ -27,8 +27,8 @@ typedef int_fast16_t  int16_fast;
 typedef int_fast32_t  int32_fast;
 typedef int_fast64_t  int64_fast;
 
-// Typedef for creating a random number generator using Mersenne Twister
-typedef std::mt19937 Random;
+// Typedef for creating a random number generator using 64 bit Mersenne Twister
+typedef std::mt19937_64 Random;
 
 // Typedef for te OperationFunction type
 typedef std::function<double* (int8, int32, int8, double*, double*, TpgParameters*)> OperationFunction;
@@ -40,7 +40,7 @@ class TpgParameters
 public:
     // Input Parameters
     int64 randomSeed;
-    int32 startingTeamPopulationSize;
+    int32 teamPopulationSize;
     double teamGap;
     int64 maximumTeamSize;
     int64 maximumProgramSize;

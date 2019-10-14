@@ -1,18 +1,29 @@
 #include "tpg_algorithm.h"
 
-#include <stdio.h>
+#include <chrono>
+#include <iostream>
+#include <fstream>
 
 #include "tpg_utility.h"
 #include "tpg_learn.h"
 #include "tpg_test.h"
 
 
-TpgAlgorithm::TpgAlgorithm(std::string*, std::string*)
+TpgAlgorithm::TpgAlgorithm(const char* inputFile, const char* tpgType)
 {
-    this->arguments = nullptr;
-    this->rng = nullptr;
-    this->tpgLearn = nullptr;
-    this->tpgTest = nullptr;
+    // Create the initial arguments map from the parameters file.
+    this->arguments = readArgumentsToMap(inputFile);
+    
+    // If the TPG type parameter is Learn, we should set up a TpgLearn object.
+    // Otherwise we will set up a TpgTest object.
+    if(std::string(tpgType).compare(std::string("learn")) == 0)
+    {
+        this->tpgMode = new TpgLearn(this->arguments);
+    }
+    else if (std::string(tpgType).compare(std::string("test")) == 0)
+    {
+        this->tpgMode = new TpgTest();
+    }
 }
 
 TpgAlgorithm::~TpgAlgorithm()
@@ -30,19 +41,47 @@ void TpgAlgorithm::startTesting(std::string*)
     return;
 }
 
-TpgLearn* TpgAlgorithm::getTpgLearn()
+TpgMode* TpgAlgorithm::getTpgMode()
 {
-    return nullptr;
+    return this->tpgMode;
 }
 
-TpgTest* TpgAlgorithm::getTpgTest()
+std::unordered_map<std::string, double> TpgAlgorithm::readArgumentsToMap(const char* inputFile)
 {
-    return nullptr;
-}
+    // Open an input file stream
+    std::ifstream fileStream;
 
-std::map<std::string, std::string>* TpgAlgorithm::readArgumentsToMap(std::string*)
-{
-    return nullptr;
+    // Open the file given in the function parameter
+    fileStream.open(inputFile);
+
+    // Create an unordered map for holding the parameters
+    std::unordered_map<std::string, double> map;
+
+    // Create a string for holding the line, the 
+    // argument name, and the argument value
+    std::string line;
+    std::string argument;
+    std::string value;
+
+    // As long as the file still has lines to read, keep processing.
+    while(std::getline(fileStream, line))
+    {
+        // Extract the argument name
+        argument = line.substr(0, line.find("="));
+
+        // Extract the argument value
+        value = line.substr(line.find("=") + 1);
+
+        // Print the argument value to the screen
+        std::cout << "ARG: " << argument << " " << value << "\n";
+
+        // Add the argument->value pair to the unordered map using
+        // the name as a string and the value as a double.
+        map[argument] = std::stod(value);
+    }
+       
+    // Return the map of parameters
+    return map; 
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -53,6 +92,8 @@ std::map<std::string, std::string>* TpgAlgorithm::readArgumentsToMap(std::string
 int main()
 {
     printf("Main Function Called\n");
+
+    TpgAlgorithm* algorithm = new TpgAlgorithm("parameters.arg", "learn");
 
     return 0;
 }
