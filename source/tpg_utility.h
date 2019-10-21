@@ -54,6 +54,7 @@ public:
     int8 modeSize;
     int32 sourceSize;
     int8 destinationSize;
+    int32 memoryModelSize;
 
     // Derived and Operational Parameters
     Random rng;

@@ -7,6 +7,7 @@
 
 #include "tpg_team.h"
 #include "tpg_learner.h"
+#include "tpg_memory_model.h"
 
 TpgLearn::TpgLearn(std::unordered_map<std::string, double>& arguments)
 {
@@ -27,6 +28,12 @@ TpgLearn::TpgLearn(std::unordered_map<std::string, double>& arguments)
         // If the seed is negative, use the current time as the seed.
         params.rng = *(new Random(std::chrono::system_clock::now().time_since_epoch().count()));
     }
+
+    // Set the uniform distribution for TPG to match the range [0.0, 1.0)
+    params.distribution = std::uniform_real_distribution<double>(0.0, 1.0);
+
+    // Initialize the Memory Model
+    params.memory = new MemoryModel(params.memoryModelSize, params.learnerRegisterSize);
 
     // Initialize any remaining primitive parameter values
     params.nextTeamId = 0;
@@ -153,4 +160,7 @@ void TpgLearn::mergeParameters(TpgParameters& parameters, std::unordered_map<std
     parameters.probProgramSwap      = static_cast<double>(arguments["probProgramSwap"]);
     parameters.probProgramMutate    = static_cast<double>(arguments["probProgramMutate"]);
     parameters.learnerRegisterSize  = static_cast<int16>(arguments["learnerRegisterSize"]);
+    parameters.modeSize             = static_cast<int16>(arguments["modeSize"]);
+    parameters.sourceSize           = static_cast<int16>(arguments["sourceSize"]);
+    parameters.memoryModelSize      = static_cast<int16>(arguments["memoryModelSize"]);
 }

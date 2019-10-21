@@ -14,3 +14,4 @@ probProgramMutate=1.0
 learnerRegisterSize=8
 modeSize=3
 sourceSize=100
+memoryModelSize=100
