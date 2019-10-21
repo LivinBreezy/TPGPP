@@ -1,33 +1,22 @@
-
 #include "tpg_instruction.h"
 
-#include <functional>
 
-Instruction::Instruction(int8 mode, int32 source, int8 destination, std::function<double*(int8, int32, int8, double*, double*, TpgParameters*)> operation)
+Instruction::Instruction(TpgParameters& parameters)
+{
+    // Randomly initialize all of the class variables
+    this->mode = static_cast<int8>(floor(parameters.rngUniform() * parameters.modeSize));
+    this->source = static_cast<int32>(floor(parameters.rngUniform() * parameters.sourceSize));
+    this->destination = static_cast<int8>(floor(parameters.rngUniform() * parameters.learnerRegisterSize));
+}
+
+Instruction::Instruction(int8 mode, int32 source, int8 destination)
 {
     this->mode = mode;
     this->source = source;
     this->destination = destination;
-    this->operation = operation;
 }
 
 Instruction::~Instruction()
 {
 
-}
-
-bool Instruction::execute(const double* inputFeatures, double* registers, 
-                          const TpgParameters& parameters)
-{
-    return NULL;
-}
-
-bool Instruction::mutate(const TpgParameters& parameters)
-{
-    return NULL;
-}
-
-std::string* Instruction::toString() const
-{
-    return nullptr;
 }

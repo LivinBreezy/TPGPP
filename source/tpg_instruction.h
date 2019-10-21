@@ -27,17 +27,20 @@
  */
 class Instruction
 {
+public:
+    Instruction(TpgParameters&);
+    Instruction(int8, int32, int8);
+    ~Instruction();
+    virtual bool execute(double*, double*, const TpgParameters&) const = 0;
+    virtual bool mutate(TpgParameters&) = 0;
+    virtual std::string getType() const = 0;
+    virtual std::string toString() const = 0;
+    virtual std::string toStorage() const = 0;
+
+protected:
     int8 mode;
     int32 source;
-    int8 destination;
-    std::function<bool(int8, int32, int8, double*, double*, TpgParameters*)> operation;
-
-public:
-    Instruction(int8, int32, int8, std::function<double*(int8, int32, int8, double*, double*, TpgParameters*)>);
-    ~Instruction();
-    bool execute(const double*, double*, const TpgParameters&);
-    bool mutate(const TpgParameters&);
-    std::string* toString() const;
+    int8 destination;    
 };
 
 #endif

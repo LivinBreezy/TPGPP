@@ -1,4 +1,4 @@
-randomSeed=0
+randomSeed=-1
 teamPopulationSize=36
 teamGap=0.5
 maximumTeamSize=25
@@ -12,3 +12,5 @@ probProgramAdd=0.5
 probProgramSwap=1.0
 probProgramMutate=1.0
 learnerRegisterSize=8
+modeSize=3
+sourceSize=100
