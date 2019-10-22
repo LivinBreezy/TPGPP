@@ -30,30 +30,39 @@ class Learner
 {
     int64 id;
     int64 birthday;
-    Action* action;
+
     int32 teamReferences;
+
+    Action* action;
     Program* program;
 
 public:
+    // constructors and destructor
     Learner(int64, int64, int64, int16, Program&);
     Learner(int64, int64, Team&, int16, Program&);
     Learner(int64, int64, TpgParameters&);
     Learner(int64, Team&, TpgParameters&);
     Learner(int64, const Learner&, TpgParameters&);
     ~Learner();
-    double bid(const double*);
+
+    // getters and setters
+    Program* getProgram() const;
     int32 programLength() const;
     int64 getID() const;
-    Program* getProgram() const;
     Action* getActionObject() const;
     std::string* getActionType() const;
     int64 getBirthday() const;
     int32 getReferences() const;
+    int32 increaseReferences();
+    int32 decreaseReferences();
+
+    // core functionality
+    double bid(const double*);
     bool mutateAction(const Action&);
     bool mutateProgram(const TpgParameters&);
     bool mutate(const TpgParameters&);
-    int32 increaseReferences();
-    int32 decreaseReferences();
+
+    // utility
     std::string* toString() const;
     static bool saveToFile(const Learner&, const std::string&, const std::string&);
     static Learner* loadFromFile(const std::string&);
