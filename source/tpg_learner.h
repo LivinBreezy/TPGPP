@@ -30,7 +30,6 @@ class Learner
 {
     int64 id;
     int64 birthday;
-
     int32 teamReferences;
 
     Action* action;

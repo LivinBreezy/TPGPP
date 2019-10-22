@@ -6,6 +6,10 @@
 #include "tpg_program.h"
 #include "tpg_team.h"
 
+///////////////////////////////////////////////////////////////////////////////
+// CONSTRUCTORS AND DESTRUCTOR
+///////////////////////////////////////////////////////////////////////////////
+
 Learner::Learner(int64 id, int64 birthday, int64 action, int16 teamReferences, 
                   Program& program)
 {
@@ -63,18 +67,9 @@ Learner::~Learner()
     program = nullptr;
 }
 
-/**
- *  @brief     Returns a bid value by executing the program.
- *  @details   
- *  @param     inputFeatures A double array representing the environment's
- *  complete feature set.
- *  @return    A double value representing this Learner's bid.
- *  @todo      Testing required.
- */
-double Learner::bid(const double* inputFeatures)
-{
-    return program->execute(inputFeatures);
-}
+///////////////////////////////////////////////////////////////////////////////
+// GETTERS AND SETTERS
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief     Returns the length of this Learner's Program (number of Instructions).
@@ -117,6 +112,33 @@ int32 Learner::getReferences() const
     return NULL;
 }
 
+int32 Learner::increaseReferences()
+{
+    return NULL;
+}
+
+int32 Learner::decreaseReferences()
+{
+    return NULL;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// CORE FUNCTIONALITY
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ *  @brief     Returns a bid value by executing the program.
+ *  @details   
+ *  @param     inputFeatures A double array representing the environment's
+ *  complete feature set.
+ *  @return    A double value representing this Learner's bid.
+ *  @todo      Testing required.
+ */
+double Learner::bid(const double* inputFeatures)
+{
+    return program->execute(inputFeatures);
+}
+
 bool Learner::mutateAction(const Action&)
 {
     return NULL;
@@ -132,15 +154,9 @@ bool Learner::mutate(const TpgParameters&)
     return NULL;
 }
 
-int32 Learner::increaseReferences()
-{
-    return NULL;
-}
-
-int32 Learner::decreaseReferences()
-{
-    return NULL;
-}
+///////////////////////////////////////////////////////////////////////////////
+// UTILITY
+///////////////////////////////////////////////////////////////////////////////
 
 std::string* Learner::toString() const
 {
