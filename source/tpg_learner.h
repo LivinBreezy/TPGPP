@@ -49,7 +49,6 @@ public:
     int32 programLength() const;
     int64 getID() const;
     Action* getActionObject() const;
-    std::string* getActionType() const;
     int64 getBirthday() const;
     int32 getReferences() const;
     int32 increaseReferences();
@@ -57,9 +56,9 @@ public:
 
     // core functionality
     double bid(const double*);
+    bool mutate(const TpgParameters&);
     bool mutateAction(const Action&);
     bool mutateProgram(const TpgParameters&);
-    bool mutate(const TpgParameters&);
 
     // utility
     std::string* toString() const;

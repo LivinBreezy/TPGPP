@@ -84,7 +84,7 @@ int32 Learner::programLength() const
 
 int64 Learner::getID() const
 {
-    return NULL;
+    return id;
 }
 
 Program* Learner::getProgram() const
@@ -94,32 +94,27 @@ Program* Learner::getProgram() const
 
 Action* Learner::getActionObject() const
 {
-    return nullptr;
-}
-
-std::string* Learner::getActionType() const
-{
-    return nullptr;
+    return action;
 }
 
 int64 Learner::getBirthday() const
 {
-    return NULL;
+    return birthday;
 }
 
 int32 Learner::getReferences() const
 {
-    return NULL;
+    return teamReferences;
 }
 
 int32 Learner::increaseReferences()
 {
-    return NULL;
+    return ++teamReferences;
 }
 
 int32 Learner::decreaseReferences()
 {
-    return NULL;
+    return --teamReferences;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -139,17 +134,17 @@ double Learner::bid(const double* inputFeatures)
     return program->execute(inputFeatures);
 }
 
+bool Learner::mutate(const TpgParameters&)
+{
+    return NULL;
+}
+
 bool Learner::mutateAction(const Action&)
 {
     return NULL;
 }
 
 bool Learner::mutateProgram(const TpgParameters&)
-{
-    return NULL;
-}
-
-bool Learner::mutate(const TpgParameters&)
 {
     return NULL;
 }
