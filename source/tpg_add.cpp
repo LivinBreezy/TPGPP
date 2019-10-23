@@ -2,6 +2,10 @@
 
 #include "tpg_memory_model.h"
 
+/**
+ * @todo Consider adding return codes for more meaningful error trace.
+ */
+
 bool AddOperation::execute(int8 mode, int32 source, int8 destination, 
         const double* inputFeatures, double* registers, 
         const TpgParameters& parameters) const

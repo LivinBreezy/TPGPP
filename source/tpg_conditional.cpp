@@ -7,7 +7,7 @@ bool ConditionalOperation::execute(int8 mode, int32 source, int8 destination,
     const TpgParameters& parameters) const
 {
     // If we are missing the inputs and/or registers, return false.
-    if (inputFeatures == nullptr || registers == nullptr)
+    if(registers == nullptr)
         return false;
 
     // Extract the destinationValue for cleaner code

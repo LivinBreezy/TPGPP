@@ -69,6 +69,21 @@ bool Instruction::mutate(TpgParameters& parameters)
     return true;
 }
 
+int8 Instruction::getMode() const
+{
+    return this->mode;
+}
+
+int32 Instruction::getSource() const
+{
+    return this->source;
+}
+
+int8 Instruction::getDestination() const
+{
+    return this->destination;
+}
+
 std::string Instruction::getType() const
 {
     return this->operation->toString();

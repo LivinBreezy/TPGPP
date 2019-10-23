@@ -7,9 +7,6 @@
 
 #include "tpg_operation.h"
 
-// Required class forward declarations
-//class Operation;
-
 /**
  *  @brief     Represents a register-based instruction similar to assembly.
  *  @details   The Instruction class contains a variety of information as it
@@ -37,6 +34,9 @@ public:
     ~Instruction();
     bool execute(const double*, double*, TpgParameters&) const;
     bool mutate(TpgParameters&);
+    int8 getMode() const;
+    int32 getSource() const;
+    int8 getDestination() const;
     std::string getType() const;
     std::string toString() const;
     std::string toStorage() const;
