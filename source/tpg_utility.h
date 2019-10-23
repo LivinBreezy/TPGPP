@@ -60,10 +60,10 @@ public:
     double probLearnerAdd;
     double probMutateAction;
     double probActionIsTeam;
-    double probProgramAdd;
-    double probProgramDelete;
-    double probProgramSwap;
-    double probProgramMutate;
+    double probInstructionAdd;
+    double probInstructionDelete;
+    double probInstructionSwap;
+    double probInstructionMutate;
     int16 learnerRegisterSize;
     int8 modeSize;
     int32 sourceSize;

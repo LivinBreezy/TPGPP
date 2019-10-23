@@ -149,7 +149,7 @@ bool Program::mutate(TpgParameters& parameters)
 
     // delete instruction
     if (instructions->size() > 1 && 
-            parameters.rngFlip(parameters.probProgramDelete)) 
+            parameters.rngFlip(parameters.probInstructionDelete)) 
     {
         instructions->erase(instructions->begin() + parameters.rngInt64(0, instructions->size()));
         changed = true;
@@ -157,7 +157,7 @@ bool Program::mutate(TpgParameters& parameters)
 
     // insert a new random instruction
     if (instructions->size() < parameters.maximumProgramSize && 
-            parameters.rngFlip(parameters.probProgramDelete)) 
+            parameters.rngFlip(parameters.probInstructionDelete)) 
     {
         instructions->insert(instructions->begin() + parameters.rngInt64(0, instructions->size()), 
                              Instruction(parameters));
@@ -165,14 +165,14 @@ bool Program::mutate(TpgParameters& parameters)
     }
 
     // mutate an instruction
-    if (parameters.rngFlip(parameters.probProgramMutate)) 
+    if (parameters.rngFlip(parameters.probInstructionMutate)) 
     {
         instructions->at(parameters.rngInt64(0, instructions->size())).mutate(parameters);
         changed = true;
     }
 
     // swap 2 instruction
-    if (instructions->size() > 1 && parameters.rngFlip(parameters.probProgramSwap))
+    if (instructions->size() > 1 && parameters.rngFlip(parameters.probInstructionSwap))
     {
         // ensure different indices
         int64 index1 = parameters.rngInt64(0, instructions->size());
@@ -181,7 +181,7 @@ bool Program::mutate(TpgParameters& parameters)
         {
             index2 = parameters.rngInt64(0, instructions->size()); 
         }
-        
+
         Instruction tmpInst = instructions->at(index1);
         instructions->at(index1) = instructions->at(index2);
         instructions->at(index2) = tmpInst;
