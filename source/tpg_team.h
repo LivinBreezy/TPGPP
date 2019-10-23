@@ -35,31 +35,42 @@ class Team
 {
     int64 id;
     int64 birthday;
-    std::vector<Learner*> learners;
-    std::unordered_map<std::string, double> outcomes;
     int32 learnerReferences;
 
+    std::vector<Learner*> learners;
+    std::unordered_map<std::string, double> outcomes;
+
 public:
+    // constructors and destructor
     Team(const int64, TpgParameters&);
-    Team(const int64, const int64, std::vector<Learner*>, std::unordered_map<std::string, double>);
+    Team(const int64, const int64, std::vector<Learner*>, 
+        std::unordered_map<std::string, double>);
     Team(const Team&, const int64 birthday, TpgParameters&);
     ~Team();
-    bool mutate(const TpgParameters&);
+
+    // getters and setters and modifiers
+    int64 getId() const;
+    int64 getBirthday() const;
     int32 numberOfLearners() const;
     int32 numberOfOutcomes() const;
-    int64 getBirthday() const;
-    int64 getId() const;
-    std::vector<Learner*>& getLearners();
-    int64 getAction(std::set<Team*>&, const double*);
     int32 getReferences() const;
+    int32 increaseReferences();
+    int32 decreaseReferences();
     int32 getAtomicActionCount() const;
+    std::vector<Learner*>& getLearners();
     double getOutcome(const std::string_view) const;
     bool setOutcome(const std::string_view, const double);
     bool deleteOutcome(const std::string_view);
     bool addLearner(Learner&);
     bool removeLearner(Learner&);
-    int32 increaseReferences();
-    int32 decreaseReferences();
+
+
+    // core functionality
+    int64 getAction(std::set<Team*>&, const double*);
+    bool mutate(const TpgParameters&);
+
+
+    // utility
     int32 compareTo(const Team&) const;
     std::string* toString() const;
     bool operator<(const Team& rhs) const;

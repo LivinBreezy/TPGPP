@@ -20,7 +20,8 @@ Learner::Learner(int64 id, int64 birthday, int64 action, int16 teamReferences,
     this->program = &program;
 }
 
-Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences, Program& program)
+Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences, 
+    Program& program)
 {
     this->id = id;
     this->birthday = birthday;
