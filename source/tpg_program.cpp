@@ -143,35 +143,48 @@ double Program::execute(const double* inputFeatures, TpgParameters& parameters)
  *  Otherwise return false.
  *  @todo      Implementation and full commenting required.
  */
-bool Program::mutate(const TpgParameters& parameters)
+bool Program::mutate(TpgParameters& parameters)
 {
     bool changed = false;
 
     // delete instruction
-    if (instructions->size() > 1){// && parameters.rng < parameters.probProgramDelete) {
-        //instructions->erase(parameters.rng);
+    if (instructions->size() > 1 && 
+            parameters.rngFlip(parameters.probProgramDelete)) 
+    {
+        instructions->erase(instructions->begin() + parameters.rngInt64(0, instructions->size()));
         changed = true;
     }
 
     // insert a new random instruction
-    if (instructions->size() < parameters.maximumProgramSize) {// && parameters.rng < parameters.probProgramInsert) {
-        //instructions->insert(rng, Instruction(instructions->at(0));
+    if (instructions->size() < parameters.maximumProgramSize && 
+            parameters.rngFlip(parameters.probProgramDelete)) 
+    {
+        instructions->insert(instructions->begin() + parameters.rngInt64(0, instructions->size()), 
+                             Instruction(parameters));
         changed = true;
     }
 
     // mutate an instruction
-    if (true) {// && parameters.rng < parameters.probProgramMutate) {
-        //instructions->at(rng).mutate();
+    if (parameters.rngFlip(parameters.probProgramMutate)) 
+    {
+        instructions->at(parameters.rngInt64(0, instructions->size())).mutate(parameters);
         changed = true;
     }
 
     // swap 2 instruction
-    if (instructions->size() > 1) {// && parameters.rng < parameters.probProgramSwap) {
-        //int32 index1 = rng;
-        //int32 index2 = rng;
-        //Instruction tmpInst = instructions->at(index1);
-        //instructions->at(index1) = instructions->at(index2);
-        //instructions->at(index2) = tmpInst;
+    if (instructions->size() > 1 && parameters.rngFlip(parameters.probProgramSwap))
+    {
+        // ensure different indices
+        int64 index1 = parameters.rngInt64(0, instructions->size());
+        int64 index2 = parameters.rngInt64(0, instructions->size());
+        while (index1 == index2)
+        {
+            index2 = parameters.rngInt64(0, instructions->size()); 
+        }
+        
+        Instruction tmpInst = instructions->at(index1);
+        instructions->at(index1) = instructions->at(index2);
+        instructions->at(index2) = tmpInst;
         changed = true;
     }
 

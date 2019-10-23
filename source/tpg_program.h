@@ -56,7 +56,7 @@ class Program
 
     // core functionality
     double execute(const double*, TpgParameters&);
-    bool mutate(const TpgParameters&);
+    bool mutate(TpgParameters&);
 
     // utility
     std::string* toString() const;
