@@ -302,14 +302,14 @@ int32 Team::decreaseReferences()
  *              value would have some meaning in the environment.
  *  @todo       Test.
  */
-int64 Team::getAction(std::set<Team*>& visited, const double* inputFeatures)
+int64 Team::getAction(std::set<Team*>& visited, const double* inputFeatures, TpgParameters& parameters)
 {
     // to ensure no re-visits of teams
     visited.emplace(this);
 
     // find best learner based on highest bid
     Learner* bestLearner = *learners.begin();
-    double bestBid = bestLearner->bid(inputFeatures);
+    double bestBid = bestLearner->bid(inputFeatures, parameters);
     double curBid;
     for (auto lrnrIt = learners.begin() + 1; lrnrIt != learners.end(); ++lrnrIt)
     {
@@ -317,7 +317,7 @@ int64 Team::getAction(std::set<Team*>& visited, const double* inputFeatures)
         if (std::find(visited.begin(), visited.end(), this) == visited.end())
         {
             // replace best learner and bid with current if higher
-            curBid = (*lrnrIt)->bid(inputFeatures);
+            curBid = (*lrnrIt)->bid(inputFeatures, parameters);
             if (curBid > bestBid) {
                 bestLearner = *lrnrIt;
                 bestBid = curBid;
@@ -326,7 +326,7 @@ int64 Team::getAction(std::set<Team*>& visited, const double* inputFeatures)
     }
 
     // take the action of the best
-    return bestLearner->getActionObject()->getAction(visited, inputFeatures);
+    return bestLearner->getActionObject()->getAction(visited, inputFeatures, parameters);
 }
 
 

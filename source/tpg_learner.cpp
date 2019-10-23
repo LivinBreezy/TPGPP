@@ -130,9 +130,9 @@ int32 Learner::decreaseReferences()
  *  @return    A double value representing this Learner's bid.
  *  @todo      Testing required.
  */
-double Learner::bid(const double* inputFeatures)
+double Learner::bid(const double* inputFeatures, TpgParameters& parameters)
 {
-    return program->execute(inputFeatures);
+    return program->execute(inputFeatures, parameters);
 }
 
 bool Learner::mutate(const TpgParameters&)

@@ -24,7 +24,7 @@ class Action;
  *  @author    Robert Smith
  *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 23, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn 
     or TPGPlay objects and creates a population of Teams for producing bids.
  *  @bug       None yet marked.
@@ -66,7 +66,7 @@ public:
 
 
     // core functionality
-    int64 getAction(std::set<Team*>&, const double*);
+    int64 getAction(std::set<Team*>&, const double*, TpgParameters&);
     bool mutate(const TpgParameters&);
 
 

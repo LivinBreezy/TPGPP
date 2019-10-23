@@ -134,8 +134,8 @@ double Program::execute(const double* inputFeatures, TpgParameters& parameters)
 /**
  *  @brief     Mutate the Instructions in a Program.
  *  @details   Uses the given parameters to mutate this Program object.
- *  This can include changing the mode value, the source/destination
- *  indexes, and/or the operation of the Instructions.
+ *  This includes inserting, deleting, or mutating some instruction(s), or
+ *  swapping two instructions locations.
  *  @param     parameters A struct held by the main TPG algorithm objects
  *  (TpgLearn or TpgPlay) and stores all of the current parameter values
  *  for the current environment.
@@ -145,7 +145,37 @@ double Program::execute(const double* inputFeatures, TpgParameters& parameters)
  */
 bool Program::mutate(const TpgParameters& parameters)
 {
-    return NULL;
+    bool changed = false;
+
+    // delete instruction
+    if (instructions->size() > 1){// && parameters.rng < parameters.probProgramDelete) {
+        //instructions->erase(parameters.rng);
+        changed = true;
+    }
+
+    // insert a new random instruction
+    if (instructions->size() < parameters.maximumProgramSize) {// && parameters.rng < parameters.probProgramInsert) {
+        //instructions->insert(rng, Instruction(instructions->at(0));
+        changed = true;
+    }
+
+    // mutate an instruction
+    if (true) {// && parameters.rng < parameters.probProgramMutate) {
+        //instructions->at(rng).mutate();
+        changed = true;
+    }
+
+    // swap 2 instruction
+    if (instructions->size() > 1) {// && parameters.rng < parameters.probProgramSwap) {
+        //int32 index1 = rng;
+        //int32 index2 = rng;
+        //Instruction tmpInst = instructions->at(index1);
+        //instructions->at(index1) = instructions->at(index2);
+        //instructions->at(index2) = tmpInst;
+        changed = true;
+    }
+
+    return changed;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
