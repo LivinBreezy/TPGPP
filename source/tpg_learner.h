@@ -58,7 +58,6 @@ public:
     double bid(const double*, TpgParameters&);
     bool mutate(const TpgParameters&);
     bool mutateAction(const Action&);
-    bool mutateProgram(const TpgParameters&);
 
     // utility
     std::string* toString() const;
