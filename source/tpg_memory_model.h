@@ -26,17 +26,19 @@
  */
 class MemoryModel
 {
+    int32 rows;
+    int32 columns;
     double** memory;
     double* probabilities;
 
 public:
     MemoryModel(int32, int32);
-    MemoryModel(const double**);
+    MemoryModel(MemoryModel*);
     ~MemoryModel();
     double* generateProbabilities();
     double read(int32) const;
     bool write(const double*);
-    std::string* toString() const;
+    std::string toString() const;
 };
 
 #endif

@@ -3,8 +3,9 @@
 
 #include "tpg_utility.h"
 
-#include <functional>
 #include <string>
+
+#include "tpg_operation.h"
 
 /**
  *  @brief     Represents a register-based instruction similar to assembly.
@@ -16,7 +17,6 @@
  *  as well as where to store the result). The class also holds a function
  *  which represents the functionality of the defined operation.
  *  @author    Robert Smith
- *  @author    Ryan Amaral
  *  @version   v0.1 Beta
  *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
  *  @pre       When Learners are initialized, they will be given a Program
@@ -27,17 +27,27 @@
  */
 class Instruction
 {
+public:
+    Instruction(TpgParameters&);
+    Instruction(int8, int32, int8, Operation*);
+    Instruction(Instruction*);
+    ~Instruction();
+    bool execute(const double*, double*, TpgParameters&) const;
+    bool mutate(TpgParameters&);
+    int8 getMode() const;
+    int32 getSource() const;
+    int8 getDestination() const;
+    std::string getType() const;
+    std::string toString() const;
+    std::string toStorage() const;
+    static Operation& createOperationOfType(const Operations&);
+    static Operation& createOperationOfType(int8);
+
+protected:
     int8 mode;
     int32 source;
     int8 destination;
-    std::function<bool(int8, int32, int8, double*, double*, TpgParameters*)> operation;
-
-public:
-    Instruction(int8, int32, int8, std::function<double*(int8, int32, int8, double*, double*, TpgParameters*)>);
-    ~Instruction();
-    bool execute(const double*, double*, const TpgParameters&);
-    bool mutate(const TpgParameters&);
-    std::string* toString() const;
+    Operation* operation;
 };
 
 #endif
