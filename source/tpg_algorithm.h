@@ -3,12 +3,14 @@
 
 #include "tpg_utility.h"
 
-#include <map>
 #include <random>
 #include <string>
+#include <unordered_map>
 
-#include "tpg_learn.h"
-#include "tpg_test.h"
+#include "tpg_algorithm_mode.h"
+
+// Required forward class declarations
+class TpgMode;
 
 /**
  *  @brief     The main class for the TPG learning process.
@@ -28,19 +30,16 @@
  */
 class TpgAlgorithm
 {
-    std::map<std::string, std::string>* arguments;
-    Random* rng;
-    TpgLearn* tpgLearn;
-    TpgTest* tpgTest;
+    std::unordered_map<std::string, double> arguments;
+    TpgMode* tpgMode;
 
 public:
-    TpgAlgorithm(std::string*, std::string*);
+    TpgAlgorithm(const char*, const char*);
     ~TpgAlgorithm();
     void startLearning(std::string*);
     void startTesting(std::string*);
-    TpgLearn* getTpgLearn();
-    TpgTest* getTpgTest();
-    std::map<std::string, std::string>* readArgumentsToMap(std::string*);
+    TpgMode* getTpgMode();
+    std::unordered_map<std::string, double> readArgumentsToMap(const char*);
 };
 
 #endif
