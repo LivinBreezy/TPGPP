@@ -2,31 +2,16 @@
 
 #include "tpg_memory_model.h"
 
-ConditionalInstruction::ConditionalInstruction(TpgParameters& parameters)
-    : Instruction(parameters)
-{
-    // Do nothing else right now
-}
-
-ConditionalInstruction::ConditionalInstruction(int8 mode, int32 source, int8 destination)
-    : Instruction(mode, source, destination)
-{
-    // Do nothing else right now
-}
-
-ConditionalInstruction::~ConditionalInstruction()
-{
-    // Do nothing right now
-}
-
-bool ConditionalInstruction::execute(double* inputFeatures, double* registers, const TpgParameters& parameters) const
+bool ConditionalOperation::execute(int8 mode, int32 source, int8 destination,
+    const double* inputFeatures, double* registers,
+    const TpgParameters& parameters) const
 {
     // If we are missing the inputs and/or registers, return false.
     if (inputFeatures == nullptr || registers == nullptr)
         return false;
 
     // Extract the destinationValue for cleaner code
-    double destinationValue = registers[this->destination];
+    double destinationValue = registers[destination];
     
     // Create a variable for holding the source value
     double sourceValue = NULL;
@@ -36,15 +21,15 @@ bool ConditionalInstruction::execute(double* inputFeatures, double* registers, c
     {
         // If mode is 0, we perform a Register-Register calculation.
         case 0:
-            sourceValue = registers[this->source];
+            sourceValue = registers[source];
             break;
         // If mode is 1, we perform an Input-Register calculation.
         case 1:
-            sourceValue = inputFeatures[this->source];
+            sourceValue = inputFeatures[source];
             break;
         // If mode is 2, we perform a Memory-Register calculation.
         case 2:
-            sourceValue = parameters.memory->read(this->source);
+            sourceValue = parameters.memory->read(source);
             break;
         // If the mode is broken, return false.
         default:
@@ -55,7 +40,7 @@ bool ConditionalInstruction::execute(double* inputFeatures, double* registers, c
     if(destinationValue < sourceValue)
     {
         // Multiply the destination value by -1 and return true
-        registers[this->destination] *= -1;
+        registers[destination] *= -1;
         return true;
     }
 
@@ -63,25 +48,12 @@ bool ConditionalInstruction::execute(double* inputFeatures, double* registers, c
     return false;
 }
 
-bool ConditionalInstruction::mutate(TpgParameters& parameters)
+std::string ConditionalOperation::toString() const
 {
-    return NULL;
+    return std::string("cond");
 }
 
-std::string ConditionalInstruction::getType() const
-{
-    return std::string("con");
-}
-
-std::string ConditionalInstruction::toString() const
-{
-    return this->getType() + " "
-        + std::to_string(this->mode) + " "
-        + std::to_string(this->source) + " "
-        + std::to_string(this->destination);
-}
-
-std::string ConditionalInstruction::toStorage() const
+std::string ConditionalOperation::toStorage() const
 {
     return this->toString();
 }

@@ -1,21 +1,17 @@
-#ifndef TPG_INSTRUCTIONS_TPGMULTIPLY_H_
-#define TPG_INSTRUCTIONS_TPGMULTIPLY_H_
+#ifndef TPG_OPERATIONS_TPGMULTIPLY_H_
+#define TPG_OPERATIONS_TPGMULTIPLY_H_
 
 #include "tpg_utility.h"
 
 #include <string>
 
-#include "tpg_instruction.h"
+#include "tpg_operation.h"
 
-class MultiplyInstruction : public Instruction
+class MultiplyOperation : public Operation
 {
 public:
-    MultiplyInstruction(TpgParameters&);
-    MultiplyInstruction(int8, int32, int8);
-    ~MultiplyInstruction();
-    bool execute(double*, double*, const TpgParameters&) const;
-    bool mutate(TpgParameters&);
-    std::string getType() const;
+    bool execute(int8, int32, int8, const double*, double*,
+        const TpgParameters&) const;
     std::string toString() const;
     std::string toStorage() const;
 };

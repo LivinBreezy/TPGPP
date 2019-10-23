@@ -1,5 +1,5 @@
-#ifndef TPG_OPERATIONS_TPGLOGARITHM_H_
-#define TPG_OPERATIONS_TPGLOGARITHM_H_
+#ifndef TPG_OPERATIONS_TPGMEMWRITE_H_
+#define TPG_OPERATIONS_TPGMEMWRITE_H_
 
 #include "tpg_utility.h"
 
@@ -7,7 +7,7 @@
 
 #include "tpg_operation.h"
 
-class LogarithmOperation : public Operation
+class MemWriteOperation : public Operation
 {
 public:
     bool execute(int8, int32, int8, const double*, double*,

@@ -1,21 +1,17 @@
-#ifndef TPG_INSTRUCTIONS_TPGCONDITIONAL_H_
-#define TPG_INSTRUCTIONS_TPGCONDITIONAL_H_
+#ifndef TPG_OPERATIONS_TPGCONDITIONAL_H_
+#define TPG_OPERATIONS_TPGCONDITIONAL_H_
 
 #include "tpg_utility.h"
 
 #include <string>
 
-#include "tpg_instruction.h"
+#include "tpg_operation.h"
 
-class ConditionalInstruction : public Instruction
+class ConditionalOperation : public Operation
 {
 public:
-    ConditionalInstruction(TpgParameters&);
-    ConditionalInstruction(int8, int32, int8);
-    ~ConditionalInstruction();
-    bool execute(double*, double*, const TpgParameters&) const;
-    bool mutate(TpgParameters&);
-    std::string getType() const;
+    bool execute(int8, int32, int8, const double*, double*,
+        const TpgParameters&) const;
     std::string toString() const;
     std::string toStorage() const;
 };

@@ -31,6 +31,19 @@ typedef int_fast64_t  int64_fast;
 // Typedef for creating a random number generator using 64 bit Mersenne Twister
 typedef std::mt19937_64 Random;
 
+// Create an enumeration class for the operation types
+enum class Operations { 
+    Add,
+    Subtract,
+    Multiply,
+    Divide,
+    Cosine,
+    Exp,
+    Logarithm,
+    Conditional,
+    MemWrite
+};
+
 // Class definition for holding all the TPG Parameters. A struct would not work properly
 // because the OperationFunction would make a struct self-referential. 
 class TpgParameters
@@ -42,6 +55,7 @@ public:
     double teamGap;
     int64 maximumTeamSize;
     int64 maximumProgramSize;
+    int8 numberOfOperations;
     double probLearnerDelete;
     double probLearnerAdd;
     double probMutateAction;

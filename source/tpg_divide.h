@@ -1,21 +1,17 @@
-#ifndef TPG_INSTRUCTIONS_TPGDIVIDE_H_
-#define TPG_INSTRUCTIONS_TPGDIVIDE_H_
+#ifndef TPG_OPERATIONS_TPGDIVIDE_H_
+#define TPG_OPERATIONS_TPGDIVIDE_H_
 
 #include "tpg_utility.h"
 
 #include <string>
 
-#include "tpg_instruction.h"
+#include "tpg_operation.h"
 
-class DivideInstruction : public Instruction
+class DivideOperation : public Operation
 {
 public:
-    DivideInstruction(TpgParameters&);
-    DivideInstruction(int8, int32, int8);
-    ~DivideInstruction();
-    bool execute(double*, double*, const TpgParameters&) const;
-    bool mutate(TpgParameters&);
-    std::string getType() const;
+    bool execute(int8, int32, int8, const double*, double*,
+        const TpgParameters&) const;
     std::string toString() const;
     std::string toStorage() const;
 };

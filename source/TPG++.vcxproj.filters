@@ -40,10 +40,10 @@
     <Filter Include="Parameters">
       <UniqueIdentifier>{26ebfe58-bacf-4f35-a9fb-d883a3f0c266}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\instructions">
+    <Filter Include="Header Files\operations">
       <UniqueIdentifier>{36e2a2f7-39b9-470e-bf41-2c2fb79165a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\instructions">
+    <Filter Include="Source Files\operations">
       <UniqueIdentifier>{5af8a9a9-a41c-4b60-a827-c075b091feb6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -66,9 +66,6 @@
     <ClCompile Include="tpg_action.cpp">
       <Filter>Source Files\universal</Filter>
     </ClCompile>
-    <ClCompile Include="tpg_logger.cpp">
-      <Filter>Source Files\universal</Filter>
-    </ClCompile>
     <ClCompile Include="tpg_memory_model.cpp">
       <Filter>Source Files\universal</Filter>
     </ClCompile>
@@ -79,28 +76,31 @@
       <Filter>Source Files\testing</Filter>
     </ClCompile>
     <ClCompile Include="tpg_add.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="tpg_subtract.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="tpg_multiply.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="tpg_divide.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="tpg_logarithm.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="tpg_cosine.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="tpg_exp.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
     <ClCompile Include="tpg_conditional.cpp">
-      <Filter>Source Files\instructions</Filter>
+      <Filter>Source Files\operations</Filter>
+    </ClCompile>
+    <ClCompile Include="tpg_write.cpp">
+      <Filter>Source Files\operations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +114,6 @@
       <Filter>Header Files\universal</Filter>
     </ClInclude>
     <ClInclude Include="tpg_learner.h">
-      <Filter>Header Files\universal</Filter>
-    </ClInclude>
-    <ClInclude Include="tpg_logger.h">
       <Filter>Header Files\universal</Filter>
     </ClInclude>
     <ClInclude Include="tpg_memory_model.h">
@@ -144,28 +141,37 @@
       <Filter>Header Files\universal</Filter>
     </ClInclude>
     <ClInclude Include="tpg_add.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
     <ClInclude Include="tpg_subtract.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
     <ClInclude Include="tpg_multiply.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
     <ClInclude Include="tpg_divide.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
     <ClInclude Include="tpg_cosine.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
     <ClInclude Include="tpg_exp.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
     <ClInclude Include="tpg_logarithm.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
     <ClInclude Include="tpg_conditional.h">
-      <Filter>Header Files\instructions</Filter>
+      <Filter>Header Files\operations</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_operation.h">
+      <Filter>Header Files\universal</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_operations_list.h">
+      <Filter>Header Files\operations</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_write.h">
+      <Filter>Header Files\operations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,21 +1,17 @@
-#ifndef TPG_INSTRUCTIONS_TPGSUBTRACT_H_
-#define TPG_INSTRUCTIONS_TPGSUBTRACT_H_
+#ifndef TPG_OPERATIONS_TPGSUBTRACT_H_
+#define TPG_OPERATIONS_TPGSUBTRACT_H_
 
 #include "tpg_utility.h"
 
 #include <string>
 
-#include "tpg_instruction.h"
+#include "tpg_operation.h"
 
-class SubtractInstruction : public Instruction
+class SubtractOperation : public Operation
 {
 public:
-    SubtractInstruction(TpgParameters&);
-    SubtractInstruction(int8, int32, int8);
-    ~SubtractInstruction();
-    bool execute(double*, double*, const TpgParameters&) const;
-    bool mutate(TpgParameters&);
-    std::string getType() const;
+    bool execute(int8, int32, int8, const double*, double*,
+        const TpgParameters&) const;
     std::string toString() const;
     std::string toStorage() const;
 };

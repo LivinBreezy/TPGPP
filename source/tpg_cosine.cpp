@@ -2,27 +2,12 @@
 
 #include "tpg_memory_model.h"
 
-CosineInstruction::CosineInstruction(TpgParameters& parameters)
-    : Instruction(parameters)
-{
-    // Do nothing else right now
-}
-
-CosineInstruction::CosineInstruction(int8 mode, int32 source, int8 destination)
-    : Instruction(mode, source, destination)
-{
-    // Do nothing else right now
-}
-
-CosineInstruction::~CosineInstruction()
-{
-    // Do nothing right now
-}
-
-bool CosineInstruction::execute(double* inputFeatures, double* registers, const TpgParameters& parameters) const
+bool CosineOperation::execute(int8 mode, int32 source, int8 destination,
+    const double* inputFeatures, double* registers,
+    const TpgParameters& parameters) const
 {
     // If we are missing the inputs and/or registers, return false.
-    if (inputFeatures == nullptr || registers == nullptr)
+    if(registers == nullptr)
         return false;
 
     // Run a switch on the mode value.
@@ -30,15 +15,15 @@ bool CosineInstruction::execute(double* inputFeatures, double* registers, const 
     {
         // If mode is 0, we perform a Register-Register calculation.
     case 0:
-        registers[this->destination] += registers[this->source];
+        registers[destination] += registers[source];
         return true;
         // If mode is 1, we perform an Input-Register calculation.
     case 1:
-        registers[this->destination] += inputFeatures[this->source];
+        registers[destination] += inputFeatures[source];
         return true;
         // If mode is 2, we perform a Memory-Register calculation.
     case 2:
-        registers[this->destination] += parameters.memory->read(this->source);
+        registers[destination] += parameters.memory->read(source);
         return true;
     }
 
@@ -46,25 +31,12 @@ bool CosineInstruction::execute(double* inputFeatures, double* registers, const 
     return false;
 }
 
-bool CosineInstruction::mutate(TpgParameters& parameters)
-{
-    return NULL;
-}
-
-std::string CosineInstruction::getType() const
+std::string CosineOperation::toString() const
 {
     return std::string("cos");
 }
 
-std::string CosineInstruction::toString() const
-{
-    return this->getType() + " "
-        + std::to_string(this->mode) + " "
-        + std::to_string(this->source) + " "
-        + std::to_string(this->destination);
-}
-
-std::string CosineInstruction::toStorage() const
+std::string CosineOperation::toStorage() const
 {
     return this->toString();
 }

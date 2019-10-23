@@ -151,6 +151,7 @@ void TpgLearn::mergeParameters(TpgParameters& parameters, std::unordered_map<std
     parameters.teamGap              = static_cast<double>(arguments["teamGap"]);
     parameters.maximumTeamSize      = static_cast<int64>(arguments["maximumTeamSize"]);
     parameters.maximumProgramSize   = static_cast<int64>(arguments["maximumProgramSize"]);
+    parameters.numberOfOperations   = static_cast<int8>(arguments["numberOfOperations"]);
     parameters.probLearnerAdd       = static_cast<double>(arguments["probLearnerAdd"]);
     parameters.probLearnerDelete    = static_cast<double>(arguments["probLearnerDelete"]);
     parameters.probMutateAction     = static_cast<double>(arguments["probMutateAction"]);
@@ -160,7 +161,7 @@ void TpgLearn::mergeParameters(TpgParameters& parameters, std::unordered_map<std
     parameters.probProgramSwap      = static_cast<double>(arguments["probProgramSwap"]);
     parameters.probProgramMutate    = static_cast<double>(arguments["probProgramMutate"]);
     parameters.learnerRegisterSize  = static_cast<int16>(arguments["learnerRegisterSize"]);
-    parameters.modeSize             = static_cast<int16>(arguments["modeSize"]);
+    parameters.modeSize             = static_cast<int8>(arguments["modeSize"]);
     parameters.sourceSize           = static_cast<int16>(arguments["sourceSize"]);
     parameters.memoryModelSize      = static_cast<int16>(arguments["memoryModelSize"]);
 }

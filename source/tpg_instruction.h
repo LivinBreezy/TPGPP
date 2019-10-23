@@ -3,8 +3,12 @@
 
 #include "tpg_utility.h"
 
-#include <functional>
 #include <string>
+
+#include "tpg_operation.h"
+
+// Required class forward declarations
+//class Operation;
 
 /**
  *  @brief     Represents a register-based instruction similar to assembly.
@@ -16,7 +20,6 @@
  *  as well as where to store the result). The class also holds a function
  *  which represents the functionality of the defined operation.
  *  @author    Robert Smith
- *  @author    Ryan Amaral
  *  @version   v0.1 Beta
  *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
  *  @pre       When Learners are initialized, they will be given a Program
@@ -29,18 +32,22 @@ class Instruction
 {
 public:
     Instruction(TpgParameters&);
-    Instruction(int8, int32, int8);
+    Instruction(int8, int32, int8, Operation*);
+    Instruction(Instruction*);
     ~Instruction();
-    virtual bool execute(double*, double*, const TpgParameters&) const = 0;
-    virtual bool mutate(TpgParameters&) = 0;
-    virtual std::string getType() const = 0;
-    virtual std::string toString() const = 0;
-    virtual std::string toStorage() const = 0;
+    bool execute(const double*, double*, TpgParameters&) const;
+    bool mutate(TpgParameters&);
+    std::string getType() const;
+    std::string toString() const;
+    std::string toStorage() const;
+    static Operation& createOperationOfType(const Operations&);
+    static Operation& createOperationOfType(int8);
 
 protected:
     int8 mode;
     int32 source;
-    int8 destination;    
+    int8 destination;
+    Operation* operation;
 };
 
 #endif
