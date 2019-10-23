@@ -5,6 +5,7 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "tpg_instruction.h"
@@ -43,14 +44,21 @@ class Program
     int32 maximumProgramSize;
 
   public:
+    // constructors and destructor
     Program(const TpgParameters&);
     Program(const Program&);
     ~Program();
-    double execute(const double*);
-    bool mutate(const TpgParameters&);
-    int32 instructionCount(const std::string&) const;
+
+    // getters and setters
+    int32 instructionCount(const std::string_view&) const;
     std::map<std::string, int32>* allInstructionCounts(const TpgParameters&) const;
     std::vector<Instruction>* getInstructions() const;
+
+    // core functionality
+    double execute(const double*, TpgParameters&);
+    bool mutate(const TpgParameters&);
+
+    // utility
     std::string* toString() const;
 };
 

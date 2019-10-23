@@ -3,6 +3,10 @@
 
 #include "tpg_utility.h"
 
+///////////////////////////////////////////////////////////////////////////////
+// CONSTRUCTORS AND DESTRUCTOR
+///////////////////////////////////////////////////////////////////////////////
+
 /**
  *  @brief     Constructor for creating a new random Program.
  *  @details   This constructor uses the base TPG parameters, such as the stored
@@ -41,12 +45,71 @@ Program::Program(const Program& other)
  *  @brief     Destructor for freeing a Program.
  *  @details   This destructor frees all Instructions, frees its register
  *  set, then ends.
-  *  @todo      Implementation and full commenting required.
+ *  @todo      Testing required.
  */
 Program::~Program()
 {
-
+    delete instructions;
+    delete[] registers;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// GETTERS AND SETTERS
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ *  @brief     Return the number of Instructions with the parameter name.
+ *  @details   Upon receiving a string, this method searches the Instruction
+ *  list for any operations with the same name and counts them. It then returns
+ *  that value as a 32-bit integer.
+ *  @param     operationName A pointer to a string holding the name of an
+ *  operation.
+ *  @return    A 32-bit integer representing the number of times the given
+ *  operator was found.
+ *  @todo      Implementation and full commenting required. Implement later
+ *  once Instruction is finalized.
+ */
+int32 Program::instructionCount(const std::string_view& operationName) const
+{
+    int32 count = 0;
+
+    /*for (auto inst : *instructions) {
+        if (inst.getType().compare(operationName)) {
+            // found an instruction of this type
+            ++count;
+        }
+    }*/
+
+    return count;
+}
+
+/**
+ *  @brief     Return the number of Instructions of each operator type.
+ *  @details   Using the operations map from the parameters, this method
+ *  creates a map which contains the number of each type of Instruction,
+ *  where the key->value pair is represented as operatorName->count. Once
+ *  the map is completed, it is returned.
+ *  @param     parameters A struct held by the main TPG algorithm objects
+ *  (TpgLearn or TpgPlay) and stores all of the current parameter values
+ *  for the current environment.
+ *  @return    A string->int32 map containing the number of types each
+ *  operation appears in the Instructions list.
+ *  @todo      Implementation and full commenting required. Implement later
+ *  once Instruction is finalized.
+ */
+std::map<std::string, int32>* Program::allInstructionCounts(const TpgParameters& parameters) const
+{
+    return nullptr;
+}
+
+std::vector<Instruction>* Program::getInstructions() const
+{
+    return instructions;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// CORE FUNCTIONALITY
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief     Execute a Program on the provided feature set.
@@ -57,11 +120,15 @@ Program::~Program()
  *  @param     inputFeatures A double array representing the environment's
  *  complete feature set.
  *  @return    A double value representing a Learner bid.
- *  @todo      Implementation and full commenting required.
+ *  @todo      Testing required.
  */
-double Program::execute(const double* inputFeatures)
+double Program::execute(const double* inputFeatures, TpgParameters& parameters)
 {
-    return NULL;
+    for (Instruction inst : *instructions) {
+        inst.execute(inputFeatures, registers, parameters);
+    }
+
+    return registers[0];
 }
 
 /**
@@ -81,44 +148,9 @@ bool Program::mutate(const TpgParameters& parameters)
     return NULL;
 }
 
-/**
- *  @brief     Return the number of Instructions with the parameter name.
- *  @details   Upon receiving a string, this method searches the Instruction
- *  list for any operations with the same name and counts them. It then returns
- *  that value as a 32-bit integer.
- *  @param     operationName A pointer to a string holding the name of an 
- *  operation.
- *  @return    A 32-bit integer representing the number of times the given
- *  operator was found.
- *  @todo      Implementation and full commenting required.
- */
-int32 Program::instructionCount(const std::string& operationName) const
-{
-    return NULL;
-}
-
-/**
- *  @brief     Return the number of Instructions of each operator type.
- *  @details   Using the operations map from the parameters, this method
- *  creates a map which contains the number of each type of Instruction,
- *  where the key->value pair is represented as operatorName->count. Once
- *  the map is completed, it is returned.
- *  @param     parameters A struct held by the main TPG algorithm objects
- *  (TpgLearn or TpgPlay) and stores all of the current parameter values 
- *  for the current environment.
- *  @return    A string->int32 map containing the number of types each
- *  operation appears in the Instructions list.
- *  @todo      Implementation and full commenting required.
- */
-std::map<std::string, int32>* Program::allInstructionCounts(const TpgParameters& parameters) const
-{
-    return nullptr;
-}
-
-std::vector<Instruction>* Program::getInstructions() const
-{
-    return instructions;
-}
+///////////////////////////////////////////////////////////////////////////////
+// UTILITY
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief     Return a string representation of a Program object.
