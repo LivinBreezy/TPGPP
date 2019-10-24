@@ -67,7 +67,7 @@ public:
 
     // core functionality
     int64 getAction(std::set<Team*>&, const double*, TpgParameters&);
-    bool mutate(const TpgParameters&);
+    void mutate(TpgParameters&, bool);
 
 
     // utility

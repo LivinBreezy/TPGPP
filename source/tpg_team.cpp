@@ -336,11 +336,45 @@ int64 Team::getAction(std::set<Team*>& visited, const double* inputFeatures, Tpg
  *  @param      parameters Contains all necessary parameters for mutating the
  *              team.
  *  @return
- *  @todo       Implement once TpgParameters is finalized.
+ *  @todo       Testing.
  */
-bool Team::mutate(const TpgParameters& parameters)
+void Team::mutate(TpgParameters& parameters, bool addLearners)
 {
-    return NULL;
+    // track successfull mutation attempt
+    bool changed = false;
+
+    std::vector<Learner*> tmpLearners = learners;
+
+    while (!changed) 
+    {
+        // first attempt learner deletion
+        for (Learner* lrnr : tmpLearners) 
+        {
+            // must have at-least 2 learners
+            if (learners.size() <= 2)
+            {
+                break;
+            }
+
+            // team needs at-least 1 atomic action
+            if (getAtomicActionCount() == 1 && lrnr->getActionObject()->isAtomicAction())
+            {
+                continue;
+            }
+
+            // delete
+            if(parameters.rngFlip(parameters.probLearnerDelete))
+            {
+                removeLearner(lrnr);
+            }
+        }
+
+        // maybe add learners
+        if (addLearners)
+        {
+            
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////

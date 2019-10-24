@@ -135,6 +135,12 @@ double Learner::bid(const double* inputFeatures, TpgParameters& parameters)
     return program->execute(inputFeatures, parameters);
 }
 
+/**
+ *  @brief     
+ *  @details   
+ *  @param     
+ *  @todo      Testing required.
+ */
 void Learner::mutate(TpgParameters& parameters)
 {
     // attempt mutation until successfull
