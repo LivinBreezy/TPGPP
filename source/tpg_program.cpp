@@ -113,6 +113,7 @@ std::unordered_map<std::string, int64>& Program::allInstructionCounts(const TpgP
         inst = Instruction(0, 0, 0, &Instruction::createOperationOfType(i));
         countMap.emplace(inst.getType(), 0);
 
+        // track type name
         instTypes.emplace(inst.getType);
     }
 

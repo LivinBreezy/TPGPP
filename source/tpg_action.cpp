@@ -97,6 +97,50 @@ int64 Action::getAction(std::set<Team*>& visited, const double* inputFeatures, T
     }
 }
 
+bool Action::mutate(TpgParameters& parameters)
+{
+    bool changed = false;
+
+    // remove a reference from old team action
+    if (!isAtomicAction())
+    {
+        team->decreaseReferences();
+    }
+
+    // decide whether new action is team or not
+    // action is team
+    if (parameters.rngFlip(parameters.probActionIsTeam))
+    {
+        // random team action
+        Team* act = parameters.teamPopulation.at(
+            parameters.rngInt64(0, parameters.teamPopulation.size()));
+
+        changed = isAtomicAction() || team != act;
+
+        // change action
+        team = act;
+
+        // increase reference to new team action
+        team->increaseReferences();
+    }
+    // action is atomic
+    else
+    {
+        // different type of action
+        changed = !isAtomicAction();
+
+        // random atomic action
+        int64 act = parameters.actionList.at(parameters.rngInt64(0, parameters.actionList.size()));
+
+        changed = !isAtomicAction() || action != act;
+
+        // change action
+        action = act;
+    }
+    
+    return changed;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // UTILITY
 ///////////////////////////////////////////////////////////////////////////////

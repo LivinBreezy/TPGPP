@@ -57,7 +57,6 @@ public:
     // core functionality
     double bid(const double*, TpgParameters&);
     bool mutate(const TpgParameters&);
-    bool mutateAction(const Action&);
 
     // utility
     std::string* toString() const;
