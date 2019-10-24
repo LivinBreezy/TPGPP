@@ -69,16 +69,16 @@ Program::~Program()
  *  @todo      Implementation and full commenting required. Implement later
  *  once Instruction is finalized.
  */
-int32 Program::instructionCount(const std::string_view& operationName) const
+int64 Program::instructionCount(const std::string_view& operationName) const
 {
-    int32 count = 0;
+    int64 count = 0;
 
-    /*for (auto inst : *instructions) {
+    for (Instruction inst : *instructions) {
         if (inst.getType().compare(operationName)) {
             // found an instruction of this type
             ++count;
         }
-    }*/
+    }
 
     return count;
 }
@@ -97,9 +97,40 @@ int32 Program::instructionCount(const std::string_view& operationName) const
  *  @todo      Implementation and full commenting required. Implement later
  *  once Instruction is finalized.
  */
-std::map<std::string, int32>* Program::allInstructionCounts(const TpgParameters& parameters) const
+std::unordered_map<std::string, int64>& Program::allInstructionCounts(const TpgParameters& parameters) const
 {
-    return nullptr;
+    std::unordered_map<std::string, int64> countMap = 
+        std::unordered_map<std::string, int64>();
+
+    Instruction inst = NULL;
+
+    std::vector<std::string> instTypes;
+
+    // get all instruction types
+    for (int8 i = 0; i < parameters.numberOfOperations; ++i)
+    {
+        // put key in count map
+        inst = Instruction(0, 0, 0, &Instruction::createOperationOfType(i));
+        countMap.emplace(inst.getType(), 0);
+
+        instTypes.emplace(inst.getType);
+    }
+
+    // find counts
+    for (Instruction inst : *instructions) 
+    {
+        for (std::string instType : instTypes) 
+        {
+            if (inst.getType().compare(instType)) 
+            {
+                ++countMap.at(instType);
+
+                break;
+            }
+        }
+    }
+
+    return countMap;
 }
 
 std::vector<Instruction>* Program::getInstructions() const
@@ -141,7 +172,7 @@ double Program::execute(const double* inputFeatures, TpgParameters& parameters)
  *  for the current environment.
  *  @return    A boolean value which is true if Instructions were mutated.
  *  Otherwise return false.
- *  @todo      Implementation and full commenting required.
+ *  @todo      Testing required.
  */
 bool Program::mutate(TpgParameters& parameters)
 {

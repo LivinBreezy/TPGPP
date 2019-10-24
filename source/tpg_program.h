@@ -3,7 +3,7 @@
 
 #include "tpg_utility.h"
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -50,8 +50,8 @@ class Program
     ~Program();
 
     // getters and setters
-    int32 instructionCount(const std::string_view&) const;
-    std::map<std::string, int32>* allInstructionCounts(const TpgParameters&) const;
+    int64 instructionCount(const std::string_view&) const;
+    std::unordered_map<std::string, int64>& allInstructionCounts(const TpgParameters&) const;
     std::vector<Instruction>* getInstructions() const;
 
     // core functionality
