@@ -135,9 +135,20 @@ double Learner::bid(const double* inputFeatures, TpgParameters& parameters)
     return program->execute(inputFeatures, parameters);
 }
 
-bool Learner::mutate(const TpgParameters&)
+void Learner::mutate(TpgParameters& parameters)
 {
-    return NULL;
+    // attempt mutation until successfull
+    changed = false;
+    while (!changed) 
+    {
+        // first try to mutate program
+        changed = program->mutate(parameters);
+
+        // maybe try to mutate action
+        if (parameters.rngFlip(parameters.probMutateAction)) {
+            changed = action->mutate(parameters);
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
