@@ -27,7 +27,7 @@
  *  @author    Robert Smith
  *  @author    Ryan Amaral 
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 23, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 25, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
     or TPGPlay objects and creates a population of Learners for producing bids.
  *  @bug       None yet marked.
@@ -51,7 +51,7 @@ class Program
 
     // getters and setters
     int64 instructionCount(const std::string_view&) const;
-    std::unordered_map<std::string, int64>& allInstructionCounts(const TpgParameters&) const;
+    std::unordered_map<std::string, int64> allInstructionCounts(const TpgParameters&) const;
     std::vector<Instruction>* getInstructions() const;
 
     // core functionality

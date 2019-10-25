@@ -365,7 +365,7 @@ void Team::mutate(TpgParameters& parameters, bool addLearners)
             // delete
             if(parameters.rngFlip(parameters.probLearnerDelete))
             {
-                removeLearner(lrnr);
+                removeLearner(*lrnr);
             }
         }
 

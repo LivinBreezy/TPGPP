@@ -94,10 +94,9 @@ int64 Program::instructionCount(const std::string_view& operationName) const
  *  for the current environment.
  *  @return    A string->int32 map containing the number of types each
  *  operation appears in the Instructions list.
- *  @todo      Implementation and full commenting required. Implement later
- *  once Instruction is finalized.
+ *  @todo      Implementation and full commenting required. 
  */
-std::unordered_map<std::string, int64>& Program::allInstructionCounts(const TpgParameters& parameters) const
+std::unordered_map<std::string, int64> Program::allInstructionCounts(const TpgParameters& parameters) const
 {
     std::unordered_map<std::string, int64> countMap = 
         std::unordered_map<std::string, int64>();
@@ -114,7 +113,7 @@ std::unordered_map<std::string, int64>& Program::allInstructionCounts(const TpgP
         countMap.emplace(inst.getType(), 0);
 
         // track type name
-        instTypes.emplace(inst.getType);
+        instTypes.push_back(inst.getType());
     }
 
     // find counts
@@ -188,7 +187,7 @@ bool Program::mutate(TpgParameters& parameters)
     }
 
     // insert a new random instruction
-    if (instructions->size() < parameters.maximumProgramSize && 
+    if (static_cast<int64>(instructions->size()) < parameters.maximumProgramSize && 
             parameters.rngFlip(parameters.probInstructionDelete)) 
     {
         instructions->insert(instructions->begin() + parameters.rngInt64(0, instructions->size()), 

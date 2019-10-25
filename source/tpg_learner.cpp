@@ -144,7 +144,7 @@ double Learner::bid(const double* inputFeatures, TpgParameters& parameters)
 void Learner::mutate(TpgParameters& parameters)
 {
     // attempt mutation until successfull
-    changed = false;
+    bool changed = false;
     while (!changed) 
     {
         // first try to mutate program
