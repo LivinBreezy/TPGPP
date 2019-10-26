@@ -53,10 +53,8 @@ Learner::Learner(int64 birthday, const Learner& other, TpgParameters& parameters
     this->id = parameters.nextLearnerId++;
     this->birthday = birthday;
     this->action = new Action(*other.getActionObject());
-    this->teamReferences = other.getReferences();
-    // TODO: (Robert) Set up Program to make a copy from a previous program,
-    //                rather than just defaulting to something random.
-    this->program = new Program(parameters);
+    //this->teamReferences = other.getReferences(); todo: this should be gone right?
+    this->program = new Program(*other.program, parameters);
 }
 
 Learner::~Learner()
