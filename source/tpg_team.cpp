@@ -368,6 +368,7 @@ void Team::mutate(TpgParameters& parameters, bool addLearners)
             if(parameters.rngFlip(parameters.probLearnerDelete))
             {
                 removeLearner(*lrnr);
+                changed = true;
             }
         }
 
@@ -379,6 +380,8 @@ void Team::mutate(TpgParameters& parameters, bool addLearners)
 
         // remake tmp learners to remove deleted
         tmpLearners = learners;
+        // new learner to add to team (mutated from original)
+        Learner* newLearner;
 
         // mutate learners
         for (Learner* lrnr : tmpLearners)
@@ -388,7 +391,13 @@ void Team::mutate(TpgParameters& parameters, bool addLearners)
                 // remove the learner from the team, then later add the mutated version
                 removeLearner(*lrnr);
 
+                // copy and mutate the learner
+                newLearner = new Learner(parameters.generation, *lrnr, parameters);
+                newLearner->mutate(parameters);
 
+                addLearner(*newLearner);
+
+                changed = true;
             }
         }
     }
