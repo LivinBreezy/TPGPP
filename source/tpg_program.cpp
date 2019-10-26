@@ -1,6 +1,8 @@
 
 #include "tpg_program.h"
 
+#include <vector>
+
 #include "tpg_utility.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -19,11 +21,22 @@
  *  for the current environment.
  *  @todo      Implementation and full commenting required.
  */
-Program::Program(const TpgParameters& parameters)
+Program::Program(TpgParameters& parameters)
 {
-    this->instructions = {};
-    this->registers = nullptr;
-    this->maximumProgramSize = NULL;
+    // generate new random instructions
+    this->instructions = new std::vector<Instruction>();
+    int numInstructions = parameters.rngInt64(1, parameters.maximumProgramSize);
+    for (int i = 0; i < numInstructions; ++i)
+    {
+        this->instructions->push_back(Instruction(parameters));
+    }
+
+    // initialize registers to 0
+    this->registers = new double[parameters.learnerRegisterSize];
+    for (int i = 0; i < parameters.learnerRegisterSize; ++i)
+    {
+        this->registers[i] = 0;
+    }
 }
 
 /**
@@ -34,11 +47,17 @@ Program::Program(const TpgParameters& parameters)
  *  @param     other A pointer to a Program object to be copied.
  *  @todo      Implementation and full commenting required.
  */
-Program::Program(const Program& other)
+Program::Program(const Program& other, TpgParameters& parameters)
 {
-    this->instructions = {};
-    this->registers = nullptr;
-    this->maximumProgramSize = NULL;
+    // copy instructions of other
+    this->instructions = new std::vector<Instruction>(*other.instructions);
+
+    // initialize registers to other's registers
+    this->registers = new double[parameters.learnerRegisterSize];
+    for (int i = 0; i < parameters.learnerRegisterSize; ++i)
+    {
+        this->registers[i] = other.registers[i];
+    }
 }
 
 /**

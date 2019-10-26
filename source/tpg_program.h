@@ -40,13 +40,11 @@ class Program
     std::vector<Instruction>* instructions;
     /**A double array which acts as a set of general purpose registers.*/
     double* registers;
-    /**A 32-bit integer which sets a limit on the maximum size of a Program.*/
-    int32 maximumProgramSize;
 
   public:
     // constructors and destructor
-    Program(const TpgParameters&);
-    Program(const Program&);
+    Program(TpgParameters&);
+    Program(const Program&, TpgParameters&);
     ~Program();
 
     // getters and setters

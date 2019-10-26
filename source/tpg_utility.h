@@ -58,6 +58,7 @@ public:
     int8 numberOfOperations;
     double probLearnerDelete;
     double probLearnerAdd;
+    double probLearnerMutate;
     double probMutateAction;
     double probActionIsTeam;
     double probInstructionAdd;

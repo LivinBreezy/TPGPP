@@ -4,6 +4,7 @@ teamGap=0.5
 maximumTeamSize=25
 maximumProgramSize=1024
 numberOfOperations=9
+probLearnerMutate=0.3
 probLearnerAdd=0.7
 probLearnerDelete=0.7
 probMutateAction=0.2

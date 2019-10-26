@@ -330,6 +330,8 @@ int64 Team::getAction(std::set<Team*>& visited, const double* inputFeatures, Tpg
 }
 
 
+/// maybe add a crossover method here
+
 /**
  *  @brief      Mutate the team
  *  @details
@@ -373,6 +375,21 @@ void Team::mutate(TpgParameters& parameters, bool addLearners)
         if (addLearners)
         {
             
+        }
+
+        // remake tmp learners to remove deleted
+        tmpLearners = learners;
+
+        // mutate learners
+        for (Learner* lrnr : tmpLearners)
+        {
+            if(parameters.rngFlip(parameters.probLearnerMutate))
+            {
+                // remove the learner from the team, then later add the mutated version
+                removeLearner(*lrnr);
+
+
+            }
         }
     }
 }
