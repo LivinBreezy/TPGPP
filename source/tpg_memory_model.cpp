@@ -52,5 +52,5 @@ bool MemoryModel::write(const double* registers)
 
 std::string MemoryModel::toString() const
 {
-    return std::string("Fart");
+    return std::string("Shart");
 }
