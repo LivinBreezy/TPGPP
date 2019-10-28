@@ -152,11 +152,9 @@ std::unordered_map<std::string, int64> Program::allInstructionCounts(const TpgPa
     return countMap;
 }
 
-std::vector<Instruction>* Program::getInstructions() const
+std::vector<Instruction> Program::getInstructions() const
 {
-    std::vector<Instruction> instructionsCopy = *instructions;
-
-    return instructionsCopy;
+    return *instructions;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

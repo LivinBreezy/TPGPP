@@ -86,9 +86,9 @@ int64 Learner::getID() const
     return id;
 }
 
-Program* Learner::getProgram() const
+Program Learner::getProgram(TpgParameters& parameters) const
 {
-    return program;
+    return Program(program, parameters);
 }
 
 Action* Learner::getActionObject() const

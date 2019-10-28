@@ -57,7 +57,7 @@ public:
     int32 increaseReferences();
     int32 decreaseReferences();
     int32 getAtomicActionCount() const;
-    std::vector<Learner*>& getLearners();
+    std::vector<Learner*> getLearners();
     double getOutcome(const std::string_view) const;
     bool setOutcome(const std::string_view, const double);
     bool deleteOutcome(const std::string_view);

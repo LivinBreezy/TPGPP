@@ -45,7 +45,7 @@ public:
     ~Learner();
 
     // getters and setters
-    Program* getProgram() const;
+    Program getProgram(TpgParameters&) const;
     int32 programLength() const;
     int64 getID() const;
     Action* getActionObject() const;

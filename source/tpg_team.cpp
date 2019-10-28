@@ -138,9 +138,9 @@ int64 Team::getId() const
  *  @return
  *  @todo
  */
-std::vector<Learner*>& Team::getLearners()
+std::vector<Learner*> Team::getLearners()
 {
-    return learners;
+    return *learners;
 }
 
 /**
