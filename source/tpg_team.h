@@ -62,7 +62,7 @@ public:
     bool setOutcome(const std::string_view, const double);
     bool deleteOutcome(const std::string_view);
     bool addLearner(Learner&);
-    bool removeLearner(Learner&);
+    bool removeLearner(Learner&, bool);
 
 
     // core functionality

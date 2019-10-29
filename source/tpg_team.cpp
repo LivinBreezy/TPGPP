@@ -76,7 +76,10 @@ Team::Team(const Team& other, const int64 birthday, TpgParameters& parameters)
  */
 Team::~Team()
 {
-
+    for (Learner* lrnr : learners)
+    {
+        removeLearner(*lrnr, true);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -242,18 +245,18 @@ bool Team::addLearner(Learner& learner)
  *  @return
  *  @todo
  */
-bool Team::removeLearner(Learner& learner)
+bool Team::removeLearner(Learner& learner, bool force = false)
 {
     // find the learner in learners
     auto lrn = std::find(learners.begin(), learners.end(), &learner);
-    // remove learner if in learners
-    if (lrn != learners.end())
+    // remove learner if in learners, and either force or not last atomic
+    if (lrn != learners.end() && (force || getAtomicActionCount() > 1))
     {
         learners.erase(lrn);
         (*lrn)->decreaseReferences();
         return true;
     }
-    // learner not in learners
+    // conditions not met for deletion
     else
     {
         return false;
