@@ -140,7 +140,7 @@ int64 Team::getId() const
  */
 std::vector<Learner*> Team::getLearners()
 {
-    return *learners;
+    return learners;
 }
 
 /**

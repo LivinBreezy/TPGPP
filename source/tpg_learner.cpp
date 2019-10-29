@@ -78,7 +78,7 @@ Learner::~Learner()
  */
 int32 Learner::programLength() const
 {
-    return static_cast<int32>(program->getInstructions()->size());
+    return static_cast<int32>(program->getInstructions().size());
 }
 
 int64 Learner::getID() const
@@ -88,7 +88,7 @@ int64 Learner::getID() const
 
 Program Learner::getProgram(TpgParameters& parameters) const
 {
-    return Program(program, parameters);
+    return Program(*program, parameters);
 }
 
 Action* Learner::getActionObject() const
