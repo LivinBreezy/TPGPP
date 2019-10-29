@@ -102,6 +102,9 @@
     <ClCompile Include="tpg_write.cpp">
       <Filter>Source Files\operations</Filter>
     </ClCompile>
+    <ClCompile Include="tpg_default_reproduction.cpp">
+      <Filter>Source Files\reproduction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tpg_action.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="tpg_write.h">
       <Filter>Header Files\operations</Filter>
+    </ClInclude>
+    <ClInclude Include="tpg_default_reproduction.h">
+      <Filter>Header Files\reproduction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

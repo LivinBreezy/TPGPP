@@ -64,14 +64,29 @@ bool Instruction::execute(const double* inputFeatures,
         parameters);
 }
 
-bool Instruction::mutate(TpgParameters& parameters)
+int8 Instruction::getMode()
 {
-    return true;
+    return this->mode;
+}
+
+int32 Instruction::getSource()
+{
+    return this->source;
+}
+
+int8 Instruction::getDestination()
+{
+    return this->destination;
 }
 
 std::string Instruction::getType() const
 {
     return this->operation->toString();
+}
+
+Operation* Instruction::getOperation() const
+{
+    return this->operation;
 }
 
 std::string Instruction::toString() const

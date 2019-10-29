@@ -44,9 +44,9 @@ public:
     double bid(const double*);
     int32 programLength() const;
     int64 getID() const;
-    Program* getProgram() const;
+    Program getProgram() const;
     Action* getActionObject() const;
-    std::string* getActionType() const;
+    std::string getActionType() const;
     int64 getBirthday() const;
     int32 getReferences() const;
     bool mutateAction(const Action&);
@@ -54,7 +54,7 @@ public:
     bool mutate(const TpgParameters&);
     int32 increaseReferences();
     int32 decreaseReferences();
-    std::string* toString() const;
+    std::string toString() const;
     static bool saveToFile(const Learner&, const std::string&, const std::string&);
     static Learner* loadFromFile(const std::string&);
 };

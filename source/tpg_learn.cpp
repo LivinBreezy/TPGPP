@@ -150,10 +150,13 @@ void TpgLearn::mergeParameters(TpgParameters& parameters, std::unordered_map<std
     parameters.teamPopulationSize   = static_cast<int32>(arguments["teamPopulationSize"]);
     parameters.teamGap              = static_cast<double>(arguments["teamGap"]);
     parameters.maximumTeamSize      = static_cast<int64>(arguments["maximumTeamSize"]);
+    parameters.minimumTeamSize      = static_cast<int64>(arguments["minimumTeamSize"]);
+    parameters.minimumRootTeams     = static_cast<int64>(arguments["minimumRootTeams"]);
     parameters.maximumProgramSize   = static_cast<int64>(arguments["maximumProgramSize"]);
     parameters.numberOfOperations   = static_cast<int8>(arguments["numberOfOperations"]);
     parameters.probLearnerAdd       = static_cast<double>(arguments["probLearnerAdd"]);
     parameters.probLearnerDelete    = static_cast<double>(arguments["probLearnerDelete"]);
+    parameters.probLearnerMutate    = static_cast<double>(arguments["probLearnerMutate"]);
     parameters.probMutateAction     = static_cast<double>(arguments["probMutateAction"]);
     parameters.probActionIsTeam     = static_cast<double>(arguments["probActionIsTeam"]);
     parameters.probProgramAdd       = static_cast<double>(arguments["probProgramAdd"]);

@@ -38,6 +38,7 @@ class Team
     std::vector<Learner*> learners;
     std::unordered_map<std::string, double> outcomes;
     int32 learnerReferences;
+    double fitness;
 
 public:
     Team(const int64, TpgParameters&);
@@ -52,6 +53,8 @@ public:
     std::vector<Learner*>& getLearners();
     int64 getAction(std::set<Team*>&, const double*);
     int32 getReferences() const;
+    double calculateFitness();
+    double getFitness() const;
     int32 getAtomicActionCount() const;
     double getOutcome(const std::string_view) const;
     bool setOutcome(const std::string_view, const double);

@@ -26,6 +26,7 @@ Team::Team(const int64 birthday, TpgParameters& parameters)
     this->learners = {};
     this->outcomes = {};
     this->learnerReferences = 0;
+    this->fitness = 0.0;
 }
 
 /**
@@ -45,6 +46,7 @@ Team::Team(const int64 id, const int64 birthday, std::vector<Learner*> learners,
     this->learners = learners;
     this->outcomes = outcomes;
     this->learnerReferences = 0;
+    this->fitness = 0.0;
 }
 
 /**
@@ -63,6 +65,7 @@ Team::Team(const Team& other, const int64 birthday, TpgParameters& parameters)
     this->learners = other.learners;
     this->outcomes = {};
     this->learnerReferences = 0;
+    this->fitness = 0.0;
 }
 
 /**
@@ -200,6 +203,17 @@ int32 Team::getReferences() const
 {
     return learnerReferences;
 }
+
+double Team::calculateFitness()
+{
+    return -1.0;
+}
+
+double Team::getFitness() const
+{
+    return -1.0;
+}
+
 
 /**
  *  @brief      The number of atomic Actions this Team has.

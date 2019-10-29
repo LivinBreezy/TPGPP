@@ -54,10 +54,13 @@ public:
     int32 teamPopulationSize;
     double teamGap;
     int64 maximumTeamSize;
+    int64 minimumTeamSize;
+    int64 minimumRootTeams;
     int64 maximumProgramSize;
     int8 numberOfOperations;
     double probLearnerDelete;
     double probLearnerAdd;
+    double probLearnerMutate;
     double probMutateAction;
     double probActionIsTeam;
     double probProgramAdd;
@@ -77,7 +80,7 @@ public:
     std::vector<Team*> rootTeamPopulation;
     std::vector<Learner*> learnerPopulation;
     std::vector<int64> actionList;
-    std::unordered_set<std::string*> labelList;
+    std::unordered_set<std::string> labelList;
     std::queue<Team*> teamQueue;
     MemoryModel* memory;
     int64 nextTeamId;

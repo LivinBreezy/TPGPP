@@ -44,7 +44,8 @@ class Program
 
   public:
     Program(const TpgParameters&);
-    Program(const Program&);
+    Program(const Program&, TpgParameters&);
+    Program(std::vector<Instruction>&);
     ~Program();
     double execute(const double*);
     bool mutate(const TpgParameters&);

@@ -1,11 +1,16 @@
-#ifndef TPG_UNIVERSAL_TPGREPRODUCTION_H_
-#define TPG_UNIVERSAL_TPGREPRODUCTION_H_
+#ifndef TPG_UNIVERSAL_TPGDEFAULTREPRODUCTION_H_
+#define TPG_UNIVERSAL_TPGDEFAULTREPRODUCTION_H_
 
 #include "tpg_utility.h"
 
 #include <vector>
 
+#include "tpg_reproduction.h"
 #include "tpg_team.h"
+#include "tpg_learner.h"
+#include "tpg_action.h"
+#include "tpg_program.h"
+#include "tpg_instruction.h"
 
 /**
  *  @brief     Base abstract class used for defining a reproductive class.
@@ -15,7 +20,7 @@
  *  -# Use teamSelection to return a list of the best ranked Teams.
  *  -# Use teamReproduction to produce the children of the best ranked Teams.
  *  -# Use teamMutation to mutate those children.
- *  -# Use teamUnify to combine the best parents and their children into a 
+ *  -# Use teamUnify to combine the best parents and their children into a
  *  single Team population.
  *  @author    Robert Smith
  *  @author    Other
@@ -31,13 +36,18 @@
  *  -# Stephen's Crossover/Mutation (StephenReproduction class)
  *  @copyright Not Yet Decided.
  */
-class Reproduction
+class StandardReproduction : public Reproduction
 {
   public:
-    virtual std::vector<Team*> teamSelection(std::vector<Team*>&, TpgParameters&) = 0;
-    virtual std::vector<Team*> teamReproduction(std::vector<Team*>&, TpgParameters&) = 0;
-    virtual std::vector<Team*> teamMutation(std::vector<Team*>&, TpgParameters&) = 0;
-    virtual std::vector<Team*> teamUnify(std::vector<Team*>&, std::vector<Team*>&, TpgParameters&) = 0;
+    std::vector<Team*> teamSelection(std::vector<Team*>&, TpgParameters&);
+    std::vector<Team*> teamReproduction(std::vector<Team*>&, TpgParameters&);
+    std::vector<Team*> teamMutation(std::vector<Team*>&, TpgParameters&);
+    std::vector<Team*> teamUnify(std::vector<Team*>&, std::vector<Team*>&, TpgParameters&);
+
+  private:
+    Program mutateProgram(Program&, TpgParameters&);
+    Instruction mutateInstruction(Instruction&, TpgParameters&);
+    Action mutateAction(Action&, TpgParameters&);
 };
 
 #endif

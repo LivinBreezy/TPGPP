@@ -30,9 +30,16 @@ Program::Program(const TpgParameters& parameters)
  *  @param     other A pointer to a Program object to be copied.
  *  @todo      Implementation and full commenting required.
  */
-Program::Program(const Program& other)
+Program::Program(const Program& other, TpgParameters& parameters)
 {
     this->instructions = {};
+    this->registers = nullptr;
+    this->maximumProgramSize = NULL;
+}
+
+Program::Program(std::vector<Instruction>& instructionList)
+{
+    this->instructions = new std::vector<Instruction>(instructionList);
     this->registers = nullptr;
     this->maximumProgramSize = NULL;
 }

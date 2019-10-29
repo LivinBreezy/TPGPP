@@ -92,17 +92,17 @@ int64 Learner::getID() const
     return NULL;
 }
 
-Program* Learner::getProgram() const
+Program Learner::getProgram() const
 {
-    return program;
+    return *program;
 }
 
 Action* Learner::getActionObject() const
 {
-    return nullptr;
+    return action;
 }
 
-std::string* Learner::getActionType() const
+std::string Learner::getActionType() const
 {
     return nullptr;
 }
@@ -142,7 +142,7 @@ int32 Learner::decreaseReferences()
     return NULL;
 }
 
-std::string* Learner::toString() const
+std::string Learner::toString() const
 {
     return nullptr;
 }
