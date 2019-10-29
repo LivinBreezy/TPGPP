@@ -246,7 +246,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
     while (!mutated)
     {
         // Attempt to remove a random instruction by probability.
-        if (parameters.rngUniform() < parameters.probProgramDelete)
+        if (parameters.rngUniform() < parameters.probInstructionDelete)
         {
             // Generate a random index for the instruction vector.
             index = static_cast<int>(
@@ -263,7 +263,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
 
         // Attempt to insert a random instruction at a random location
         // by probability.
-        if (parameters.rngUniform() < parameters.probProgramAdd)
+        if (parameters.rngUniform() < parameters.probInstructionAdd)
         {
             // Create a new random instruction.
             Instruction* instruction = new Instruction(parameters);
@@ -281,7 +281,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
         }
 
         // Mutate a random instruction.
-        if (parameters.rngUniform() < parameters.probProgramMutate)
+        if (parameters.rngUniform() < parameters.probInstructionMutate)
         {
             // Generate a random index for the instruction vector.
             index = static_cast<int>(
@@ -301,7 +301,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
         }
 
         // Swap the position of two instructions
-        if (parameters.rngUniform() < parameters.probProgramSwap)
+        if (parameters.rngUniform() < parameters.probInstructionSwap)
         {
             // Create a variable and generate a random index for the
             // instruction vector.

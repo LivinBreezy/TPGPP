@@ -63,10 +63,10 @@ public:
     double probLearnerMutate;
     double probMutateAction;
     double probActionIsTeam;
-    double probProgramAdd;
-    double probProgramDelete;
-    double probProgramSwap;
-    double probProgramMutate;
+    double probInstructionAdd;
+    double probInstructionDelete;
+    double probInstructionSwap;
+    double probInstructionMutate;
     int16 learnerRegisterSize;
     int8 modeSize;
     int32 sourceSize;
@@ -89,6 +89,9 @@ public:
 
     // Public functions acting like variables
     double rngUniform() { return distribution(rng); };
+    int64 rngInt64(const int64 min, const int64 max)
+        {return min + static_cast<int64>(floor(rngUniform() * (max - min)));};
+    bool rngFlip(double prob) { return rngUniform() < prob; };
 };
 
 #endif

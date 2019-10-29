@@ -146,25 +146,25 @@ std::string TpgLearn::getType()
 
 void TpgLearn::mergeParameters(TpgParameters& parameters, std::unordered_map<std::string, double>& arguments)
 {
-    parameters.randomSeed           = static_cast<int64>(arguments["randomSeed"]);
-    parameters.teamPopulationSize   = static_cast<int32>(arguments["teamPopulationSize"]);
-    parameters.teamGap              = static_cast<double>(arguments["teamGap"]);
-    parameters.maximumTeamSize      = static_cast<int64>(arguments["maximumTeamSize"]);
-    parameters.minimumTeamSize      = static_cast<int64>(arguments["minimumTeamSize"]);
-    parameters.minimumRootTeams     = static_cast<int64>(arguments["minimumRootTeams"]);
-    parameters.maximumProgramSize   = static_cast<int64>(arguments["maximumProgramSize"]);
-    parameters.numberOfOperations   = static_cast<int8>(arguments["numberOfOperations"]);
-    parameters.probLearnerAdd       = static_cast<double>(arguments["probLearnerAdd"]);
-    parameters.probLearnerDelete    = static_cast<double>(arguments["probLearnerDelete"]);
-    parameters.probLearnerMutate    = static_cast<double>(arguments["probLearnerMutate"]);
-    parameters.probMutateAction     = static_cast<double>(arguments["probMutateAction"]);
-    parameters.probActionIsTeam     = static_cast<double>(arguments["probActionIsTeam"]);
-    parameters.probProgramAdd       = static_cast<double>(arguments["probProgramAdd"]);
-    parameters.probProgramDelete    = static_cast<double>(arguments["probProgramDelete"]);
-    parameters.probProgramSwap      = static_cast<double>(arguments["probProgramSwap"]);
-    parameters.probProgramMutate    = static_cast<double>(arguments["probProgramMutate"]);
-    parameters.learnerRegisterSize  = static_cast<int16>(arguments["learnerRegisterSize"]);
-    parameters.modeSize             = static_cast<int8>(arguments["modeSize"]);
-    parameters.sourceSize           = static_cast<int16>(arguments["sourceSize"]);
-    parameters.memoryModelSize      = static_cast<int16>(arguments["memoryModelSize"]);
+    parameters.randomSeed            = static_cast<int64>(arguments["randomSeed"]);
+    parameters.teamPopulationSize    = static_cast<int32>(arguments["teamPopulationSize"]);
+    parameters.teamGap               = static_cast<double>(arguments["teamGap"]);
+    parameters.maximumTeamSize       = static_cast<int64>(arguments["maximumTeamSize"]);
+    parameters.minimumTeamSize       = static_cast<int64>(arguments["minimumTeamSize"]);
+    parameters.minimumRootTeams      = static_cast<int64>(arguments["minimumRootTeams"]);
+    parameters.maximumProgramSize    = static_cast<int64>(arguments["maximumProgramSize"]);
+    parameters.numberOfOperations    = static_cast<int8>(arguments["numberOfOperations"]);
+    parameters.probLearnerAdd        = static_cast<double>(arguments["probLearnerAdd"]);
+    parameters.probLearnerDelete     = static_cast<double>(arguments["probLearnerDelete"]);
+    parameters.probLearnerMutate     = static_cast<double>(arguments["probLearnerMutate"]);
+    parameters.probMutateAction      = static_cast<double>(arguments["probMutateAction"]);
+    parameters.probActionIsTeam      = static_cast<double>(arguments["probActionIsTeam"]);
+    parameters.probInstructionAdd    = static_cast<double>(arguments["probInstructionAdd"]);
+    parameters.probInstructionDelete = static_cast<double>(arguments["probInstructionDelete"]);
+    parameters.probInstructionSwap   = static_cast<double>(arguments["probInstructionSwap"]);
+    parameters.probInstructionMutate = static_cast<double>(arguments["probInstructionMutate"]);
+    parameters.learnerRegisterSize   = static_cast<int16>(arguments["learnerRegisterSize"]);
+    parameters.modeSize              = static_cast<int8>(arguments["modeSize"]);
+    parameters.sourceSize            = static_cast<int16>(arguments["sourceSize"]);
+    parameters.memoryModelSize       = static_cast<int16>(arguments["memoryModelSize"]);
 }
