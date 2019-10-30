@@ -14,17 +14,17 @@ bool ExpOperation::execute(int8 mode, int32 source, int8 destination,
     switch (mode)
     {
         // If mode is 0, we perform a Register-Register calculation.
-    case 0:
-        registers[destination] = exp(registers[source]);
+        case 0:
+            registers[destination] = exp(registers[source]);
         return true;
         // If mode is 1, we perform an Input-Register calculation.
-    case 1:
-        registers[destination] = exp(inputFeatures[source]);
-        return true;
+        case 1:
+            registers[destination] = exp(inputFeatures[source]);
+            return true;
         // If mode is 2, we perform a Memory-Register calculation.
-    case 2:
-        registers[destination] = exp(parameters.memory->read(source));
-        return true;
+        case 2:
+            registers[destination] = exp(parameters.memory->read(source));
+            return true;
     }
 
     // If mode is broken, we return false.

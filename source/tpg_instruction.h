@@ -7,9 +7,6 @@
 
 #include "tpg_operation.h"
 
-// Required class forward declarations
-//class Operation;
-
 /**
  *  @brief     Represents a register-based instruction similar to assembly.
  *  @details   The Instruction class contains a variety of information as it
