@@ -15,6 +15,7 @@ class TpgParameters;
 class Team;
 class Learner;
 class MemoryModel;
+class Reproduction;
 
 // Typedefs to remove _t from integer types
 typedef int8_t  int8;
@@ -54,16 +55,19 @@ public:
     int32 teamPopulationSize;
     double teamGap;
     int64 maximumTeamSize;
+    int64 minimumTeamSize;
+    int64 minimumRootTeams;
     int64 maximumProgramSize;
     int8 numberOfOperations;
     double probLearnerDelete;
     double probLearnerAdd;
+    double probLearnerMutate;
     double probMutateAction;
     double probActionIsTeam;
-    double probProgramAdd;
-    double probProgramDelete;
-    double probProgramSwap;
-    double probProgramMutate;
+    double probInstructionAdd;
+    double probInstructionDelete;
+    double probInstructionSwap;
+    double probInstructionMutate;
     int16 learnerRegisterSize;
     int8 modeSize;
     int32 sourceSize;
@@ -77,15 +81,29 @@ public:
     std::vector<Team*> rootTeamPopulation;
     std::vector<Learner*> learnerPopulation;
     std::vector<int64> actionList;
-    std::unordered_set<std::string*> labelList;
+    std::unordered_set<std::string> labelList;
     std::queue<Team*> teamQueue;
     MemoryModel* memory;
+    Reproduction* reproduction;
     int64 nextTeamId;
     int64 nextLearnerId;
     int64 generation;
 
     // Public functions acting like variables
     double rngUniform() { return distribution(rng); };
+    bool rngFlip(double prob) { return rngUniform() < prob; };
+
+    int64 rngInt64(const int64 min, const int64 max)
+        {return min + static_cast<int64>(floor(rngUniform() * (max - min)));};
+    
+    int32 rngInt32(const int64 min, const int64 max)
+        {return static_cast<int32>(rngInt64(min, max));};
+
+    int16 rngInt16(const int64 min, const int64 max)
+        {return static_cast<int16>(rngInt64(min, max));};
+
+    int8 rngInt8(const int64 min, const int64 max)
+        {return static_cast<int8>(rngInt64(min, max));};
 };
 
 #endif

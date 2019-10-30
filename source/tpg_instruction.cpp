@@ -9,22 +9,11 @@
 Instruction::Instruction(TpgParameters& parameters)
 {
     // Randomly initialize all of the class variables
-    this->mode = static_cast<int8>(
-        floor(parameters.rngUniform() * parameters.modeSize)
-    );
-    
-    this->source = static_cast<int32>(
-        floor(parameters.rngUniform() * parameters.sourceSize)
-    );
-
-    this->destination = static_cast<int8>(
-        floor(parameters.rngUniform() * parameters.learnerRegisterSize)
-    );
-    
+    this->mode = parameters.rngInt8(0, parameters.modeSize);
+    this->source = parameters.rngInt32(0, parameters.sourceSize);
+    this->destination = parameters.rngInt8(0, parameters.learnerRegisterSize);
     this->operation = &(Instruction::createOperationOfType(
-        static_cast<int8>(
-            floor(parameters.rngUniform() * parameters.numberOfOperations)
-        )
+        parameters.rngInt8(0, parameters.numberOfOperations)
     ));
 }
 
@@ -64,9 +53,19 @@ bool Instruction::execute(const double* inputFeatures,
         parameters);
 }
 
-bool Instruction::mutate(TpgParameters& parameters)
+int8 Instruction::getMode()
 {
-    return true;
+    return this->mode;
+}
+
+int32 Instruction::getSource()
+{
+    return this->source;
+}
+
+int8 Instruction::getDestination()
+{
+    return this->destination;
 }
 
 int8 Instruction::getMode() const
@@ -87,6 +86,11 @@ int8 Instruction::getDestination() const
 std::string Instruction::getType() const
 {
     return this->operation->toString();
+}
+
+Operation* Instruction::getOperation() const
+{
+    return this->operation;
 }
 
 std::string Instruction::toString() const

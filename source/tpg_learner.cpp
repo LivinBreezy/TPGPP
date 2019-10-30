@@ -92,19 +92,19 @@ int64 Learner::getID() const
     return NULL;
 }
 
-Program* Learner::getProgram() const
+Program Learner::getProgram() const
 {
-    return program;
+    return *program;
 }
 
 Action* Learner::getActionObject() const
 {
-    return nullptr;
+    return action;
 }
 
-std::string* Learner::getActionType() const
+std::string Learner::getActionType() const
 {
-    return nullptr;
+    return std::string("");
 }
 
 int64 Learner::getBirthday() const
@@ -142,9 +142,9 @@ int32 Learner::decreaseReferences()
     return NULL;
 }
 
-std::string* Learner::toString() const
+std::string Learner::toString() const
 {
-    return nullptr;
+    return std::string("");
 }
 
 bool Learner::saveToFile(const Learner&, const std::string&, const std::string&)

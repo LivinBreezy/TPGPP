@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="tpg_default_reproduction.cpp" />
     <ClCompile Include="tpg_add.cpp" />
     <ClCompile Include="tpg_action.cpp" />
     <ClCompile Include="tpg_algorithm.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="tpg_algorithm.h" />
     <ClInclude Include="tpg_conditional.h" />
     <ClInclude Include="tpg_cosine.h" />
+    <ClInclude Include="tpg_default_reproduction.h" />
     <ClInclude Include="tpg_divide.h" />
     <ClInclude Include="tpg_exp.h" />
     <ClInclude Include="tpg_instruction.h" />

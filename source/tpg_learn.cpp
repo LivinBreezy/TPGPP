@@ -1,10 +1,10 @@
-
 #include "tpg_learn.h"
 
 #include <chrono>
 #include <iterator>
 #include <vector>
 
+#include "tpg_default_reproduction.h"
 #include "tpg_team.h"
 #include "tpg_learner.h"
 #include "tpg_memory_model.h"
@@ -35,9 +35,13 @@ TpgLearn::TpgLearn(std::unordered_map<std::string, double>& arguments)
     // Initialize the Memory Model
     params.memory = new MemoryModel(params.memoryModelSize, params.learnerRegisterSize);
 
+    // Initialize the Reproduction Model
+    params.reproduction = new StandardReproduction();
+
     // Initialize any remaining primitive parameter values
     params.nextTeamId = 0;
     params.nextLearnerId = 0;
+    params.generation = -1;
 }
 
 TpgLearn::~TpgLearn()
@@ -59,22 +63,138 @@ bool TpgLearn::setActions(const std::vector<int64>& actions)
 
 bool TpgLearn::initializeEnvironment()
 {
-    return NULL;
+    // If we fail to initialize the team and learner populations,
+    // we should fail the entire initialization process.
+    if(!initializePopulations())
+    {
+        return false;
+    }
+    
+    // Add every root team to the team queue.
+    for(Team* rootTeam : this->parameters.rootTeamPopulation)
+    {
+        this->parameters.teamQueue.push(rootTeam);
+    }
+
+    // Set the generation to 0.
+    parameters.generation = 0;
+
+    // If nothing failed during this process, we can return true.
+    return true;
 }
 
 bool TpgLearn::initializePopulations()
 {
-    return NULL;
+    // Create local references for cleaner code.
+    std::vector<Team*>& rootTeamPopulation = this->parameters.rootTeamPopulation;
+    std::vector<Team*>& teamPopulation = this->parameters.teamPopulation;
+    std::vector<Learner*>& learnerPopulation = this->parameters.learnerPopulation;
+    std::vector<int64>& actions = this->parameters.actionList;
+
+    // Create a Team pointer and a Learner pointer for storing objects.
+    Team* team = nullptr;
+    Learner* learner = nullptr;
+
+    // Create enough teams to fill the team population.
+    for(int i=0; i < parameters.teamPopulationSize; ++i)
+    {
+        // Generate two relatively unique random actions from the action list.
+        int64 action1 = parameters.rngInt64(0, actions.size());
+        int64 action2 = 0;
+
+        // The second action generated must not be the same as the first.
+        do
+        {
+            action2 = parameters.rngInt64(0, actions.size());
+        } while (action1 == action2);
+
+        // Use the indexes held in the action variables to overwrite
+        // the indexes with action values.
+        action1 = actions[action1];
+        action2 = actions[action2];
+
+        // Create a new Team for the pre-learning generation -1.
+        team = new Team(this->parameters);
+
+        // Create the first Learner for the Team.
+        learner = new Learner(-1, action1, this->parameters);
+
+        // Add the new Learner to the Team.
+        team->addLearner(*learner);
+
+        // Add the new Learner to the Learner population.
+        learnerPopulation.push_back(learner);
+
+        // Create the second Learner for the Team.
+        learner = new Learner(-1, action2, this->parameters);
+
+        // Add the new Learner to the Team.
+        team->addLearner(*learner);
+
+        // Add the new Learner to the Learner population.
+        learnerPopulation.push_back(learner);
+
+        // Calculate the number of additional Learners to generate,
+        // to a maxmimum of the maximum team size.
+        int64 extraLearners = this->parameters.rngInt64(0, this->parameters.maximumTeamSize - 2);
+
+        // Create the number of extra Learners
+        for(int j=0; j < extraLearners; ++j)
+        {
+            // Uniformly generate a new atomic action.
+            action1 = actions[this->parameters.rngInt64(0, actions.size())];
+
+            // Create a new Learner with that atomic action.
+            learner = new Learner(-1, action1, this->parameters);
+
+            // Add the Learner to the Team and the Learner population
+            team->addLearner(*learner);
+            learnerPopulation.push_back(learner);
+        }
+
+        // Add the completed team to the team and root team populations.
+        teamPopulation.push_back(team);
+        rootTeamPopulation.push_back(team);
+    }
+
+    // We've generated all the teams successfully; return true
+    return true;
 }
 
 int64 TpgLearn::participate(double* inputFeatures)
 {
-    return NULL;
+    // If there are no Teams left to play, then this learning phase
+    // is over. Return -1 to indicate end-of-play.
+    if(this->parameters.teamQueue.empty())
+    {
+        return -1;
+    }
+    
+    // If we have a team, we can get it from the front of the queue.
+    Team* team = this->parameters.teamQueue.front();
+
+    // Provide the team with the input parameters and an empty unordered
+    // set, then return the action it suggests.
+    return team->getAction(*(new std::unordered_set<Team*>()), inputFeatures);
 }
 
 int64 TpgLearn::participate(double* inputFeatures, int64* actions)
 {
-    return NULL;
+    // Use the single-parameter participate function to get an action
+    // from the first team in the team queue.
+    int64 action = this->participate(inputFeatures);
+
+    // If the action returned is in the action list, return it.
+    for(int i=0; i < this->parameters.actionList.size(); ++i)
+    {
+        if(this->parameters.actionList[i] == action)
+        {
+            return action;
+        }
+    }
+
+    // If the action is not in the action list, return a default of 0.
+    return 0;
 }
 
 bool TpgLearn::rewardCurrentTeam(std::string& label, double& reward)
@@ -99,29 +219,129 @@ bool TpgLearn::rewardCurrentTeam(std::string& label, double& reward)
     return true;
 }
 
-void TpgLearn::generateNewTeams()
+void TpgLearn::executeReproduction()
 {
-    return;
-}
+    // Create local references for cleaner code.
+    std::vector<Team*>& rootTeamPopulation = this->parameters.rootTeamPopulation;
+    std::vector<Team*>& teamPopulation = this->parameters.teamPopulation;
+    std::vector<Learner*>& learnerPopulation = this->parameters.learnerPopulation;
+    Reproduction* reproduction = this->parameters.reproduction;
 
-bool TpgLearn::mutate(int64 generation, Team& team)
-{
-    return NULL;
-}
+    // Force every root team to calculate their current fitness.
+    for(Team* team : rootTeamPopulation)
+    {
+        team->calculateFitness();
+    }
 
-void TpgLearn::selection()
-{
-    return;
+    // The first step is to run selection on the root team population.
+    // This ranks the root teams by their current citness and then
+    // removes the bottom half of the root team population. The original
+    // root teams will still be intact, which could cause issues.
+    std::vector<Team*> rankedTeams = reproduction->teamSelection(
+        rootTeamPopulation, this->parameters);
+
+    // Once the teams are ranked and the gap is removed, we then 
+    // use those teams to reproduce to bring the population back up.
+    std::vector<Team*> childTeams = reproduction->teamReproduction(
+        rankedTeams, this->parameters);
+
+    // Now that the child teams have been created, we can then mutate
+    // each of them.
+    std::vector<Team*> mutatedTeams = reproduction->teamMutation(
+        childTeams, this->parameters);
+
+    // The teamSelection(..) method has already removed the relevant
+    // bottom half root teams from the applicable populations, so we
+    // can now add the mutated children to the team population.
+    teamPopulation.insert(teamPopulation.end(), mutatedTeams.begin(), mutatedTeams.end());
 }
 
 void TpgLearn::cleanup()
 {
+    // Create local references for cleaner code.
+    std::vector<Learner*>& learnerPopulation = this->parameters.learnerPopulation;
+
+    // Create a copy of the Learner population.
+    std::vector<Learner*> allLearners = learnerPopulation;
+
+    // Iterate through all the Learners in the population.
+    for(Learner* learner : allLearners)
+    {
+        // If the current Learner has nothing referencing it,
+        // we should remove it from the population and delete it.
+        if(learner->getReferences() == 0)
+        {
+            // Find an iterator which points to the location in the
+            // Learner population where this Learner is stored.
+            auto position = std::find_if(
+                learnerPopulation.begin(),
+                learnerPopulation.end(),
+                [learner](Learner* l) {return *l == *learner;}
+            );
+
+            // Erase the Learner data in that position of the vector.
+            learnerPopulation.erase(position);
+
+            // If the Learner is holding a reference to a Team,
+            // we should decrease the references to that Team by 1.
+            if(!learner->getActionObject()->isAtomicAction())
+            {
+                learner->getActionObject()->getTeam()->decreaseReferences();
+            }
+
+            // Finally, delete the Learner.
+            delete learner;
+        }
+    }
+
+    // Explicit return to signify the end of the method.
     return;
 }
 
-void TpgLearn::nextGeneration()
+int64 TpgLearn::nextGeneration()
 {
-    return;
+    // Create local references for cleaner code.
+    std::vector<Team*>& rootTeams = this->parameters.rootTeamPopulation;
+    std::vector<Team*>& teams = this->parameters.teamPopulation;
+    std::queue<Team*>& teamQueue = this->parameters.teamQueue;
+
+    // Execute the cleanup cycle to finalize this generation.
+    this->cleanup();
+
+    // Clear the outcome map of every Team.
+    for(Team* team : teams)
+    {
+        team->clearOutcomes();
+    }
+
+    // Clear the current root team population.
+    rootTeams.erase(rootTeams.begin(), rootTeams.end());
+
+    // Populate the root teams population from the team population.
+    for(Team* team : teams)
+    {
+        // If the current team has an in-degree of 0,
+        // then we add it to the root teams vector.
+        if (team->getReferences() == 0)
+        {
+            rootTeams.push_back(team);
+        }
+    }
+
+    // Ensure there's nothing stored in the team queue.
+    while(!teamQueue.empty())
+    {
+        teamQueue.pop();
+    }
+
+    // Add all the root teams to the team queue.
+    for(Team* team : rootTeams)
+    {
+        teamQueue.push(team);
+    }
+
+    // Increase the generations by 1 and return the new value.
+    return ++(this->parameters.generation);
 }
 
 void TpgLearn::printStats()
@@ -131,12 +351,14 @@ void TpgLearn::printStats()
 
 int32 TpgLearn::getRemainingTeams()
 {
-    return NULL;
+    // Return the size of the team queue.
+    return static_cast<int32>(this->parameters.teamQueue.size());
 }
 
 int64 TpgLearn::getGenerations()
 {
-    return NULL;
+    // Return the current generation value.
+    return this->parameters.generation;
 }
 
 std::string TpgLearn::getType()
@@ -146,22 +368,25 @@ std::string TpgLearn::getType()
 
 void TpgLearn::mergeParameters(TpgParameters& parameters, std::unordered_map<std::string, double>& arguments)
 {
-    parameters.randomSeed           = static_cast<int64>(arguments["randomSeed"]);
-    parameters.teamPopulationSize   = static_cast<int32>(arguments["teamPopulationSize"]);
-    parameters.teamGap              = static_cast<double>(arguments["teamGap"]);
-    parameters.maximumTeamSize      = static_cast<int64>(arguments["maximumTeamSize"]);
-    parameters.maximumProgramSize   = static_cast<int64>(arguments["maximumProgramSize"]);
-    parameters.numberOfOperations   = static_cast<int8>(arguments["numberOfOperations"]);
-    parameters.probLearnerAdd       = static_cast<double>(arguments["probLearnerAdd"]);
-    parameters.probLearnerDelete    = static_cast<double>(arguments["probLearnerDelete"]);
-    parameters.probMutateAction     = static_cast<double>(arguments["probMutateAction"]);
-    parameters.probActionIsTeam     = static_cast<double>(arguments["probActionIsTeam"]);
-    parameters.probProgramAdd       = static_cast<double>(arguments["probProgramAdd"]);
-    parameters.probProgramDelete    = static_cast<double>(arguments["probProgramDelete"]);
-    parameters.probProgramSwap      = static_cast<double>(arguments["probProgramSwap"]);
-    parameters.probProgramMutate    = static_cast<double>(arguments["probProgramMutate"]);
-    parameters.learnerRegisterSize  = static_cast<int16>(arguments["learnerRegisterSize"]);
-    parameters.modeSize             = static_cast<int8>(arguments["modeSize"]);
-    parameters.sourceSize           = static_cast<int16>(arguments["sourceSize"]);
-    parameters.memoryModelSize      = static_cast<int16>(arguments["memoryModelSize"]);
+    parameters.randomSeed            = static_cast<int64>(arguments["randomSeed"]);
+    parameters.teamPopulationSize    = static_cast<int32>(arguments["teamPopulationSize"]);
+    parameters.teamGap               = static_cast<double>(arguments["teamGap"]);
+    parameters.maximumTeamSize       = static_cast<int64>(arguments["maximumTeamSize"]);
+    parameters.minimumTeamSize       = static_cast<int64>(arguments["minimumTeamSize"]);
+    parameters.minimumRootTeams      = static_cast<int64>(arguments["minimumRootTeams"]);
+    parameters.maximumProgramSize    = static_cast<int64>(arguments["maximumProgramSize"]);
+    parameters.numberOfOperations    = static_cast<int8>(arguments["numberOfOperations"]);
+    parameters.probLearnerAdd        = static_cast<double>(arguments["probLearnerAdd"]);
+    parameters.probLearnerDelete     = static_cast<double>(arguments["probLearnerDelete"]);
+    parameters.probLearnerMutate     = static_cast<double>(arguments["probLearnerMutate"]);
+    parameters.probMutateAction      = static_cast<double>(arguments["probMutateAction"]);
+    parameters.probActionIsTeam      = static_cast<double>(arguments["probActionIsTeam"]);
+    parameters.probInstructionAdd    = static_cast<double>(arguments["probInstructionAdd"]);
+    parameters.probInstructionDelete = static_cast<double>(arguments["probInstructionDelete"]);
+    parameters.probInstructionSwap   = static_cast<double>(arguments["probInstructionSwap"]);
+    parameters.probInstructionMutate = static_cast<double>(arguments["probInstructionMutate"]);
+    parameters.learnerRegisterSize   = static_cast<int16>(arguments["learnerRegisterSize"]);
+    parameters.modeSize              = static_cast<int8>(arguments["modeSize"]);
+    parameters.sourceSize            = static_cast<int16>(arguments["sourceSize"]);
+    parameters.memoryModelSize       = static_cast<int16>(arguments["memoryModelSize"]);
 }
