@@ -1,7 +1,7 @@
 #ifndef TPG_UNIVERSAL_TPGACTION_H_
 #define TPG_UNIVERSAL_TPGACTION_H_
 
-#include <set>
+#include <unordered_set>
 #include <string>
 
 #include "tpg_utility.h"
@@ -39,7 +39,7 @@ public:
     Action(Team&);
     Action(const Action&);
     ~Action();
-    int64 getAction(std::set<Team*>&, const double*) const;
+    int64 getAction(std::unordered_set<Team*>&, const double*) const;
     int64 getAtomic() const;
     Team* getTeam() const;
     bool isAtomicAction() const;

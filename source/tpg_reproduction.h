@@ -37,7 +37,6 @@ class Reproduction
     virtual std::vector<Team*> teamSelection(std::vector<Team*>&, TpgParameters&) = 0;
     virtual std::vector<Team*> teamReproduction(std::vector<Team*>&, TpgParameters&) = 0;
     virtual std::vector<Team*> teamMutation(std::vector<Team*>&, TpgParameters&) = 0;
-    virtual std::vector<Team*> teamUnify(std::vector<Team*>&, std::vector<Team*>&, TpgParameters&) = 0;
 };
 
 #endif

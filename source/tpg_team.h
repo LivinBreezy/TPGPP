@@ -7,7 +7,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
-#include <set>
+#include <unordered_set>
 
 #include "tpg_learner.h"
 
@@ -51,7 +51,7 @@ public:
     int64 getBirthday() const;
     int64 getId() const;
     std::vector<Learner*>& getLearners();
-    int64 getAction(std::set<Team*>&, const double*);
+    int64 getAction(std::unordered_set<Team*>&, const double*);
     int32 getReferences() const;
     double calculateFitness();
     double getFitness() const;
@@ -59,6 +59,7 @@ public:
     double getOutcome(const std::string_view) const;
     bool setOutcome(const std::string_view, const double);
     bool deleteOutcome(const std::string_view);
+    bool clearOutcomes();
     bool addLearner(Learner&);
     bool removeLearner(Learner&);
     int32 increaseReferences();
@@ -68,6 +69,8 @@ public:
     bool operator<(const Team& rhs) const;
     static bool saveToFile(const Team&, const std::string_view, const std::string_view);
     static Team* loadFromFile(const std::string_view);
+    bool operator==(const Team* other) { return this->id == other->id; };
+    bool operator==(const Team& other) { return this->id == other.id; };
 };
 
 #endif

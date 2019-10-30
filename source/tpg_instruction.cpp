@@ -9,22 +9,11 @@
 Instruction::Instruction(TpgParameters& parameters)
 {
     // Randomly initialize all of the class variables
-    this->mode = static_cast<int8>(
-        floor(parameters.rngUniform() * parameters.modeSize)
-    );
-    
-    this->source = static_cast<int32>(
-        floor(parameters.rngUniform() * parameters.sourceSize)
-    );
-
-    this->destination = static_cast<int8>(
-        floor(parameters.rngUniform() * parameters.learnerRegisterSize)
-    );
-    
+    this->mode = parameters.rngInt8(0, parameters.modeSize);
+    this->source = parameters.rngInt32(0, parameters.sourceSize);
+    this->destination = parameters.rngInt8(0, parameters.learnerRegisterSize);
     this->operation = &(Instruction::createOperationOfType(
-        static_cast<int8>(
-            floor(parameters.rngUniform() * parameters.numberOfOperations)
-        )
+        parameters.rngInt64(0, parameters.numberOfOperations)
     ));
 }
 

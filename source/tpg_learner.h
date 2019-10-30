@@ -57,6 +57,7 @@ public:
     std::string toString() const;
     static bool saveToFile(const Learner&, const std::string&, const std::string&);
     static Learner* loadFromFile(const std::string&);
+    bool operator==(const Learner& other) { return this->id == other.id; };
 };
 
 #endif

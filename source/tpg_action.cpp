@@ -48,7 +48,7 @@ Action::~Action()
  *             action.
  *  @todo      Testing required.
  */
-int64 Action::getAction(std::set<Team*>& visited, const double* inputFeatures) const
+int64 Action::getAction(std::unordered_set<Team*>& visited, const double* inputFeatures) const
 {
     // just return atomic action if applicable
     if (isAtomicAction())

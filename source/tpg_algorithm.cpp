@@ -4,9 +4,15 @@
 #include <iostream>
 #include <fstream>
 
+#include <vector>
+#include <unordered_map>
+
 #include "tpg_utility.h"
 #include "tpg_learn.h"
 #include "tpg_test.h"
+
+#include "tpg_learner.h"
+#include "tpg_team.h"
 
 
 TpgAlgorithm::TpgAlgorithm(const char* inputFile, const char* tpgType)

@@ -10,7 +10,6 @@
 #include "tpg_program.h"
 #include "tpg_instruction.h"
 
-
 bool compareSingleOutcome(const Team* a, const Team* b)
 {
     return a->getFitness() > b->getFitness();
@@ -75,7 +74,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
             double cumulative = 1.0;
             
             // Create a 32-bit integer for storing a vector index.
-            int32 index = 0;
+            int64 index = 0;
             
             // As long as the Team has enough learners that it can still
             // safely lose one and the cumulative probability is hit,
@@ -91,9 +90,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                 do
                 {
                     // Get the index of a random learner from the team.
-                    index = static_cast<int32>(
-                        floor(parameters.rngUniform() * team->numberOfLearners())
-                    );
+                    index = parameters.rngInt64(0, team->numberOfLearners());
 
                     // Retrieve the learner to be deleted and store it.
                     learner = team->getLearners()[index];
@@ -113,7 +110,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
             double cumulative = 1.0;
 
             // Create a 32-bit integer for storing a vector index.
-            int32 index = 0;
+            int64 index = 0;
 
             // As long as the Team has enough space for new learners,
             // and the cumulative probability is hit, randomly add a 
@@ -131,9 +128,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                 {
                     // Get the index of a random learner from the 
                     // learner population.
-                    index = static_cast<int32>(
-                        floor(parameters.rngUniform() * learners.size())
-                    );
+                    index = parameters.rngInt64(0, learners.size());
 
                     // Retrieve the learner to be added and store it.
                     learner = learners[index];
@@ -218,26 +213,13 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
     return mutatedTeams;
 }
 
-std::vector<Team*> StandardReproduction::teamUnify(std::vector<Team*>& parentTeams, 
-    std::vector<Team*>& childTeams, TpgParameters& parameters)
-{
-    // Create a copy of the parent teams vector.
-    std::vector<Team*> mergedTeams = *(new std::vector<Team*>(parentTeams));
-
-    // Add the child teams vector to the new vector.
-    mergedTeams.insert(mergedTeams.end(), childTeams.begin(), childTeams.end());
-    
-    // Return the vector containing the merged teams.
-    return mergedTeams;
-}
-
 Program StandardReproduction::mutateProgram(Program& program, TpgParameters& parameters)
 {
     // Create a copy of the instruction set from the program object.
     std::vector<Instruction> instructions = *(new std::vector<Instruction>(*(program.getInstructions())));
 
     // Create a variable for holding random index values.
-    int32 index = 0;
+    int64 index = 0;
 
     // Create a boolean for ensuring at least one mutation occurred.
     bool mutated = false;
@@ -249,13 +231,11 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
         if (parameters.rngUniform() < parameters.probInstructionDelete)
         {
             // Generate a random index for the instruction vector.
-            index = static_cast<int>(
-                floor(parameters.rngUniform() * instructions.size())
-                );
+            index = parameters.rngInt64(0, instructions.size());
 
             // Remove the instruction from the random index.
-            delete& (instructions.begin() + index);
             instructions.erase(instructions.begin() + index);
+            delete& (instructions.begin() + index);
 
             // If this change was successful, then we've mutated.
             mutated = true;
@@ -269,9 +249,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
             Instruction* instruction = new Instruction(parameters);
 
             // Generate a random index for the instruction vector.
-            index = static_cast<int>(
-                floor(parameters.rngUniform() * instructions.size())
-                );
+            index = parameters.rngInt64(0, instructions.size());
 
             // Insert the new instruction at the random location.
             instructions.insert(instructions.begin() + index, *instruction);
@@ -284,9 +262,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
         if (parameters.rngUniform() < parameters.probInstructionMutate)
         {
             // Generate a random index for the instruction vector.
-            index = static_cast<int>(
-                floor(parameters.rngUniform() * instructions.size())
-                );
+            index = parameters.rngInt32(0, instructions.size());
 
             // Mutate a new instruction from the old one at the random index.
             Instruction instruction = mutateInstruction(instructions[index], parameters);
@@ -305,18 +281,15 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
         {
             // Create a variable and generate a random index for the
             // instruction vector.
-            int32 other = static_cast<int>(
-                floor(parameters.rngUniform() * instructions.size())
-                );
+            int32 other = parameters.rngInt32(0, instructions.size());
 
             // Generate a random index which is different from our first
             // random index.
             do
             {
-                index = static_cast<int>(
-                    floor(parameters.rngUniform() * instructions.size())
-                    );
-            } while (index != other);
+                index = parameters.rngInt32(0, instructions.size());
+            } 
+            while (index != other);
 
             // Create a variable for holding an Instruction temporarily.
             Instruction* temp = 0;
@@ -338,7 +311,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
 Instruction StandardReproduction::mutateInstruction(Instruction& instruction, TpgParameters& parameters)
 {
     // Choose one of the categories to mutate uniformly.
-    int32 category = static_cast<int32>(floor(parameters.rngUniform() * 4));
+    int32 category = parameters.rngInt32(0, 4);
 
     // Store each component of the original instruction locally.
     int8 mode = instruction.getMode();
@@ -358,7 +331,7 @@ Instruction StandardReproduction::mutateInstruction(Instruction& instruction, Tp
             // the original mode value.
             do
             {
-                newMode = static_cast<int8>(floor(parameters.rngUniform() * parameters.modeSize));
+                newMode = parameters.rngInt8(0, parameters.modeSize);
             } 
             while (newMode == mode);
             
@@ -377,7 +350,7 @@ Instruction StandardReproduction::mutateInstruction(Instruction& instruction, Tp
             // the original source value.
             do
             {
-                newSource = static_cast<int8>(floor(parameters.rngUniform() * parameters.sourceSize));
+                newSource = parameters.rngInt32(0, parameters.sourceSize);
             } 
             while (newSource == source);
             
@@ -396,7 +369,7 @@ Instruction StandardReproduction::mutateInstruction(Instruction& instruction, Tp
             // the original mode values.
             do
             {
-                newDestination = static_cast<int8>(floor(parameters.rngUniform() * parameters.learnerRegisterSize));
+                newDestination = parameters.rngInt8(0, parameters.learnerRegisterSize);
             } 
             while (newDestination == destination);
             
@@ -416,7 +389,7 @@ Instruction StandardReproduction::mutateInstruction(Instruction& instruction, Tp
             do
             {
                 newOperation = &(Instruction::createOperationOfType(
-                    static_cast<int8>(floor(parameters.rngUniform() * parameters.numberOfOperations))
+                    parameters.rngInt8(0, parameters.numberOfOperations)
                 ));
             } 
             while (newOperation->toString().compare(operation->toString()) == 0);
@@ -439,7 +412,7 @@ Action StandardReproduction::mutateAction(Action& action, TpgParameters& paramet
     Action* newAction = nullptr;
 
     // Create a variable for holding a vector index.
-    int32 index = 0;
+    int64 index = 0;
 
     // Randomly decide if the mutated action should be atomic or a team.
     if(parameters.rngUniform() < parameters.probActionIsTeam)
@@ -451,6 +424,9 @@ Action StandardReproduction::mutateAction(Action& action, TpgParameters& paramet
         // Create a pointer for holding a Team.
         Team* newTeam = nullptr;
 
+        // Create an auto for holding team iterators.
+        std::vector<Team*>::iterator foundTeam;
+
         // Repeatedly try to find a team based on the root team size.
         // If we randomly choose a root team and we're at the minimum number
         // of root teams already, we can't let that root team disappear,
@@ -459,19 +435,24 @@ Action StandardReproduction::mutateAction(Action& action, TpgParameters& paramet
         do
         {
             // Generate a value for a random index in the team population.
-            index = static_cast<int>(
-                floor(parameters.rngUniform() * teams.size())
-            );
+            index = parameters.rngInt64(0, teams.size());
 
             // Store the random team locally.
             newTeam = teams[index];
+
+            // Search the root teams vector to see if the new team is in it.
+            foundTeam = std::find_if(
+                rootTeams.begin(),
+                rootTeams.end(),
+                [newTeam](Team* t) {return *t == *newTeam;}
+            );
         } 
-        while((static_cast<int64>(rootTeams.size()) <= parameters.minimumRootTeams
-            && std::find(rootTeams.begin(), rootTeams.end(), newTeam) != rootTeams.end())
+        while(static_cast<int64>(rootTeams.size()) <= parameters.minimumRootTeams
+            && foundTeam != rootTeams.end()
             || (!action.isAtomicAction() && action.getTeam()->getId() == newTeam->getId()));
 
         // Once we find a valid team, create a new 
-        // action for holding that team.
+        // Action object for holding it.
         newAction = new Action(*newTeam);
     }
     else
@@ -487,15 +468,15 @@ Action StandardReproduction::mutateAction(Action& action, TpgParameters& paramet
         do
         {
             // Generate a value for a random index in the action list.
-            index = static_cast<int>(
-                floor(parameters.rngUniform() * actions.size())
-            );
+            index = parameters.rngInt64(0, actions.size());
 
             // Store the random action locally.
             newAtomic = actions[index];
         } 
         while (action.isAtomicAction() && action.getAtomic() == newAtomic);
 
+        // Once we find a valid atomic, create a new
+        // Action object for holding it.
         newAction = new Action(newAtomic);
     }
     

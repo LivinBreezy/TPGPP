@@ -104,7 +104,7 @@ Action* Learner::getActionObject() const
 
 std::string Learner::getActionType() const
 {
-    return nullptr;
+    return std::string("");
 }
 
 int64 Learner::getBirthday() const
@@ -144,7 +144,7 @@ int32 Learner::decreaseReferences()
 
 std::string Learner::toString() const
 {
-    return nullptr;
+    return std::string("");
 }
 
 bool Learner::saveToFile(const Learner&, const std::string&, const std::string&)

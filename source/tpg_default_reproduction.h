@@ -42,7 +42,6 @@ class StandardReproduction : public Reproduction
     std::vector<Team*> teamSelection(std::vector<Team*>&, TpgParameters&);
     std::vector<Team*> teamReproduction(std::vector<Team*>&, TpgParameters&);
     std::vector<Team*> teamMutation(std::vector<Team*>&, TpgParameters&);
-    std::vector<Team*> teamUnify(std::vector<Team*>&, std::vector<Team*>&, TpgParameters&);
 
   private:
     Program mutateProgram(Program&, TpgParameters&);
