@@ -234,7 +234,8 @@ void TpgLearn::executeReproduction()
 
     // The first step is to run selection on the root team population.
     // This ranks the root teams by their current citness and then
-    // removes the bottom half of the root team population.
+    // removes the bottom half of the root team population. The original
+    // root teams will still be intact, which could cause issues.
     std::vector<Team*> rankedTeams = reproduction->teamSelection(
         rootTeamPopulation, this->parameters);
 

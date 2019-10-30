@@ -18,11 +18,45 @@ bool compareSingleOutcome(const Team* a, const Team* b)
 std::vector<Team*> StandardReproduction::teamSelection(std::vector<Team*>& teams,
     TpgParameters& parameters)
 {
+    // Create local references for cleaner code.
+    std::vector<Team*>& teamPopulation = parameters.teamPopulation;
+
     // Make a copy of the incoming Team vector.
     std::vector<Team*> rankedTeams = std::vector<Team*>(teams);
 
     // Sort all of the Teams by their first (and only) outcome.
     std::sort(rankedTeams.begin(), rankedTeams.end(), compareSingleOutcome);
+
+    // Once all the teams are ranked, we should remove a number equal to the gap.
+    int64 teamsToRemove = static_cast<int64>(rankedTeams.size() * parameters.teamGap);
+
+    // Create a pointer for holding a Team.
+    Team* team = nullptr;
+
+    // Iterate until we've removed enough Teams.
+    while(teamsToRemove > 0)
+    {
+        // Get the current lowest ranked Team from the vector.
+        team = rankedTeams.back();
+        
+        // Find the position of the Team to be removed in the
+        // original Team population.
+        auto position = std::find_if(
+            teamPopulation.begin(),
+            teamPopulation.end(),
+            [team](Team* t) {return *t == *team; }
+        );
+
+        // Remove the Team from the team population.
+        teamPopulation.erase(position);
+
+        // Remove the Team from the end of the ranked vector.
+        // This action will destroy the removed Team.
+        rankedTeams.pop_back();
+
+        // Reduce the number of Teams to remove by 1.
+        --teamsToRemove;
+    }
 
     // Return the ranked vector of Teams.
     return rankedTeams;
