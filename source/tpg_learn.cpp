@@ -41,6 +41,7 @@ TpgLearn::TpgLearn(std::unordered_map<std::string, double>& arguments)
     // Initialize any remaining primitive parameter values
     params.nextTeamId = 0;
     params.nextLearnerId = 0;
+    params.generation = -1;
 }
 
 TpgLearn::~TpgLearn()
@@ -75,8 +76,8 @@ bool TpgLearn::initializeEnvironment()
         this->parameters.teamQueue.push(rootTeam);
     }
 
-    // Set the generation to 1.
-    parameters.generation = 1;
+    // Set the generation to 0.
+    parameters.generation = 0;
 
     // If nothing failed during this process, we can return true.
     return true;
@@ -113,7 +114,7 @@ bool TpgLearn::initializePopulations()
         action2 = actions[action2];
 
         // Create a new Team for the pre-learning generation -1.
-        team = new Team(-1, this->parameters);
+        team = new Team(this->parameters);
 
         // Create the first Learner for the Team.
         learner = new Learner(-1, action1, this->parameters);
@@ -163,10 +164,10 @@ bool TpgLearn::initializePopulations()
 int64 TpgLearn::participate(double* inputFeatures)
 {
     // If there are no Teams left to play, then this learning phase
-    // is over. Return NULL to indicate end-of-play.
+    // is over. Return -1 to indicate end-of-play.
     if(this->parameters.teamQueue.empty())
     {
-        return NULL;
+        return -1;
     }
     
     // If we have a team, we can get it from the front of the queue.

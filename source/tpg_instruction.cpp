@@ -13,7 +13,7 @@ Instruction::Instruction(TpgParameters& parameters)
     this->source = parameters.rngInt32(0, parameters.sourceSize);
     this->destination = parameters.rngInt8(0, parameters.learnerRegisterSize);
     this->operation = &(Instruction::createOperationOfType(
-        parameters.rngInt64(0, parameters.numberOfOperations)
+        parameters.rngInt8(0, parameters.numberOfOperations)
     ));
 }
 

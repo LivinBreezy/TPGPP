@@ -72,14 +72,8 @@ std::vector<Team*> StandardReproduction::teamReproduction(std::vector<Team*>& pa
     for(Team* parent : parentTeams)
     {
         // Create a new child, made on the current generation.
-        Team* child = new Team(parameters.generation, parameters);
-
-        // Add every learner on the parent team to the child team.
-        for(Learner* learner : parent->getLearners())
-        {
-            child->addLearner(*learner);
-        }
-
+        Team* child = new Team(*parent, parameters);
+        
         // Add the child team to the child team vector.
         childTeams.push_back(child);
     }
@@ -326,7 +320,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
             while (index != other);
 
             // Create a variable for holding an Instruction temporarily.
-            Instruction* temp = 0;
+            Instruction* temp = nullptr;
 
             // Swap the instructions with a three-point replacement.
             temp = &(instructions[index]);

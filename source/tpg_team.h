@@ -41,9 +41,10 @@ class Team
     double fitness;
 
 public:
-    Team(const int64, TpgParameters&);
+    Team();
+    Team(TpgParameters&);
     Team(const int64, const int64, std::vector<Learner*>, std::unordered_map<std::string, double>);
-    Team(const Team&, const int64 birthday, TpgParameters&);
+    Team(const Team&, TpgParameters&);
     ~Team();
     bool mutate(const TpgParameters&);
     int32 numberOfLearners() const;

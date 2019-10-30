@@ -11,6 +11,16 @@
 #include "tpg_action.h"
 #include "tpg_learner.h"
 
+Team::Team()
+{
+    this->id = 0;
+    this->birthday = 0;
+    this->learners = {};
+    this->outcomes = {};
+    this->learnerReferences = 0;
+    this->fitness = 0.0;
+}
+
 /**
  *  @brief     Creates a new Team.
  *  @details   Creates a new original Team with no learners and no outcomes with
@@ -19,10 +29,10 @@
  *  @param     parameters To obtain a new id.
  *  @todo      Testing.
  */
-Team::Team(const int64 birthday, TpgParameters& parameters)
+Team::Team(TpgParameters& parameters)
 {
     this->id = ++parameters.nextTeamId;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->learners = {};
     this->outcomes = {};
     this->learnerReferences = 0;
@@ -58,10 +68,10 @@ Team::Team(const int64 id, const int64 birthday, std::vector<Learner*> learners,
  *  @param     parameters To obtain a new id.
  *  @todo      Testing.
  */
-Team::Team(const Team& other, const int64 birthday, TpgParameters& parameters)
+Team::Team(const Team& other, TpgParameters& parameters)
 {
     this->id = ++parameters.nextTeamId;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->learners = other.learners;
     this->outcomes = {};
     this->learnerReferences = 0;
