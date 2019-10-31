@@ -1,7 +1,7 @@
 #ifndef TPG_UNIVERSAL_TPGACTION_H_
 #define TPG_UNIVERSAL_TPGACTION_H_
 
-#include <set>
+#include <unordered_set>
 #include <string>
 
 #include "tpg_utility.h"
@@ -47,12 +47,37 @@ public:
     bool isAtomicAction() const;
 
     // core functionality
-    int64 getAction(std::set<Team*>&, const double*, TpgParameters& parameters) const;
-    bool mutate(TpgParameters& parameters);
+    int64 getAction(std::unordered_set<Team*>&, const double*, TpgParameters& parameters) const;
     
     // utility
-    bool equals(const Action&) const;
-    std::string* toString() const;
+    bool operator==(const Action&) const;
+
+    friend std::ofstream& operator<<(std::ofstream& out, const Action& action)
+    {
+        out << (action.isAtomicAction() ? 
+            ("A" + std::to_string(action.action)) : ("T" + std::to_string(action.team->getId())));
+
+        return out;
+    }
+    
+    friend std::ifstream& operator>>(std::ifstream& in, const Action& action)
+    {
+        std::string input;
+        in >> input;
+
+        // atomic
+        if (input.substr(0,1).compare("A"))
+        {
+            action.action = std::stoi(input.substr(1, input.length-1));
+        }
+        // team
+        else
+        {
+            // todo: how will I get team by id? maybe add a static function to utility?   
+        }
+
+        return in;
+    }
 };
 
 #endif
