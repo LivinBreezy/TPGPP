@@ -30,30 +30,30 @@ Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences,
     this->program = &program;
 }
 
-Learner::Learner(int64 birthday, int64 action, TpgParameters& parameters)
+Learner::Learner(int64 action, TpgParameters& parameters)
 {
     this->id = parameters.nextLearnerId++;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->action = new Action(action);
     this->teamReferences = 0;
     this->program = new Program(parameters);
 }
 
-Learner::Learner(int64 birthday, Team& team, TpgParameters& parameters)
+Learner::Learner(Team& team, TpgParameters& parameters)
 {
     this->id = parameters.nextLearnerId++;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->action = new Action(team);
     this->teamReferences = 0;
     this->program = new Program(parameters);
 }
 
-Learner::Learner(int64 birthday, const Learner& other, TpgParameters& parameters)
+Learner::Learner(const Learner& other, TpgParameters& parameters)
 {
     this->id = parameters.nextLearnerId++;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->action = new Action(*other.getActionObject());
-    //this->teamReferences = other.getReferences(); todo: this should be gone right?
+    this->teamReferences = 0;
     this->program = new Program(*other.program, parameters);
 }
 
@@ -131,45 +131,4 @@ int32 Learner::decreaseReferences()
 double Learner::bid(const double* inputFeatures, TpgParameters& parameters)
 {
     return program->execute(inputFeatures, parameters);
-}
-
-/**
- *  @brief     
- *  @details   
- *  @param     
- *  @todo      Testing required.
- */
-void Learner::mutate(TpgParameters& parameters)
-{
-    // attempt mutation until successfull
-    bool changed = false;
-    while (!changed) 
-    {
-        // first try to mutate program
-        changed = program->mutate(parameters);
-
-        // maybe try to mutate action
-        if (parameters.rngFlip(parameters.probMutateAction)) {
-            changed = action->mutate(parameters);
-        }
-    }
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// UTILITY
-///////////////////////////////////////////////////////////////////////////////
-
-std::string* Learner::toString() const
-{
-    return nullptr;
-}
-
-bool Learner::saveToFile(const Learner&, const std::string&, const std::string&)
-{
-    return NULL;
-}
-
-Learner* Learner::loadFromFile(const std::string&)
-{
-    return nullptr;
 }
