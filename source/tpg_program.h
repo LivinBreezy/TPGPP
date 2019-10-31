@@ -37,9 +37,9 @@
 class Program
 {
     /**A vector of Instruction objects which represent a complete TPG program.*/
-    std::vector<Instruction>* instructions;
+    std::vector<Instruction> instructions;
     /**A double array which acts as a set of general purpose registers.*/
-    double* registers;
+    std::vector<double> registers;
 
   public:
     // constructors and destructor
@@ -54,10 +54,28 @@ class Program
 
     // core functionality
     double execute(const double*, TpgParameters&);
-    bool mutate(TpgParameters&);
 
     // utility
-    std::string* toString() const;
+   // utility
+    friend std::ofstream& operator<<(std::ofstream& out, const Program& program)
+    {
+        for (Instruction inst : instructions)
+        {
+          out << inst << "\n";
+        }
+        // todo: i need size of registers somehow
+
+        return out;
+    }
+    
+    friend std::ifstream& operator>>(std::ifstream& in, const Program& program)
+    {
+        // todo: how to take instructions
+
+        // todo: i need size of registers somehow
+
+        return in;
+    }
 };
 
 #endif

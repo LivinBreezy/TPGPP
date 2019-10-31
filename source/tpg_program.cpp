@@ -32,11 +32,7 @@ Program::Program(TpgParameters& parameters)
     }
 
     // initialize registers to 0
-    this->registers = new double[parameters.learnerRegisterSize];
-    for (int i = 0; i < parameters.learnerRegisterSize; ++i)
-    {
-        this->registers[i] = 0;
-    }
+    this->registers = new std::vector<double(parameters.learnerRegisterSize, 0);
 }
 
 /**
@@ -53,11 +49,7 @@ Program::Program(const Program& other, TpgParameters& parameters)
     this->instructions = new std::vector<Instruction>(*other.instructions);
 
     // initialize registers to other's registers
-    this->registers = new double[parameters.learnerRegisterSize];
-    for (int i = 0; i < parameters.learnerRegisterSize; ++i)
-    {
-        this->registers[i] = other.registers[i];
-    }
+    this->registers = program.registers;
 }
 
 /**
@@ -92,7 +84,7 @@ int64 Program::instructionCount(const std::string_view& operationName) const
 {
     int64 count = 0;
 
-    for (Instruction inst : *instructions) {
+    for (Instruction inst : instructions) {
         if (inst.getType().compare(operationName)) {
             // found an instruction of this type
             ++count;
@@ -136,7 +128,7 @@ std::unordered_map<std::string, int64> Program::allInstructionCounts(const TpgPa
     }
 
     // find counts
-    for (Instruction inst : *instructions) 
+    for (Instruction inst : instructions) 
     {
         for (std::string instType : instTypes) 
         {
@@ -154,7 +146,7 @@ std::unordered_map<std::string, int64> Program::allInstructionCounts(const TpgPa
 
 std::vector<Instruction> Program::getInstructions() const
 {
-    return *instructions;
+    return instructions;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -179,79 +171,4 @@ double Program::execute(const double* inputFeatures, TpgParameters& parameters)
     }
 
     return registers[0];
-}
-
-/**
- *  @brief     Mutate the Instructions in a Program.
- *  @details   Uses the given parameters to mutate this Program object.
- *  This includes inserting, deleting, or mutating some instruction(s), or
- *  swapping two instructions locations.
- *  @param     parameters A struct held by the main TPG algorithm objects
- *  (TpgLearn or TpgPlay) and stores all of the current parameter values
- *  for the current environment.
- *  @return    A boolean value which is true if Instructions were mutated.
- *  Otherwise return false.
- *  @todo      Testing required.
- */
-bool Program::mutate(TpgParameters& parameters)
-{
-    bool changed = false;
-
-    // delete instruction
-    if (instructions->size() > 1 && 
-            parameters.rngFlip(parameters.probInstructionDelete)) 
-    {
-        instructions->erase(instructions->begin() + parameters.rngInt64(0, instructions->size()));
-        changed = true;
-    }
-
-    // insert a new random instruction
-    if (static_cast<int64>(instructions->size()) < parameters.maximumProgramSize && 
-            parameters.rngFlip(parameters.probInstructionDelete)) 
-    {
-        instructions->insert(instructions->begin() + parameters.rngInt64(0, instructions->size()), 
-                             Instruction(parameters));
-        changed = true;
-    }
-
-    // mutate an instruction
-    if (parameters.rngFlip(parameters.probInstructionMutate)) 
-    {
-        instructions->at(parameters.rngInt64(0, instructions->size())).mutate(parameters);
-        changed = true;
-    }
-
-    // swap 2 instruction
-    if (instructions->size() > 1 && parameters.rngFlip(parameters.probInstructionSwap))
-    {
-        // ensure different indices
-        int64 index1 = parameters.rngInt64(0, instructions->size());
-        int64 index2 = parameters.rngInt64(0, instructions->size());
-        while (index1 == index2)
-        {
-            index2 = parameters.rngInt64(0, instructions->size()); 
-        }
-
-        Instruction tmpInst = instructions->at(index1);
-        instructions->at(index1) = instructions->at(index2);
-        instructions->at(index2) = tmpInst;
-        changed = true;
-    }
-
-    return changed;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// UTILITY
-///////////////////////////////////////////////////////////////////////////////
-
-/**
- *  @brief     Return a string representation of a Program object.
- *  @details   TBD. It could be a full Instruction list in plain language.
- *  @return    A pointer to a string, which represents a Program object.
- *  @todo      Implementation and full commenting required.
- */
-std::string* Program::toString() const
-{
-    return nullptr;
 }
