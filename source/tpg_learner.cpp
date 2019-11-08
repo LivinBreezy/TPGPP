@@ -71,7 +71,7 @@ Learner::~Learner()
  *  @return    A double value representing this Learner's bid.
  *  @todo      Testing required.
  */
-double Learner::bid(const double* inputFeatures)
+double Learner::bid(const std::vector<double>& inputFeatures)
 {
     return program->execute(inputFeatures);
 }

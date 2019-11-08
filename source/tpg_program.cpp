@@ -66,7 +66,7 @@ Program::~Program()
  *  @return    A double value representing a Learner bid.
  *  @todo      Implementation and full commenting required.
  */
-double Program::execute(const double* inputFeatures)
+double Program::execute(const std::vector<double>& inputFeatures)
 {
     return NULL;
 }

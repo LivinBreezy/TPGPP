@@ -175,7 +175,8 @@ std::vector<Learner*>& Team::getLearners()
  *              value would have some meaning in the environment.
  *  @todo       Test.
  */
-int64 Team::getAction(std::unordered_set<Team*>& visited, const double* inputFeatures)
+int64 Team::getAction(std::unordered_set<Team*>& visited, 
+    const std::vector<double>& inputFeatures)
 {
     // to ensure no re-visits of teams
     visited.emplace(this);

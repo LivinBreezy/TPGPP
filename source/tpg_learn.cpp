@@ -17,6 +17,8 @@ TpgLearn::TpgLearn(std::unordered_map<std::string, double>& arguments)
     // Move the input argument values to the TpgParameters class.
     mergeParameters(params, arguments);
 
+    spdlog::debug("Finished merging the arguments");
+    
     // Create a new random number generator using the seed parameter.
     if(params.randomSeed >= 0)
     {
@@ -161,7 +163,7 @@ bool TpgLearn::initializePopulations()
     return true;
 }
 
-int64 TpgLearn::participate(double* inputFeatures)
+int64 TpgLearn::participate(std::vector<double>& inputFeatures)
 {
     // If there are no Teams left to play, then this learning phase
     // is over. Return -1 to indicate end-of-play.
@@ -178,7 +180,8 @@ int64 TpgLearn::participate(double* inputFeatures)
     return team->getAction(*(new std::unordered_set<Team*>()), inputFeatures);
 }
 
-int64 TpgLearn::participate(double* inputFeatures, int64* actions)
+int64 TpgLearn::participate(std::vector<double>& inputFeatures, 
+    std::vector<int64>& actions)
 {
     // Use the single-parameter participate function to get an action
     // from the first team in the team queue.

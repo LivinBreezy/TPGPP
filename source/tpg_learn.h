@@ -13,8 +13,8 @@ class TpgLearn: public TpgMode
     bool setActions(const std::vector<int64>&);
     bool initializeEnvironment();
     bool initializePopulations();
-    int64 participate(double*);
-    int64 participate(double*, int64*);
+    int64 participate(std::vector<double>&);
+    int64 participate(std::vector<double>&, std::vector<int64>&);
     bool rewardCurrentTeam(std::string&, double& reward);
     void executeReproduction();
     void cleanup();

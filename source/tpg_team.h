@@ -52,7 +52,7 @@ public:
     int64 getBirthday() const;
     int64 getId() const;
     std::vector<Learner*>& getLearners();
-    int64 getAction(std::unordered_set<Team*>&, const double*);
+    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&);
     int32 getReferences() const;
     double calculateFitness();
     double getFitness() const;

@@ -10,6 +10,9 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
+
 // Required forward class declarations
 class TpgParameters; 
 class Team;

@@ -47,7 +47,7 @@ class Program
     Program(const Program&, TpgParameters&);
     Program(std::vector<Instruction>&);
     ~Program();
-    double execute(const double*);
+    double execute(const std::vector<double>&);
     bool mutate(const TpgParameters&);
     int32 instructionCount(const std::string&) const;
     std::map<std::string, int32>* allInstructionCounts(const TpgParameters&) const;

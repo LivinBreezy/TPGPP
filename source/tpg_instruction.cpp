@@ -53,21 +53,6 @@ bool Instruction::execute(const double* inputFeatures,
         parameters);
 }
 
-int8 Instruction::getMode()
-{
-    return this->mode;
-}
-
-int32 Instruction::getSource()
-{
-    return this->source;
-}
-
-int8 Instruction::getDestination()
-{
-    return this->destination;
-}
-
 int8 Instruction::getMode() const
 {
     return this->mode;

@@ -36,9 +36,7 @@ class TpgAlgorithm
 public:
     TpgAlgorithm(const char*, const char*);
     ~TpgAlgorithm();
-    void startLearning(std::string*);
-    void startTesting(std::string*);
-    TpgMode* getTpgMode();
+    TpgMode* getTpgEntity();
     std::unordered_map<std::string, double> readArgumentsToMap(const char*);
 };
 

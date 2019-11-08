@@ -41,7 +41,7 @@ public:
     Learner(int64, Team&, TpgParameters&);
     Learner(int64, const Learner&, TpgParameters&);
     ~Learner();
-    double bid(const double*);
+    double bid(const std::vector<double>&);
     int32 programLength() const;
     int64 getID() const;
     Program getProgram() const;
