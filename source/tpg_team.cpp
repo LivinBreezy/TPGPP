@@ -11,6 +11,11 @@
 #include "tpg_action.h"
 #include "tpg_learner.h"
 
+
+///////////////////////////////////////////////////////////////////////////////
+// CONSTRUCTORS AND DESTRUCTOR
+///////////////////////////////////////////////////////////////////////////////
+
 Team::Team()
 {
     this->id = 0;
@@ -85,21 +90,15 @@ Team::Team(const Team& other, TpgParameters& parameters)
  */
 Team::~Team()
 {
-
+    for (Learner* lrnr : learners)
+    {
+        removeLearner(*lrnr, true);
+    }
 }
 
-/**
- *  @brief      Mutate the team
- *  @details    
- *  @param      parameters Contains all necessary parameters for mutating the
- *              team.
- *  @return
- *  @todo       Implement once TpgParameters is finalized.
- */
-bool Team::mutate(const TpgParameters& parameters)
-{
-    return NULL;
-}
+///////////////////////////////////////////////////////////////////////////////
+// GETTERS AND SETTERS AND MODIFIERS
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief      Number of learners this team has.
@@ -156,7 +155,7 @@ int64 Team::getId() const
  *  @return
  *  @todo
  */
-std::vector<Learner*>& Team::getLearners()
+std::vector<Learner*> Team::getLearners()
 {
     return learners;
 }
@@ -238,7 +237,7 @@ int32 Team::getAtomicActionCount() const
     int32 numAtomic = 0;
     for (auto it = learners.begin(); it != learners.end(); ++it)
     {
-        if((*it)->getActionObject()->isAtomicAction())
+        if ((*it)->getActionObject()->isAtomicAction())
         {
             ++numAtomic;
         }
@@ -318,18 +317,18 @@ bool Team::addLearner(Learner& learner)
  *  @return
  *  @todo
  */
-bool Team::removeLearner(Learner& learner)
+bool Team::removeLearner(Learner& learner, bool force = false)
 {
     // find the learner in learners
     auto lrn = std::find(learners.begin(), learners.end(), &learner);
-    // remove learner if in learners
-    if (lrn != learners.end()) 
+    // remove learner if in learners, and either force or not last atomic
+    if (lrn != learners.end() && (force || getAtomicActionCount() > 1))
     {
         learners.erase(lrn);
         (*lrn)->decreaseReferences();
         return true;
     }
-    // learner not in learners
+    // conditions not met for deletion
     else
     {
         return false;
@@ -360,17 +359,128 @@ int32 Team::decreaseReferences()
     return --learnerReferences;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// CORE FUNCTIONALITY
+///////////////////////////////////////////////////////////////////////////////
+
 /**
- *  @brief
- *  @details
- *  @param
- *  @return
- *  @todo
+ *  @brief      Decides an action to submit to the environment.
+ *  @details    Chooses the learner with the highest bid's Action. If the Learner's
+ *              Action is a Team, that team is searched in the same fashion for
+ *              an action. If the Action is atomic, then that value is propagated
+ *              upward as the action to submit to the enviornment. Tracks visited
+ *              Teams to avoid a potential infinite loop.
+ *  @param      visited The teams already visited in this action search.
+ *  @param      inputFeatures The features from the environment to derive action
+ *              from.
+ *  @return     An int64 representing the action to make in the environment. This
+ *              value would have some meaning in the environment.
+ *  @todo       Test.
  */
-int32 Team::compareTo(const Team& other) const
+int64 Team::getAction(std::set<Team*>& visited, const double* inputFeatures, TpgParameters& parameters)
 {
-    return NULL;
+    // to ensure no re-visits of teams
+    visited.emplace(this);
+
+    // find best learner based on highest bid
+    Learner* bestLearner = *learners.begin();
+    double bestBid = bestLearner->bid(inputFeatures, parameters);
+    double curBid;
+    for (auto lrnrIt = learners.begin() + 1; lrnrIt != learners.end(); ++lrnrIt)
+    {
+        // only consider learners already visited
+        if (std::find(visited.begin(), visited.end(), this) == visited.end())
+        {
+            // replace best learner and bid with current if higher
+            curBid = (*lrnrIt)->bid(inputFeatures, parameters);
+            if (curBid > bestBid) {
+                bestLearner = *lrnrIt;
+                bestBid = curBid;
+            }
+        }
+    }
+
+    // take the action of the best
+    return bestLearner->getActionObject()->getAction(visited, inputFeatures, parameters);
 }
+
+
+/// maybe add a crossover method here
+
+/**
+ *  @brief      Mutate the team
+ *  @details
+ *  @param      parameters Contains all necessary parameters for mutating the
+ *              team.
+ *  @return
+ *  @todo       Testing.
+ */
+void Team::mutate(TpgParameters& parameters, bool addLearners)
+{
+    // track successfull mutation attempt
+    bool changed = false;
+
+    std::vector<Learner*> tmpLearners = learners;
+
+    while (!changed) 
+    {
+        // first attempt learner deletion
+        for (Learner* lrnr : tmpLearners) 
+        {
+            // must have at-least 2 learners
+            if (learners.size() <= 2)
+            {
+                break;
+            }
+
+            // team needs at-least 1 atomic action
+            if (getAtomicActionCount() == 1 && lrnr->getActionObject()->isAtomicAction())
+            {
+                continue;
+            }
+
+            // delete
+            if(parameters.rngFlip(parameters.probLearnerDelete))
+            {
+                removeLearner(*lrnr);
+                changed = true;
+            }
+        }
+
+        // maybe add learners
+        if (addLearners)
+        {
+            
+        }
+
+        // remake tmp learners to remove deleted
+        tmpLearners = learners;
+        // new learner to add to team (mutated from original)
+        Learner* newLearner;
+
+        // mutate learners
+        for (Learner* lrnr : tmpLearners)
+        {
+            if(parameters.rngFlip(parameters.probLearnerMutate))
+            {
+                // remove the learner from the team, then later add the mutated version
+                removeLearner(*lrnr);
+
+                // copy and mutate the learner
+                newLearner = new Learner(parameters.generation, *lrnr, parameters);
+                newLearner->mutate(parameters);
+
+                addLearner(*newLearner);
+
+                changed = true;
+            }
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// UTILITY
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief
@@ -394,28 +504,4 @@ std::string* Team::toString() const
 bool Team::operator<(const Team& rhs) const
 {
     return id < rhs.id;
-}
-
-/**
- *  @brief
- *  @details
- *  @param
- *  @return
- *  @todo
- */
-bool Team::saveToFile(const Team& teamPointer, const std::string_view filePath, const std::string_view fileMode)
-{
-    return NULL;
-}
-
-/**
- *  @brief
- *  @details
- *  @param
- *  @return
- *  @todo
- */
-Team* Team::loadFromFile(const std::string_view filePath)
-{
-    return nullptr;
 }

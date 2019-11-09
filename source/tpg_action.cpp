@@ -3,6 +3,10 @@
 
 #include "tpg_team.h"
 
+///////////////////////////////////////////////////////////////////////////////
+// CONSTRUCTORS AND DESTRUCTOR
+///////////////////////////////////////////////////////////////////////////////
+
 Action::Action(int64 action)
 {
     this->action = action;
@@ -34,35 +38,11 @@ Action::~Action()
 
 }
 
-/**
- *  @brief     Get the action residing in this Action object. From the team or
- *             the atomic action if applicable.
- *  @details   If this team has its action field defined, that value will be 
- *			   returned. Otherwise the team is defined, so the action will be
- *             obtained from that team.
- *  @param     visited The set of teams already visited. To be passed on to the 
- *             team to avoid revisiting teams in action selection.
- *  @param     inputFeatures The features that the program is ran on, from the
- *             environment.
- *  @return    An int action from either the team in this Action, or the atomic
- *             action.
- *  @todo      Testing required.
- */
-int64 Action::getAction(std::unordered_set<Team*>& visited, const double* inputFeatures) const
-{
-    // just return atomic action if applicable
-    if (isAtomicAction())
-    {
-        return action;
-    }
-    // delegate action selection to the team
-    else
-    {
-        return team->getAction(visited, inputFeatures);
-    }
-}
+///////////////////////////////////////////////////////////////////////////////
+// GETTERS AND SETTERS
+///////////////////////////////////////////////////////////////////////////////
 
-int64 Action::getAtomic() const 
+int64 Action::getAtomic() const
 {
     return action;
 }
@@ -82,8 +62,43 @@ Team* Action::getTeam() const
 bool Action::isAtomicAction() const
 {
     return !team;
-    return true;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// CORE FUNCTIONALITY
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+ *  @brief     Get the action residing in this Action object. From the team or
+ *             the atomic action if applicable.
+ *  @details   If this team has its action field defined, that value will be 
+ *			   returned. Otherwise the team is defined, so the action will be
+ *             obtained from that team.
+ *  @param     visited The set of teams already visited. To be passed on to the 
+ *             team to avoid revisiting teams in action selection.
+ *  @param     inputFeatures The features that the program is ran on, from the
+ *             environment.
+ *  @return    An int action from either the team in this Action, or the atomic
+ *             action.
+ *  @todo      Testing required.
+ */
+int64 Action::getAction(std::unordered_set<Team*>& visited, const double* inputFeatures, TpgParameters& parameters) const
+{
+    // just return atomic action if applicable
+    if (isAtomicAction())
+    {
+        return action;
+    }
+    // delegate action selection to the team
+    else
+    {
+        return team->getAction(visited, inputFeatures, parameters);
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// UTILITY
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief     Returns whether this and the other action are equal.
@@ -96,7 +111,7 @@ bool Action::isAtomicAction() const
  *  @return    A boolean representing whether the actions are equivalent.
  *  @todo      Testing required.
  */
-bool Action::equals(const Action& other) const
+bool Action::operator==(const Action& other) const
 {
     // different action types, return false
     if ((other.team && !this->team) || (!other.team && this->team)) 
@@ -113,9 +128,4 @@ bool Action::equals(const Action& other) const
     {
         return other.action == this->action;
     }
-}
-
-std::string* Action::toString() const
-{
-    return nullptr;
 }

@@ -3,8 +3,9 @@
 
 #include "tpg_utility.h"
 
-#include <map>
+#include <unordered_map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "tpg_instruction.h"
@@ -26,7 +27,7 @@
  *  @author    Robert Smith
  *  @author    Ryan Amaral 
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 25, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn
     or TPGPlay objects and creates a population of Learners for producing bids.
  *  @bug       None yet marked.
@@ -36,22 +37,24 @@
 class Program
 {
     /**A vector of Instruction objects which represent a complete TPG program.*/
-    std::vector<Instruction>* instructions;
+    std::vector<Instruction> instructions;
     /**A double array which acts as a set of general purpose registers.*/
-    double* registers;
-    /**A 32-bit integer which sets a limit on the maximum size of a Program.*/
-    int32 maximumProgramSize;
+    std::vector<double> registers;
 
   public:
-    Program(const TpgParameters&);
+    // constructors and destructor
+    Program(TpgParameters&);
     Program(const Program&, TpgParameters&);
-    Program(std::vector<Instruction>&);
     ~Program();
-    double execute(const std::vector<double>&);
-    bool mutate(const TpgParameters&);
-    int32 instructionCount(const std::string&) const;
-    std::map<std::string, int32>* allInstructionCounts(const TpgParameters&) const;
-    std::vector<Instruction>* getInstructions() const;
+
+    // getters and setters
+    int64 instructionCount(const std::string_view&) const;
+    std::unordered_map<std::string, int64> allInstructionCounts(const TpgParameters&) const;
+    std::vector<Instruction> getInstructions() const;
+
+    // core functionality
+    double execute(const double*, TpgParameters&);
+  
     std::string* toString() const;
 };
 

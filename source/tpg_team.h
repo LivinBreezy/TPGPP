@@ -24,7 +24,7 @@ class Action;
  *  @author    Robert Smith
  *  @author    Ryan Amaral
  *  @version   v0.1 Beta
- *  @date      Created on October 7, 2019. Last updated on October 12, 2019.
+ *  @date      Created on October 7, 2019. Last updated on October 23, 2019.
  *  @pre       Initialize the TPGAlgorithm object, which generates a TPGLearn 
     or TPGPlay objects and creates a population of Teams for producing bids.
  *  @bug       None yet marked.
@@ -35,6 +35,8 @@ class Team
 {
     int64 id;
     int64 birthday;
+    int32 learnerReferences;
+
     std::vector<Learner*> learners;
     std::unordered_map<std::string, double> outcomes;
     int32 learnerReferences;
@@ -46,25 +48,34 @@ public:
     Team(const int64, const int64, std::vector<Learner*>, std::unordered_map<std::string, double>);
     Team(const Team&, TpgParameters&);
     ~Team();
-    bool mutate(const TpgParameters&);
+
+    // getters and setters and modifiers
+    int64 getId() const;
+    int64 getBirthday() const;
     int32 numberOfLearners() const;
     int32 numberOfOutcomes() const;
-    int64 getBirthday() const;
-    int64 getId() const;
-    std::vector<Learner*>& getLearners();
-    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&);
     int32 getReferences() const;
+    int32 increaseReferences();
+    int32 decreaseReferences();
+
+    std::vector<Learner*> getLearners();
+    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&);
     double calculateFitness();
     double getFitness() const;
+
     int32 getAtomicActionCount() const;
     double getOutcome(const std::string_view) const;
     bool setOutcome(const std::string_view, const double);
     bool deleteOutcome(const std::string_view);
     bool clearOutcomes();
     bool addLearner(Learner&);
-    bool removeLearner(Learner&);
-    int32 increaseReferences();
-    int32 decreaseReferences();
+    bool removeLearner(Learner&, bool);
+
+    // core functionality
+    int64 getAction(std::set<Team*>&, const double*, TpgParameters&);
+    void mutate(TpgParameters&, bool);
+
+    // utility
     int32 compareTo(const Team&) const;
     std::string* toString() const;
     bool operator<(const Team& rhs) const;

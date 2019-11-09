@@ -6,6 +6,7 @@ minimumTeamSize=2
 minimumRootTeams=6
 maximumProgramSize=1024
 numberOfOperations=9
+probLearnerMutate=0.2
 probLearnerAdd=0.7
 probLearnerDelete=0.7
 probLearnerMutate=0.2

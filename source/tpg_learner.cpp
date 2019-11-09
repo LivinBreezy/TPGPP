@@ -6,6 +6,10 @@
 #include "tpg_program.h"
 #include "tpg_team.h"
 
+///////////////////////////////////////////////////////////////////////////////
+// CONSTRUCTORS AND DESTRUCTOR
+///////////////////////////////////////////////////////////////////////////////
+
 Learner::Learner(int64 id, int64 birthday, int64 action, int16 teamReferences, 
                   Program& program)
 {
@@ -16,7 +20,8 @@ Learner::Learner(int64 id, int64 birthday, int64 action, int16 teamReferences,
     this->program = &program;
 }
 
-Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences, Program& program)
+Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences, 
+    Program& program)
 {
     this->id = id;
     this->birthday = birthday;
@@ -25,33 +30,31 @@ Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences, Pro
     this->program = &program;
 }
 
-Learner::Learner(int64 birthday, int64 action, TpgParameters& parameters)
+Learner::Learner(int64 action, TpgParameters& parameters)
 {
     this->id = parameters.nextLearnerId++;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->action = new Action(action);
     this->teamReferences = 0;
     this->program = new Program(parameters);
 }
 
-Learner::Learner(int64 birthday, Team& team, TpgParameters& parameters)
+Learner::Learner(Team& team, TpgParameters& parameters)
 {
     this->id = parameters.nextLearnerId++;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->action = new Action(team);
     this->teamReferences = 0;
     this->program = new Program(parameters);
 }
 
-Learner::Learner(int64 birthday, const Learner& other, TpgParameters& parameters)
+Learner::Learner(const Learner& other, TpgParameters& parameters)
 {
     this->id = parameters.nextLearnerId++;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->action = new Action(*other.getActionObject());
-    this->teamReferences = other.getReferences();
-    // TODO: (Robert) Set up Program to make a copy from a previous program,
-    //                rather than just defaulting to something random.
-    this->program = new Program(parameters);
+    this->teamReferences = 0;
+    this->program = new Program(*other.program, parameters);
 }
 
 Learner::~Learner()
@@ -62,6 +65,10 @@ Learner::~Learner()
     delete program;
     program = nullptr;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// GETTERS AND SETTERS
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief     Returns a bid value by executing the program.
@@ -84,17 +91,17 @@ double Learner::bid(const std::vector<double>& inputFeatures)
  */
 int32 Learner::programLength() const
 {
-    return static_cast<int32>(program->getInstructions()->size());
+    return static_cast<int32>(program->getInstructions().size());
 }
 
 int64 Learner::getID() const
 {
-    return NULL;
+    return id;
 }
 
-Program Learner::getProgram() const
+Program Learner::getProgram(TpgParameters& parameters) const
 {
-    return *program;
+    return Program(*program, parameters);
 }
 
 Action* Learner::getActionObject() const
@@ -109,37 +116,22 @@ std::string Learner::getActionType() const
 
 int64 Learner::getBirthday() const
 {
-    return NULL;
+    return birthday;
 }
 
 int32 Learner::getReferences() const
 {
-    return NULL;
-}
-
-bool Learner::mutateAction(const Action&)
-{
-    return NULL;
-}
-
-bool Learner::mutateProgram(const TpgParameters&)
-{
-    return NULL;
-}
-
-bool Learner::mutate(const TpgParameters&)
-{
-    return NULL;
+    return teamReferences;
 }
 
 int32 Learner::increaseReferences()
 {
-    return NULL;
+    return ++teamReferences;
 }
 
 int32 Learner::decreaseReferences()
 {
-    return NULL;
+    return --teamReferences;
 }
 
 std::string Learner::toString() const
@@ -147,12 +139,19 @@ std::string Learner::toString() const
     return std::string("");
 }
 
-bool Learner::saveToFile(const Learner&, const std::string&, const std::string&)
-{
-    return NULL;
-}
+///////////////////////////////////////////////////////////////////////////////
+// CORE FUNCTIONALITY
+///////////////////////////////////////////////////////////////////////////////
 
-Learner* Learner::loadFromFile(const std::string&)
+/**
+ *  @brief     Returns a bid value by executing the program.
+ *  @details   
+ *  @param     inputFeatures A double array representing the environment's
+ *  complete feature set.
+ *  @return    A double value representing this Learner's bid.
+ *  @todo      Testing required.
+ */
+double Learner::bid(const double* inputFeatures, TpgParameters& parameters)
 {
-    return nullptr;
+    return program->execute(inputFeatures, parameters);
 }

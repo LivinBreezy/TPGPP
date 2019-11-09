@@ -94,6 +94,7 @@ public:
 
     // Public functions acting like variables
     double rngUniform() { return distribution(rng); };
+
     bool rngFlip(double prob) { return rngUniform() < prob; };
 
     int64 rngInt64(const int64 min, const int64 max)

@@ -1,7 +1,13 @@
 
 #include "tpg_program.h"
 
+#include <vector>
+
 #include "tpg_utility.h"
+
+///////////////////////////////////////////////////////////////////////////////
+// CONSTRUCTORS AND DESTRUCTOR
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief     Constructor for creating a new random Program.
@@ -15,11 +21,18 @@
  *  for the current environment.
  *  @todo      Implementation and full commenting required.
  */
-Program::Program(const TpgParameters& parameters)
+Program::Program(TpgParameters& parameters)
 {
-    this->instructions = {};
-    this->registers = nullptr;
-    this->maximumProgramSize = NULL;
+    // generate new random instructions
+    this->instructions = new std::vector<Instruction>();
+    int64 numInstructions = parameters.rngInt64(1, parameters.maximumProgramSize);
+    for (int64 i = 0; i < numInstructions; ++i)
+    {
+        this->instructions->push_back(Instruction(parameters));
+    }
+
+    // initialize registers to 0
+    this->registers = new std::vector<double(parameters.learnerRegisterSize, 0);
 }
 
 /**
@@ -32,9 +45,11 @@ Program::Program(const TpgParameters& parameters)
  */
 Program::Program(const Program& other, TpgParameters& parameters)
 {
-    this->instructions = {};
-    this->registers = nullptr;
-    this->maximumProgramSize = NULL;
+    // copy instructions of other
+    this->instructions = new std::vector<Instruction>(*other.instructions);
+
+    // initialize registers to other's registers
+    this->registers = program.registers;
 }
 
 Program::Program(std::vector<Instruction>& instructionList)
@@ -48,12 +63,17 @@ Program::Program(std::vector<Instruction>& instructionList)
  *  @brief     Destructor for freeing a Program.
  *  @details   This destructor frees all Instructions, frees its register
  *  set, then ends.
-  *  @todo      Implementation and full commenting required.
+ *  @todo      Testing required.
  */
 Program::~Program()
 {
-
+    delete instructions;
+    delete[] registers;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// GETTERS AND SETTERS
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  *  @brief     Execute a Program on the provided feature set.
@@ -93,15 +113,25 @@ bool Program::mutate(const TpgParameters& parameters)
  *  @details   Upon receiving a string, this method searches the Instruction
  *  list for any operations with the same name and counts them. It then returns
  *  that value as a 32-bit integer.
- *  @param     operationName A pointer to a string holding the name of an 
+ *  @param     operationName A pointer to a string holding the name of an
  *  operation.
  *  @return    A 32-bit integer representing the number of times the given
  *  operator was found.
- *  @todo      Implementation and full commenting required.
+ *  @todo      Implementation and full commenting required. Implement later
+ *  once Instruction is finalized.
  */
-int32 Program::instructionCount(const std::string& operationName) const
+int64 Program::instructionCount(const std::string_view& operationName) const
 {
-    return NULL;
+    int64 count = 0;
+
+    for (Instruction inst : instructions) {
+        if (inst.getType().compare(operationName)) {
+            // found an instruction of this type
+            ++count;
+        }
+    }
+
+    return count;
 }
 
 /**
@@ -111,29 +141,74 @@ int32 Program::instructionCount(const std::string& operationName) const
  *  where the key->value pair is represented as operatorName->count. Once
  *  the map is completed, it is returned.
  *  @param     parameters A struct held by the main TPG algorithm objects
- *  (TpgLearn or TpgPlay) and stores all of the current parameter values 
+ *  (TpgLearn or TpgPlay) and stores all of the current parameter values
  *  for the current environment.
  *  @return    A string->int32 map containing the number of types each
  *  operation appears in the Instructions list.
- *  @todo      Implementation and full commenting required.
+ *  @todo      Implementation and full commenting required. 
  */
-std::map<std::string, int32>* Program::allInstructionCounts(const TpgParameters& parameters) const
+std::unordered_map<std::string, int64> Program::allInstructionCounts(const TpgParameters& parameters) const
 {
-    return nullptr;
+    std::unordered_map<std::string, int64> countMap = 
+        std::unordered_map<std::string, int64>();
+
+    Instruction inst = NULL;
+
+    std::vector<std::string> instTypes;
+
+    // get all instruction types
+    for (int8 i = 0; i < parameters.numberOfOperations; ++i)
+    {
+        // put key in count map
+        inst = Instruction(0, 0, 0, &Instruction::createOperationOfType(i));
+        countMap.emplace(inst.getType(), 0);
+
+        // track type name
+        instTypes.push_back(inst.getType());
+    }
+
+    // find counts
+    for (Instruction inst : instructions) 
+    {
+        for (std::string instType : instTypes) 
+        {
+            if (inst.getType().compare(instType)) 
+            {
+                ++countMap.at(instType);
+
+                break;
+            }
+        }
+    }
+
+    return countMap;
 }
 
-std::vector<Instruction>* Program::getInstructions() const
+std::vector<Instruction> Program::getInstructions() const
 {
     return instructions;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// CORE FUNCTIONALITY
+///////////////////////////////////////////////////////////////////////////////
+
 /**
- *  @brief     Return a string representation of a Program object.
- *  @details   TBD. It could be a full Instruction list in plain language.
- *  @return    A pointer to a string, which represents a Program object.
- *  @todo      Implementation and full commenting required.
+ *  @brief     Execute a Program on the provided feature set.
+ *  @details   Upon receiving a feature set, this method will execute each
+ *  stored Instruction on the feature set in conjuction with the general
+ *  purpose registers held by this Program, then return the first value
+ *  in the registers as a bid value.
+ *  @param     inputFeatures A double array representing the environment's
+ *  complete feature set.
+ *  @return    A double value representing a Learner bid.
+ *  @todo      Testing required.
  */
-std::string* Program::toString() const
+double Program::execute(const double* inputFeatures, TpgParameters& parameters)
 {
-    return nullptr;
+    for (Instruction inst : *instructions) {
+        inst.execute(inputFeatures, registers, parameters);
+    }
+
+    return registers[0];
 }
