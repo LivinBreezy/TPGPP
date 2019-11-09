@@ -11,9 +11,20 @@
 #include "tpg_action.h"
 #include "tpg_learner.h"
 
+
 ///////////////////////////////////////////////////////////////////////////////
 // CONSTRUCTORS AND DESTRUCTOR
 ///////////////////////////////////////////////////////////////////////////////
+
+Team::Team()
+{
+    this->id = 0;
+    this->birthday = 0;
+    this->learners = {};
+    this->outcomes = {};
+    this->learnerReferences = 0;
+    this->fitness = 0.0;
+}
 
 /**
  *  @brief     Creates a new Team.
@@ -23,13 +34,14 @@
  *  @param     parameters To obtain a new id.
  *  @todo      Testing.
  */
-Team::Team(const int64 birthday, TpgParameters& parameters)
+Team::Team(TpgParameters& parameters)
 {
     this->id = ++parameters.nextTeamId;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->learners = {};
     this->outcomes = {};
     this->learnerReferences = 0;
+    this->fitness = 0.0;
 }
 
 /**
@@ -49,6 +61,7 @@ Team::Team(const int64 id, const int64 birthday, std::vector<Learner*> learners,
     this->learners = learners;
     this->outcomes = outcomes;
     this->learnerReferences = 0;
+    this->fitness = 0.0;
 }
 
 /**
@@ -60,13 +73,14 @@ Team::Team(const int64 id, const int64 birthday, std::vector<Learner*> learners,
  *  @param     parameters To obtain a new id.
  *  @todo      Testing.
  */
-Team::Team(const Team& other, const int64 birthday, TpgParameters& parameters)
+Team::Team(const Team& other, TpgParameters& parameters)
 {
     this->id = ++parameters.nextTeamId;
-    this->birthday = birthday;
+    this->birthday = parameters.generation;
     this->learners = other.learners;
     this->outcomes = {};
     this->learnerReferences = 0;
+    this->fitness = 0.0;
 }
 
 /**
@@ -147,6 +161,48 @@ std::vector<Learner*> Team::getLearners()
 }
 
 /**
+ *  @brief      Decides an action to submit to the environment.
+ *  @details    Chooses the learner with the highest bid's Action. If the Learner's
+ *              Action is a Team, that team is searched in the same fashion for
+ *              an action. If the Action is atomic, then that value is propagated
+ *              upward as the action to submit to the enviornment. Tracks visited
+ *              Teams to avoid a potential infinite loop.
+ *  @param      visited The teams already visited in this action search.
+ *  @param      inputFeatures The features from the environment to derive action
+ *              from.
+ *  @return     An int64 representing the action to make in the environment. This
+ *              value would have some meaning in the environment.
+ *  @todo       Test.
+ */
+int64 Team::getAction(std::unordered_set<Team*>& visited, 
+    const std::vector<double>& inputFeatures)
+{
+    // to ensure no re-visits of teams
+    visited.emplace(this);
+
+    // find best learner based on highest bid
+    Learner* bestLearner = *learners.begin();
+    double bestBid = bestLearner->bid(inputFeatures);
+    double curBid;
+    for (auto lrnrIt = learners.begin() + 1; lrnrIt != learners.end(); ++lrnrIt)
+    {
+        // only consider learners already visited
+        if (std::find(visited.begin(), visited.end(), this) == visited.end())
+        {
+            // replace best learner and bid with current if higher
+            curBid = (*lrnrIt)->bid(inputFeatures);
+            if (curBid > bestBid) {
+                bestLearner = *lrnrIt;
+                bestBid = curBid;
+            }
+        }
+    }
+
+    // take the action of the best
+    return bestLearner->getActionObject()->getAction(visited, inputFeatures);
+}
+
+/**
  *  @brief      The number of learners that reference this team as their Action.
  *  @details
  *  @param
@@ -157,6 +213,17 @@ int32 Team::getReferences() const
 {
     return learnerReferences;
 }
+
+double Team::calculateFitness()
+{
+    return -1.0;
+}
+
+double Team::getFitness() const
+{
+    return -1.0;
+}
+
 
 /**
  *  @brief      The number of atomic Actions this Team has.
@@ -213,6 +280,11 @@ bool Team::setOutcome(const std::string_view outcomeName, const double outcomeVa
 bool Team::deleteOutcome(const std::string_view outcomeName)
 {
     return outcomes.erase(outcomeName.data());
+}
+
+bool Team::clearOutcomes()
+{
+    return true;
 }
 
 /**
@@ -417,18 +489,6 @@ void Team::mutate(TpgParameters& parameters, bool addLearners)
  *  @return
  *  @todo
  */
-int32 Team::compareTo(const Team& other) const
-{
-    return NULL;
-}
-
-/**
- *  @brief
- *  @details
- *  @param
- *  @return
- *  @todo
- */
 std::string* Team::toString() const
 {
     return nullptr;
@@ -444,28 +504,4 @@ std::string* Team::toString() const
 bool Team::operator<(const Team& rhs) const
 {
     return id < rhs.id;
-}
-
-/**
- *  @brief
- *  @details
- *  @param
- *  @return
- *  @todo
- */
-bool Team::saveToFile(const Team& teamPointer, const std::string_view filePath, const std::string_view fileMode)
-{
-    return NULL;
-}
-
-/**
- *  @brief
- *  @details
- *  @param
- *  @return
- *  @todo
- */
-Team* Team::loadFromFile(const std::string_view filePath)
-{
-    return nullptr;
 }

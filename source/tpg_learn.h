@@ -7,28 +7,26 @@
 
 class TpgLearn: public TpgMode
 {
-    TpgParameters parameters;
-
-    void mergeParameters(TpgParameters&, std::unordered_map<std::string, double>&);
-
-public:
+  public:
     TpgLearn(std::unordered_map<std::string, double>&);
     ~TpgLearn();
     bool setActions(const std::vector<int64>&);
     bool initializeEnvironment();
     bool initializePopulations();
-    int64 participate(double*);
-    int64 participate(double*, int64*);
+    int64 participate(std::vector<double>&);
+    int64 participate(std::vector<double>&, std::vector<int64>&);
     bool rewardCurrentTeam(std::string&, double& reward);
-    void generateNewTeams();
-    bool mutate(int64, Team&);
-    void selection();
+    void executeReproduction();
     void cleanup();
-    void nextGeneration();
+    int64 nextGeneration();
     void printStats();
     int32 getRemainingTeams();
     int64 getGenerations();
     std::string getType();
+
+  private:
+    TpgParameters parameters;
+    void mergeParameters(TpgParameters&, std::unordered_map<std::string, double>&);
 };
 
 #endif

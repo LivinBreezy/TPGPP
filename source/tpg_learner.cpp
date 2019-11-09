@@ -71,6 +71,19 @@ Learner::~Learner()
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
+ *  @brief     Returns a bid value by executing the program.
+ *  @details   
+ *  @param     inputFeatures A double array representing the environment's
+ *  complete feature set.
+ *  @return    A double value representing this Learner's bid.
+ *  @todo      Testing required.
+ */
+double Learner::bid(const std::vector<double>& inputFeatures)
+{
+    return program->execute(inputFeatures);
+}
+
+/**
  *  @brief     Returns the length of this Learner's Program (number of Instructions).
  *  @details   
  *  @return    An int representing the length of the Learner's Program.
@@ -96,6 +109,11 @@ Action* Learner::getActionObject() const
     return action;
 }
 
+std::string Learner::getActionType() const
+{
+    return std::string("");
+}
+
 int64 Learner::getBirthday() const
 {
     return birthday;
@@ -114,6 +132,11 @@ int32 Learner::increaseReferences()
 int32 Learner::decreaseReferences()
 {
     return --teamReferences;
+}
+
+std::string Learner::toString() const
+{
+    return std::string("");
 }
 
 ///////////////////////////////////////////////////////////////////////////////

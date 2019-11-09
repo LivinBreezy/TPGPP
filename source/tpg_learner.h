@@ -52,6 +52,13 @@ public:
     int32 programLength() const;
     int64 getID() const;
     Action* getActionObject() const;
+    double bid(const std::vector<double>&);
+    int32 programLength() const;
+    int64 getID() const;
+    Program getProgram() const;
+    Action* getActionObject() const;
+    std::string getActionType() const;
+
     int64 getBirthday() const;
     int32 getReferences() const;
     int32 increaseReferences();
@@ -79,6 +86,11 @@ public:
 
         return in;
     }
+
+    std::string toString() const;
+    static bool saveToFile(const Learner&, const std::string&, const std::string&);
+    static Learner* loadFromFile(const std::string&);
+    bool operator==(const Learner& other) { return this->id == other.id; };
 };
 
 #endif

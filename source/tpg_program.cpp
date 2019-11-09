@@ -52,6 +52,13 @@ Program::Program(const Program& other, TpgParameters& parameters)
     this->registers = program.registers;
 }
 
+Program::Program(std::vector<Instruction>& instructionList)
+{
+    this->instructions = new std::vector<Instruction>(instructionList);
+    this->registers = nullptr;
+    this->maximumProgramSize = NULL;
+}
+
 /**
  *  @brief     Destructor for freeing a Program.
  *  @details   This destructor frees all Instructions, frees its register
@@ -67,6 +74,39 @@ Program::~Program()
 ///////////////////////////////////////////////////////////////////////////////
 // GETTERS AND SETTERS
 ///////////////////////////////////////////////////////////////////////////////
+
+/**
+ *  @brief     Execute a Program on the provided feature set.
+ *  @details   Upon receiving a feature set, this method will execute each
+ *  stored Instruction on the feature set in conjuction with the general
+ *  purpose registers held by this Program, then return the first value
+ *  in the registers as a bid value.
+ *  @param     inputFeatures A double array representing the environment's
+ *  complete feature set.
+ *  @return    A double value representing a Learner bid.
+ *  @todo      Implementation and full commenting required.
+ */
+double Program::execute(const std::vector<double>& inputFeatures)
+{
+    return NULL;
+}
+
+/**
+ *  @brief     Mutate the Instructions in a Program.
+ *  @details   Uses the given parameters to mutate this Program object.
+ *  This can include changing the mode value, the source/destination
+ *  indexes, and/or the operation of the Instructions.
+ *  @param     parameters A struct held by the main TPG algorithm objects
+ *  (TpgLearn or TpgPlay) and stores all of the current parameter values
+ *  for the current environment.
+ *  @return    A boolean value which is true if Instructions were mutated.
+ *  Otherwise return false.
+ *  @todo      Implementation and full commenting required.
+ */
+bool Program::mutate(const TpgParameters& parameters)
+{
+    return NULL;
+}
 
 /**
  *  @brief     Return the number of Instructions with the parameter name.

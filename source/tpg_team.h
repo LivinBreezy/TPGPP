@@ -7,7 +7,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
-#include <set>
+#include <unordered_set>
 
 #include "tpg_learner.h"
 
@@ -39,13 +39,14 @@ class Team
 
     std::vector<Learner*> learners;
     std::unordered_map<std::string, double> outcomes;
+    int32 learnerReferences;
+    double fitness;
 
 public:
-    // constructors and destructor
-    Team(const int64, TpgParameters&);
-    Team(const int64, const int64, std::vector<Learner*>, 
-        std::unordered_map<std::string, double>);
-    Team(const Team&, const int64 birthday, TpgParameters&);
+    Team();
+    Team(TpgParameters&);
+    Team(const int64, const int64, std::vector<Learner*>, std::unordered_map<std::string, double>);
+    Team(const Team&, TpgParameters&);
     ~Team();
 
     // getters and setters and modifiers
@@ -56,19 +57,23 @@ public:
     int32 getReferences() const;
     int32 increaseReferences();
     int32 decreaseReferences();
-    int32 getAtomicActionCount() const;
+
     std::vector<Learner*> getLearners();
+    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&);
+    double calculateFitness();
+    double getFitness() const;
+
+    int32 getAtomicActionCount() const;
     double getOutcome(const std::string_view) const;
     bool setOutcome(const std::string_view, const double);
     bool deleteOutcome(const std::string_view);
+    bool clearOutcomes();
     bool addLearner(Learner&);
     bool removeLearner(Learner&, bool);
-
 
     // core functionality
     int64 getAction(std::set<Team*>&, const double*, TpgParameters&);
     void mutate(TpgParameters&, bool);
-
 
     // utility
     int32 compareTo(const Team&) const;
@@ -76,6 +81,8 @@ public:
     bool operator<(const Team& rhs) const;
     static bool saveToFile(const Team&, const std::string_view, const std::string_view);
     static Team* loadFromFile(const std::string_view);
+    bool operator==(const Team* other) { return this->id == other->id; };
+    bool operator==(const Team& other) { return this->id == other.id; };
 };
 
 #endif

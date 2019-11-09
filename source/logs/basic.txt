@@ -1,0 +1,8 @@
+[2019-11-08 18:59:35.214] [basic_logger] [info] Welcome to spdlog!
+[2019-11-08 18:59:35.215] [basic_logger] [error] Some error message with arg: 1
+[2019-11-08 18:59:35.215] [basic_logger] [warning] Easy padding in numbers like 00000012
+[2019-11-08 18:59:35.215] [basic_logger] [critical] Support for int: 42;  hex: 2a;  oct: 52; bin: 101010
+[2019-11-08 18:59:35.215] [basic_logger] [info] Support for floats 1.23
+[2019-11-08 18:59:35.215] [basic_logger] [info] Positional args are supported too..
+[2019-11-08 18:59:35.215] [basic_logger] [info] left aligned                  
+[2019-11-08 18:59:35.215] [basic_logger] [debug] This message should be displayed..

@@ -54,28 +54,8 @@ class Program
 
     // core functionality
     double execute(const double*, TpgParameters&);
-
-    // utility
-   // utility
-    friend std::ofstream& operator<<(std::ofstream& out, const Program& program)
-    {
-        for (Instruction inst : instructions)
-        {
-          out << inst << "\n";
-        }
-        // todo: i need size of registers somehow
-
-        return out;
-    }
-    
-    friend std::ifstream& operator>>(std::ifstream& in, const Program& program)
-    {
-        // todo: how to take instructions
-
-        // todo: i need size of registers somehow
-
-        return in;
-    }
+  
+    std::string* toString() const;
 };
 
 #endif

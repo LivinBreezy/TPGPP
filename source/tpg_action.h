@@ -44,6 +44,7 @@ public:
     ~Action();
 
     // getters and setters
+    int64 getAction(std::unordered_set<Team*>&, const double*) const;
     int64 getAtomic() const;
     Team* getTeam() const;
     bool isAtomicAction() const;
