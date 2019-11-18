@@ -24,15 +24,15 @@
 Program::Program(TpgParameters& parameters)
 {
     // generate new random instructions
-    this->instructions = new std::vector<Instruction>();
+    this->instructions = *(new std::vector<Instruction*>());
     int64 numInstructions = parameters.rngInt64(1, parameters.maximumProgramSize);
     for (int64 i = 0; i < numInstructions; ++i)
     {
-        this->instructions->push_back(Instruction(parameters));
+        this->instructions.push_back(new Instruction(parameters));
     }
 
     // initialize registers to 0
-    this->registers = new std::vector<double(parameters.learnerRegisterSize, 0);
+    this->registers = *(new std::vector<double>(parameters.learnerRegisterSize, 0));
 }
 
 /**
@@ -46,17 +46,27 @@ Program::Program(TpgParameters& parameters)
 Program::Program(const Program& other, TpgParameters& parameters)
 {
     // copy instructions of other
-    this->instructions = new std::vector<Instruction>(*other.instructions);
+    this->instructions = *(new std::vector<Instruction*>(other.instructions));
 
     // initialize registers to other's registers
-    this->registers = program.registers;
+    this->registers = other.registers;
 }
 
-Program::Program(std::vector<Instruction>& instructionList)
+/**
+ *  @brief     Constructor for creating a Program from a vector of Instructions.
+ *  @details   This constructor accepts a vector of Instructions and initializes
+    itself to hold a copy of that Instruction vector.
+ *  @param     other A pointer to a Program object to be copied.
+ *  @todo      Implementation and full commenting required.
+ */
+Program::Program(const std::vector<Instruction*>& oldInstructions, 
+    TpgParameters& parameters)
 {
-    this->instructions = new std::vector<Instruction>(instructionList);
-    this->registers = nullptr;
-    this->maximumProgramSize = NULL;
+    // Copy Instructions into this object's Instructions vector.
+    this->instructions = *(new std::vector<Instruction*>(oldInstructions));
+    
+    // Initialize registers to 0.
+    this->registers = *(new std::vector<double>(parameters.learnerRegisterSize, 0));
 }
 
 /**
@@ -67,46 +77,13 @@ Program::Program(std::vector<Instruction>& instructionList)
  */
 Program::~Program()
 {
-    delete instructions;
-    delete[] registers;
+    delete &instructions;
+    delete[] &registers;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GETTERS AND SETTERS
 ///////////////////////////////////////////////////////////////////////////////
-
-/**
- *  @brief     Execute a Program on the provided feature set.
- *  @details   Upon receiving a feature set, this method will execute each
- *  stored Instruction on the feature set in conjuction with the general
- *  purpose registers held by this Program, then return the first value
- *  in the registers as a bid value.
- *  @param     inputFeatures A double array representing the environment's
- *  complete feature set.
- *  @return    A double value representing a Learner bid.
- *  @todo      Implementation and full commenting required.
- */
-double Program::execute(const std::vector<double>& inputFeatures)
-{
-    return NULL;
-}
-
-/**
- *  @brief     Mutate the Instructions in a Program.
- *  @details   Uses the given parameters to mutate this Program object.
- *  This can include changing the mode value, the source/destination
- *  indexes, and/or the operation of the Instructions.
- *  @param     parameters A struct held by the main TPG algorithm objects
- *  (TpgLearn or TpgPlay) and stores all of the current parameter values
- *  for the current environment.
- *  @return    A boolean value which is true if Instructions were mutated.
- *  Otherwise return false.
- *  @todo      Implementation and full commenting required.
- */
-bool Program::mutate(const TpgParameters& parameters)
-{
-    return NULL;
-}
 
 /**
  *  @brief     Return the number of Instructions with the parameter name.
@@ -147,7 +124,7 @@ int64 Program::instructionCount(const std::string_view& operationName) const
  *  operation appears in the Instructions list.
  *  @todo      Implementation and full commenting required. 
  */
-std::unordered_map<std::string, int64> Program::allInstructionCounts(const TpgParameters& parameters) const
+std::unordered_map<std::string, int64> Program::allInstructionCounts(TpgParameters& parameters) const
 {
     std::unordered_map<std::string, int64> countMap = 
         std::unordered_map<std::string, int64>();
@@ -184,7 +161,7 @@ std::unordered_map<std::string, int64> Program::allInstructionCounts(const TpgPa
     return countMap;
 }
 
-std::vector<Instruction> Program::getInstructions() const
+std::vector<Instruction*> Program::getInstructions() const
 {
     return instructions;
 }
@@ -204,11 +181,38 @@ std::vector<Instruction> Program::getInstructions() const
  *  @return    A double value representing a Learner bid.
  *  @todo      Testing required.
  */
-double Program::execute(const double* inputFeatures, TpgParameters& parameters)
+double Program::execute(const std::vector<double>& inputFeatures, TpgParameters& parameters)
 {
-    for (Instruction inst : *instructions) {
-        inst.execute(inputFeatures, registers, parameters);
+    spdlog::debug("EXECUTE_PROGRAM: Begin");
+    
+    std::string out1;
+    for (double D : inputFeatures)
+    {
+        out1 += std::to_string(D) + ", ";
+    }    
+
+    spdlog::debug("EXECUTE_PROGRAM: Inputs     = {}", out1);
+    
+    for(Instruction inst : instructions) 
+    {
+        std::string out2;
+        for (double D : registers)
+        {
+            out2 += std::to_string(D) + ", ";
+        }
+        spdlog::debug("EXECUTE_PROGRAM: RegistersB = {}", out2);
+
+        inst.execute(inputFeatures, this->registers, parameters);
+        
+        std::string out3;
+        for (double D : registers)
+        {
+            out3 += std::to_string(D) + ", ";
+        }
+        spdlog::debug("EXECUTE_PROGRAM: RegistersA = {}", out3);
     }
+  
+    //spdlog::debug("EXECUTE_PROGRAM: Output     = {}", registers[0]);
 
     return registers[0];
 }

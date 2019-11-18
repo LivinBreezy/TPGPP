@@ -35,9 +35,9 @@ public:
     MemoryModel(int32, int32);
     MemoryModel(MemoryModel*);
     ~MemoryModel();
-    double* generateProbabilities();
+    void generateProbabilities();
     double read(int32) const;
-    bool write(const double*);
+    bool write(const std::vector<double>&, TpgParameters&);
     std::string toString() const;
 };
 

@@ -3,11 +3,11 @@
 
 #include "tpg_utility.h"
 
-#include <unordered_map>
 #include <string>
 #include <string_view>
-#include <vector>
+#include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 #include "tpg_learner.h"
 
@@ -36,10 +36,8 @@ class Team
     int64 id;
     int64 birthday;
     int32 learnerReferences;
-
     std::vector<Learner*> learners;
     std::unordered_map<std::string, double> outcomes;
-    int32 learnerReferences;
     double fitness;
 
 public:
@@ -55,33 +53,30 @@ public:
     int32 numberOfLearners() const;
     int32 numberOfOutcomes() const;
     int32 getReferences() const;
+    
     int32 increaseReferences();
     int32 decreaseReferences();
 
     std::vector<Learner*> getLearners();
-    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&);
     double calculateFitness();
     double getFitness() const;
 
     int32 getAtomicActionCount() const;
+    
     double getOutcome(const std::string_view) const;
     bool setOutcome(const std::string_view, const double);
     bool deleteOutcome(const std::string_view);
     bool clearOutcomes();
+    
     bool addLearner(Learner&);
-    bool removeLearner(Learner&, bool);
+    bool removeLearner(Learner&, bool force = false);
 
     // core functionality
-    int64 getAction(std::set<Team*>&, const double*, TpgParameters&);
-    void mutate(TpgParameters&, bool);
+    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&, TpgParameters&);
 
     // utility
-    int32 compareTo(const Team&) const;
-    std::string* toString() const;
+    std::string_view toString() const;
     bool operator<(const Team& rhs) const;
-    static bool saveToFile(const Team&, const std::string_view, const std::string_view);
-    static Team* loadFromFile(const std::string_view);
-    bool operator==(const Team* other) { return this->id == other->id; };
     bool operator==(const Team& other) { return this->id == other.id; };
 };
 

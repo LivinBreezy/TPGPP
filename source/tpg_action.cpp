@@ -82,7 +82,9 @@ bool Action::isAtomicAction() const
  *             action.
  *  @todo      Testing required.
  */
-int64 Action::getAction(std::unordered_set<Team*>& visited, const double* inputFeatures, TpgParameters& parameters) const
+int64 Action::getAction(std::unordered_set<Team*>& visited, 
+    const std::vector<double>& inputFeatures, 
+    TpgParameters& parameters) const
 {
     // just return atomic action if applicable
     if (isAtomicAction())

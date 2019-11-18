@@ -51,8 +51,10 @@ std::vector<Team*> StandardReproduction::teamSelection(std::vector<Team*>& teams
         teamPopulation.erase(position);
 
         // Remove the Team from the end of the ranked vector.
-        // This action will destroy the removed Team.
         rankedTeams.pop_back();
+        
+        // Destroy the removed Team
+        delete team;
 
         // Reduce the number of Teams to remove by 1.
         --teamsToRemove;
@@ -91,12 +93,12 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
     // Create a copy of the child teams vector.
     std::vector<Team*> mutatedTeams = std::vector<Team*>(childTeams);
 
-    // Iterate through all of the teams in the mutated teams list.
+    // Iterate through all of the teams in the mutated teams list.    
     for(Team* team : mutatedTeams)
     {
         // If we hit our target probability for deleting learners from
-        // teams, run the learner deletion cycle.
-        if(parameters.rngUniform() < parameters.probLearnerDelete)
+        // teams, run the learner deletion cycle.        
+        if(parameters.rngUniform() < 1.0)//parameters.probLearnerDelete)
         {
             // Create a double for holding the cumulative probability.
             double cumulative = 1.0;
@@ -123,7 +125,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                     // Retrieve the learner to be deleted and store it.
                     learner = team->getLearners()[index];
                 } 
-                while (team->removeLearner(*learner) == false);
+                while(team->removeLearner(*learner) == false);
 
                 // Update the cumulative probability.
                 cumulative *= parameters.probLearnerDelete;
@@ -132,7 +134,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
 
         // If we hit our target probability for adding learners to teams, run 
         // the learner add cycle.
-        if (parameters.rngUniform() < parameters.probLearnerAdd)
+        if (parameters.rngUniform() < 1.0)// parameters.probLearnerAdd)
         {
             // Create a double for holding the cumulative probability.
             double cumulative = 1.0;
@@ -173,20 +175,18 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
 
         // Iterate through all the original learners.
         for(Learner* learner : originalLearners)
-        {
+        //for(int i=0; i < originalLearners.size(); ++i)
+        {           
             // If we hit our target probability for mutating a learner,
             // proceed through the Learner mutation algorithm.
-            if(parameters.rngUniform() < parameters.probLearnerMutate)
+            if(parameters.rngUniform() < 1.0)//parameters.probLearnerMutate)
             {
                 // Retrieve a copy of the original learner's program.
-                Program program = learner->getProgram();
-
+                Program *program = learner->getProgram(parameters);
+                                
                 // Perform the Program mutation cycle on the new Learner
                 // and store it in a new variable.
-                Program newProgram = mutateProgram(program, parameters);
-
-                // Delete the old program copy.
-                delete &program;
+                Program *newProgram = mutateProgram(*program, parameters);
 
                 // Remove the original learner from the team.
                 team->removeLearner(*learner);
@@ -194,12 +194,13 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                 // Extract the action from the original learner.
                 Action* action = learner->getActionObject();
 
+
                 // If we hit the target probability for mutating a learner's
                 // action, we proceed through the algorithm.
-                if(parameters.rngUniform() < parameters.probMutateAction)
+                if(parameters.rngUniform() < 1.0)//parameters.probMutateAction)
                 {
                     action = &(mutateAction(*action, parameters));
-                }               
+                }
 
                 // Create a pointer for holding a new learner.
                 Learner* newLearner = nullptr;
@@ -213,7 +214,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                         parameters.generation,
                         action->getAtomic(),
                         0,
-                        newProgram
+                        *newProgram
                     );
                 }
                 else
@@ -224,10 +225,10 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                         parameters.generation,
                         *(action->getTeam()),
                         0,
-                        newProgram
+                        *newProgram
                     );
                 }
-
+                
                 // Add the new learner to the team.
                 team->addLearner(*newLearner);
 
@@ -241,10 +242,10 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
     return mutatedTeams;
 }
 
-Program StandardReproduction::mutateProgram(Program& program, TpgParameters& parameters)
+Program* StandardReproduction::mutateProgram(Program& program, TpgParameters& parameters)
 {
     // Create a copy of the instruction set from the program object.
-    std::vector<Instruction> instructions = *(new std::vector<Instruction>(*(program.getInstructions())));
+    std::vector<Instruction*> instructions = *(new std::vector<Instruction*>(program.getInstructions()));
 
     // Create a variable for holding random index values.
     int64 index = 0;
@@ -256,22 +257,23 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
     while (!mutated)
     {
         // Attempt to remove a random instruction by probability.
-        if (parameters.rngUniform() < parameters.probInstructionDelete)
-        {
+        if (parameters.rngUniform() < 1.0)//parameters.probInstructionDelete)
+        { 
             // Generate a random index for the instruction vector.
             index = parameters.rngInt64(0, instructions.size());
 
+            // Temporarily store the Instruction to be deleted
+            Instruction* temp = instructions[index];
+
             // Remove the instruction from the random index.
             instructions.erase(instructions.begin() + index);
-            delete& (instructions.begin() + index);
 
-            // If this change was successful, then we've mutated.
             mutated = true;
         }
 
         // Attempt to insert a random instruction at a random location
         // by probability.
-        if (parameters.rngUniform() < parameters.probInstructionAdd)
+        if (parameters.rngUniform() < 1.0)//parameters.probInstructionAdd)
         {
             // Create a new random instruction.
             Instruction* instruction = new Instruction(parameters);
@@ -280,7 +282,7 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
             index = parameters.rngInt64(0, instructions.size());
 
             // Insert the new instruction at the random location.
-            instructions.insert(instructions.begin() + index, *instruction);
+            instructions.insert(instructions.begin() + index, instruction);
 
             // If this change was successful, then we've mutated.
             mutated = true;
@@ -290,15 +292,16 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
         if (parameters.rngUniform() < parameters.probInstructionMutate)
         {
             // Generate a random index for the instruction vector.
-            index = parameters.rngInt32(0, instructions.size());
+            index = parameters.rngInt64(0, instructions.size());
+
+            // Temporarily store the Instruction to be mutated
+            Instruction* temp = instructions[index];
 
             // Mutate a new instruction from the old one at the random index.
-            Instruction instruction = mutateInstruction(instructions[index], parameters);
+            Instruction* instruction = mutateInstruction(*temp, parameters);
 
             // Remove the old instruction and replace it with the new one.
-            delete& (instructions.begin() + index);
-            instructions.erase(instructions.begin() + index);
-            instructions.insert(instructions.begin() + index, instruction);
+            instructions[index] = instruction;
 
             // If this change was successful, then we've mutated.
             mutated = true;
@@ -309,23 +312,22 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
         {
             // Create a variable and generate a random index for the
             // instruction vector.
-            int32 other = parameters.rngInt32(0, instructions.size());
+            int64 other = parameters.rngInt64(0, instructions.size());
 
             // Generate a random index which is different from our first
             // random index.
             do
             {
                 index = parameters.rngInt32(0, instructions.size());
-            } 
-            while (index != other);
+            } while (index != other);
 
             // Create a variable for holding an Instruction temporarily.
             Instruction* temp = nullptr;
 
             // Swap the instructions with a three-point replacement.
-            temp = &(instructions[index]);
+            temp = instructions[index];
             instructions[index] = instructions[other];
-            instructions[other] = *temp;
+            instructions[other] = temp;
 
             // If this change was successful, then we've mutated.
             mutated = true;
@@ -333,10 +335,10 @@ Program StandardReproduction::mutateProgram(Program& program, TpgParameters& par
     }
 
     // Return a copy of the new program with the mutated instructions
-    return *(new Program(instructions));
+    return new Program(instructions, parameters);
 }
 
-Instruction StandardReproduction::mutateInstruction(Instruction& instruction, TpgParameters& parameters)
+Instruction* StandardReproduction::mutateInstruction(Instruction& instruction, TpgParameters& parameters)
 {
     // Choose one of the categories to mutate uniformly.
     int32 category = parameters.rngInt32(0, 4);
@@ -431,7 +433,7 @@ Instruction StandardReproduction::mutateInstruction(Instruction& instruction, Tp
     }
 
     // Create a new instruction using the up-to-date values.
-    return *(new Instruction(mode, source, destination, operation));
+    return new Instruction(mode, source, destination, operation);
 }
 
 Action StandardReproduction::mutateAction(Action& action, TpgParameters& parameters)

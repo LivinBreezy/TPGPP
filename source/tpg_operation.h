@@ -21,8 +21,12 @@
 class Operation
 {
 public:
-    virtual bool execute(int8, int32, int8, const double*, double*, 
-        const TpgParameters&) const = 0;
+    virtual bool execute(int8, 
+        int32, 
+        int8, 
+        const std::vector<double>&, 
+        std::vector<double>&, 
+        TpgParameters&) const = 0;
     virtual std::string toString() const = 0;
     virtual std::string toStorage() const = 0;
 };

@@ -3,13 +3,9 @@
 #include "tpg_memory_model.h"
 
 bool ConditionalOperation::execute(int8 mode, int32 source, int8 destination,
-    const double* inputFeatures, double* registers,
-    const TpgParameters& parameters) const
+    const std::vector<double>& inputFeatures, std::vector<double>& registers,
+    TpgParameters& parameters) const
 {
-    // If we are missing the inputs and/or registers, return false.
-    if(registers == nullptr)
-        return false;
-
     // Extract the destinationValue for cleaner code
     double destinationValue = registers[destination];
     
@@ -21,11 +17,11 @@ bool ConditionalOperation::execute(int8 mode, int32 source, int8 destination,
     {
         // If mode is 0, we perform a Register-Register calculation.
         case 0:
-            sourceValue = registers[source];
+            sourceValue = registers[source % registers.size()];
             break;
         // If mode is 1, we perform an Input-Register calculation.
         case 1:
-            sourceValue = inputFeatures[source];
+            sourceValue = inputFeatures[source % inputFeatures.size()];
             break;
         // If mode is 2, we perform a Memory-Register calculation.
         case 2:

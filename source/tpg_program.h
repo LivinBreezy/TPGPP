@@ -37,7 +37,7 @@
 class Program
 {
     /**A vector of Instruction objects which represent a complete TPG program.*/
-    std::vector<Instruction> instructions;
+    std::vector<Instruction*> instructions;
     /**A double array which acts as a set of general purpose registers.*/
     std::vector<double> registers;
 
@@ -45,17 +45,16 @@ class Program
     // constructors and destructor
     Program(TpgParameters&);
     Program(const Program&, TpgParameters&);
+    Program(const std::vector<Instruction*>&, TpgParameters&);
     ~Program();
 
     // getters and setters
     int64 instructionCount(const std::string_view&) const;
-    std::unordered_map<std::string, int64> allInstructionCounts(const TpgParameters&) const;
-    std::vector<Instruction> getInstructions() const;
+    std::unordered_map<std::string, int64> allInstructionCounts(TpgParameters&) const;
+    std::vector<Instruction*> getInstructions() const;
 
     // core functionality
-    double execute(const double*, TpgParameters&);
-  
-    std::string* toString() const;
+    double execute(const std::vector<double>&, TpgParameters&);
 };
 
 #endif

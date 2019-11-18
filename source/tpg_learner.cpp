@@ -71,19 +71,6 @@ Learner::~Learner()
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- *  @brief     Returns a bid value by executing the program.
- *  @details   
- *  @param     inputFeatures A double array representing the environment's
- *  complete feature set.
- *  @return    A double value representing this Learner's bid.
- *  @todo      Testing required.
- */
-double Learner::bid(const std::vector<double>& inputFeatures)
-{
-    return program->execute(inputFeatures);
-}
-
-/**
  *  @brief     Returns the length of this Learner's Program (number of Instructions).
  *  @details   
  *  @return    An int representing the length of the Learner's Program.
@@ -94,14 +81,14 @@ int32 Learner::programLength() const
     return static_cast<int32>(program->getInstructions().size());
 }
 
-int64 Learner::getID() const
+int64 Learner::getId() const
 {
     return id;
 }
 
-Program Learner::getProgram(TpgParameters& parameters) const
+Program* Learner::getProgram(TpgParameters& parameters) const
 {
-    return Program(*program, parameters);
+    return new Program(*program, parameters);
 }
 
 Action* Learner::getActionObject() const
@@ -151,7 +138,8 @@ std::string Learner::toString() const
  *  @return    A double value representing this Learner's bid.
  *  @todo      Testing required.
  */
-double Learner::bid(const double* inputFeatures, TpgParameters& parameters)
+double Learner::bid(const std::vector<double>& inputFeatures, TpgParameters& parameters)
 {
+    spdlog::debug("BID_LEARNER: Begin");
     return program->execute(inputFeatures, parameters);
 }

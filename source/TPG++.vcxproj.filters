@@ -197,9 +197,6 @@
     <ClInclude Include="tpg_default_reproduction.h">
       <Filter>Header Files\reproduction</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="spdlog\async.h">
       <Filter>External Libraries\spdlog</Filter>
     </ClInclude>
@@ -436,10 +433,5 @@
     <None Include="spdlog\fmt\bundled\LICENSE.rst">
       <Filter>External Libraries\spdlog\fmt\bundled</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="TPG++.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

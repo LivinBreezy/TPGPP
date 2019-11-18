@@ -32,7 +32,7 @@ public:
     Instruction(int8, int32, int8, Operation*);
     Instruction(Instruction*);
     ~Instruction();
-    bool execute(const double*, double*, TpgParameters&) const;
+    bool execute(const std::vector<double>&, std::vector<double>&, TpgParameters&) const;
     int8 getMode() const;
     int32 getSource() const;
     int8 getDestination() const;

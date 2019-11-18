@@ -25,7 +25,7 @@ Instruction::Instruction(int8 mode, int32 source, int8 destination,
     this->mode = mode;
     this->source = source;
     this->destination = destination;
-    this->operation = operation;
+    this->operation = operation;    
 }
 
 Instruction::Instruction(Instruction* other)
@@ -41,10 +41,11 @@ Instruction::~Instruction()
 
 }
 
-bool Instruction::execute(const double* inputFeatures, 
-        double* registers,
+bool Instruction::execute(const std::vector<double>& inputFeatures, 
+        std::vector<double>& registers,
         TpgParameters& parameters) const
-{
+{   
+    //spdlog::debug("EXEC_INST: {} {} {} {}", operation->toString(), mode, source, destination);
     return this->operation->execute(this->mode,
         this->source,
         this->destination,

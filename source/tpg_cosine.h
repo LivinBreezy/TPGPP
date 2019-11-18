@@ -10,8 +10,12 @@
 class CosineOperation : public Operation
 {
 public:
-    bool execute(int8, int32, int8, const double*, double*,
-        const TpgParameters&) const;
+    bool execute(int8, 
+        int32, 
+        int8, 
+        const std::vector<double>&, 
+        std::vector<double>&,
+        TpgParameters&) const;
     std::string toString() const;
     std::string toStorage() const;
 };

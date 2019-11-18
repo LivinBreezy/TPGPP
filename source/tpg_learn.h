@@ -15,11 +15,11 @@ class TpgLearn: public TpgMode
     bool initializePopulations();
     int64 participate(std::vector<double>&);
     int64 participate(std::vector<double>&, std::vector<int64>&);
-    bool rewardCurrentTeam(std::string&, double& reward);
+    bool rewardCurrentTeam(std::string_view, double& reward);
     void executeReproduction();
     void cleanup();
     int64 nextGeneration();
-    void printStats();
+    void printStats(int32, std::string_view);
     int32 getRemainingTeams();
     int64 getGenerations();
     std::string getType();

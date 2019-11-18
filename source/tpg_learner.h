@@ -1,9 +1,6 @@
 #ifndef TPG_UNIVERSAL_TPGLEARNER_H_
 #define TPG_UNIVERSAL_TPGLEARNER_H_
 
-#include <fstream>
-#include <iostream>
-
 #include "tpg_utility.h"
 
 // Dependant class forward declarations
@@ -42,21 +39,16 @@ public:
     // constructors and destructor
     Learner(int64, int64, int64, int16, Program&);
     Learner(int64, int64, Team&, int16, Program&);
-    Learner(int64 TpgParameters&);
+    Learner(int64, TpgParameters&);
     Learner(Team&, TpgParameters&);
     Learner(const Learner&, TpgParameters&);
     ~Learner();
 
     // getters and setters
-    Program getProgram(TpgParameters&) const;
-    int32 programLength() const;
-    int64 getID() const;
     Action* getActionObject() const;
-    double bid(const std::vector<double>&);
     int32 programLength() const;
-    int64 getID() const;
-    Program getProgram() const;
-    Action* getActionObject() const;
+    int64 getId() const;
+    Program* getProgram(TpgParameters&) const;
     std::string getActionType() const;
 
     int64 getBirthday() const;
@@ -65,31 +57,10 @@ public:
     int32 decreaseReferences();
 
     // core functionality
-    double bid(const double*, TpgParameters&);
+    double bid(const std::vector<double>&, TpgParameters&);
 
     // utility
-    friend std::ofstream& operator<<(std::ofstream& out, const Learner& learner)
-    {
-        out << learner.id << "\n" << 
-               learner.birthday << "\n" << 
-               learner.teamReferences << "\n" <<
-               learner.action << "\n" <<
-               learner.program;
-
-        return out;
-    }
-    
-    friend std::ifstream& operator>>(std::ifstream& in, const Learner& learner)
-    {
-        in >> learner.id >> learner.birthday >> learner.teamReferences >> 
-              learner.action >> learner.program;
-
-        return in;
-    }
-
     std::string toString() const;
-    static bool saveToFile(const Learner&, const std::string&, const std::string&);
-    static Learner* loadFromFile(const std::string&);
     bool operator==(const Learner& other) { return this->id == other.id; };
 };
 

@@ -3,15 +3,11 @@
 #include "tpg_memory_model.h"
 
 bool MemWriteOperation::execute(int8 mode, int32 source, int8 destination,
-    const double* inputFeatures, double* registers,
-    const TpgParameters& parameters) const
+    const std::vector<double>& inputFeatures, std::vector<double>& registers,
+    TpgParameters& parameters) const
 {
-    // If we are missing the inputs and/or registers, return false.
-    if(registers == nullptr)
-        return false;
-
     // Perform a memory write operation on the current registers
-    parameters.memory->write(registers);
+    parameters.memory->write(registers, parameters);
 
     // We have successfully written, so return true
     return true;

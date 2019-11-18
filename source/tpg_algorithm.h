@@ -34,10 +34,10 @@ class TpgAlgorithm
     TpgMode* tpgMode;
 
 public:
-    TpgAlgorithm(const char*, const char*);
+    TpgAlgorithm(std::string_view, std::string_view);
     ~TpgAlgorithm();
     TpgMode* getTpgEntity();
-    std::unordered_map<std::string, double> readArgumentsToMap(const char*);
+    std::unordered_map<std::string, double> readArgumentsToMap(std::string_view);
 };
 
 #endif

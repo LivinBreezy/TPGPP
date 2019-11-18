@@ -119,7 +119,7 @@ bool TpgLearn::initializePopulations()
         team = new Team(this->parameters);
 
         // Create the first Learner for the Team.
-        learner = new Learner(-1, action1, this->parameters);
+        learner = new Learner(action1, this->parameters);
 
         // Add the new Learner to the Team.
         team->addLearner(*learner);
@@ -128,7 +128,7 @@ bool TpgLearn::initializePopulations()
         learnerPopulation.push_back(learner);
 
         // Create the second Learner for the Team.
-        learner = new Learner(-1, action2, this->parameters);
+        learner = new Learner(action2, this->parameters);
 
         // Add the new Learner to the Team.
         team->addLearner(*learner);
@@ -147,7 +147,7 @@ bool TpgLearn::initializePopulations()
             action1 = actions[this->parameters.rngInt64(0, actions.size())];
 
             // Create a new Learner with that atomic action.
-            learner = new Learner(-1, action1, this->parameters);
+            learner = new Learner(action1, this->parameters);
 
             // Add the Learner to the Team and the Learner population
             team->addLearner(*learner);
@@ -167,6 +167,7 @@ int64 TpgLearn::participate(std::vector<double>& inputFeatures)
 {
     // If there are no Teams left to play, then this learning phase
     // is over. Return -1 to indicate end-of-play.
+    spdlog::debug("PARTICIPATE: RootPopSize = {}", this->parameters.teamQueue.size());
     if(this->parameters.teamQueue.empty())
     {
         return -1;
@@ -175,9 +176,12 @@ int64 TpgLearn::participate(std::vector<double>& inputFeatures)
     // If we have a team, we can get it from the front of the queue.
     Team* team = this->parameters.teamQueue.front();
 
+    spdlog::debug("PARTICIPATE: TeamID = {}", team->getId());
+
     // Provide the team with the input parameters and an empty unordered
     // set, then return the action it suggests.
-    return team->getAction(*(new std::unordered_set<Team*>()), inputFeatures);
+    return team->getAction(*(new std::unordered_set<Team*>()), 
+        inputFeatures, this->parameters);
 }
 
 int64 TpgLearn::participate(std::vector<double>& inputFeatures, 
@@ -200,7 +204,7 @@ int64 TpgLearn::participate(std::vector<double>& inputFeatures,
     return 0;
 }
 
-bool TpgLearn::rewardCurrentTeam(std::string& label, double& reward)
+bool TpgLearn::rewardCurrentTeam(std::string_view label, double& reward)
 {
     // Create a local reference to the team queue for clearer code.
     std::queue<Team*>& teamQueue = this->parameters.teamQueue;
@@ -231,6 +235,7 @@ void TpgLearn::executeReproduction()
     Reproduction* reproduction = this->parameters.reproduction;
 
     // Force every root team to calculate their current fitness.
+    printf("REPRO: Calculating Fitness\n");
     for(Team* team : rootTeamPopulation)
     {
         team->calculateFitness();
@@ -240,23 +245,58 @@ void TpgLearn::executeReproduction()
     // This ranks the root teams by their current citness and then
     // removes the bottom half of the root team population. The original
     // root teams will still be intact, which could cause issues.
+    printf("Team Population:\n");
+    for (Team* T : teamPopulation)
+        printf("%llu ", T->getId());
+    printf("\n");
+
+    printf("Root Team Population:\n");
+    for (Team* T : rootTeamPopulation)
+        printf("%llu ", T->getId());
+    printf("\n");
+
+    printf("REPRO: Selection Start\n");
     std::vector<Team*> rankedTeams = reproduction->teamSelection(
         rootTeamPopulation, this->parameters);
 
+    printf("Ranked: ");
+    for (Team* T : rankedTeams)
+        printf("%llu ", T->getId());
+    printf("\n");
+
     // Once the teams are ranked and the gap is removed, we then 
     // use those teams to reproduce to bring the population back up.
+    printf("REPRO: Reproduction Start\n");
     std::vector<Team*> childTeams = reproduction->teamReproduction(
         rankedTeams, this->parameters);
 
+    printf("Child: ");
+    for (Team* T : childTeams)
+        printf("%llu ", T->getId());
+    printf("\n");
+
     // Now that the child teams have been created, we can then mutate
     // each of them.
+    printf("REPRO: Mutation Start\n");
     std::vector<Team*> mutatedTeams = reproduction->teamMutation(
         childTeams, this->parameters);
+
+    printf("Mutate: ");
+    for (Team* T : mutatedTeams)
+        printf("%llu ", T->getId());
+    printf("\n");
 
     // The teamSelection(..) method has already removed the relevant
     // bottom half root teams from the applicable populations, so we
     // can now add the mutated children to the team population.
+    printf("REPRO: Unification Start\n");
     teamPopulation.insert(teamPopulation.end(), mutatedTeams.begin(), mutatedTeams.end());
+
+    printf("Unification Result:\n");
+    for (Team* T : teamPopulation)
+        printf("%llu ", T->getId());
+    printf("\n");
+
 }
 
 void TpgLearn::cleanup()
@@ -347,9 +387,20 @@ int64 TpgLearn::nextGeneration()
     return ++(this->parameters.generation);
 }
 
-void TpgLearn::printStats()
+void TpgLearn::printStats(int32 count, std::string_view label)
 {
-    return;
+    std::vector<Team*>& rootTeams = this->parameters.rootTeamPopulation;
+    
+    int32 limit = count > rootTeams.size() ? count : static_cast<int32>(rootTeams.size());
+
+    for(int i = 0; i < limit; i++)
+    {
+        spdlog::info("Gen {}, Rank {}: {} = {}",
+            this->parameters.generation,
+            i + 1,
+            rootTeams[i]->getId(),
+            rootTeams[i]->getOutcome(label.data()));
+    }
 }
 
 int32 TpgLearn::getRemainingTeams()
