@@ -175,25 +175,24 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
 
         // Iterate through all the original learners.
         for(Learner* learner : originalLearners)
-        //for(int i=0; i < originalLearners.size(); ++i)
         {           
+            printf("\tChecking Learner %llu\n", learner->getId());
             // If we hit our target probability for mutating a learner,
             // proceed through the Learner mutation algorithm.
             if(parameters.rngUniform() < 1.0)//parameters.probLearnerMutate)
             {
                 // Retrieve a copy of the original learner's program.
-                Program *program = learner->getProgram(parameters);
-                                
+                std::unique_ptr<Program> program = learner->getProgram(parameters);
+                   
                 // Perform the Program mutation cycle on the new Learner
                 // and store it in a new variable.
-                Program *newProgram = mutateProgram(*program, parameters);
-
+                std::unique_ptr<Program> newProgram = mutateProgram(*program, parameters);
+               
                 // Remove the original learner from the team.
                 team->removeLearner(*learner);
 
                 // Extract the action from the original learner.
                 Action* action = learner->getActionObject();
-
 
                 // If we hit the target probability for mutating a learner's
                 // action, we proceed through the algorithm.
@@ -242,7 +241,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
     return mutatedTeams;
 }
 
-Program* StandardReproduction::mutateProgram(Program& program, TpgParameters& parameters)
+std::unique_ptr<Program> StandardReproduction::mutateProgram(Program& program, TpgParameters& parameters)
 {
     // Create a copy of the instruction set from the program object.
     std::vector<Instruction*> instructions = *(new std::vector<Instruction*>(program.getInstructions()));
@@ -258,7 +257,7 @@ Program* StandardReproduction::mutateProgram(Program& program, TpgParameters& pa
     {
         // Attempt to remove a random instruction by probability.
         if (parameters.rngUniform() < 1.0)//parameters.probInstructionDelete)
-        { 
+        {             
             // Generate a random index for the instruction vector.
             index = parameters.rngInt64(0, instructions.size());
 
@@ -267,6 +266,9 @@ Program* StandardReproduction::mutateProgram(Program& program, TpgParameters& pa
 
             // Remove the instruction from the random index.
             instructions.erase(instructions.begin() + index);
+
+            // Delete the old instruction
+            delete temp;
 
             mutated = true;
         }
@@ -289,7 +291,7 @@ Program* StandardReproduction::mutateProgram(Program& program, TpgParameters& pa
         }
 
         // Mutate a random instruction.
-        if (parameters.rngUniform() < parameters.probInstructionMutate)
+        if (parameters.rngUniform() < 1.0)//parameters.probInstructionMutate)
         {
             // Generate a random index for the instruction vector.
             index = parameters.rngInt64(0, instructions.size());
@@ -302,6 +304,9 @@ Program* StandardReproduction::mutateProgram(Program& program, TpgParameters& pa
 
             // Remove the old instruction and replace it with the new one.
             instructions[index] = instruction;
+
+            // Delete the old instruction
+            delete temp;
 
             // If this change was successful, then we've mutated.
             mutated = true;
@@ -335,7 +340,7 @@ Program* StandardReproduction::mutateProgram(Program& program, TpgParameters& pa
     }
 
     // Return a copy of the new program with the mutated instructions
-    return new Program(instructions, parameters);
+    return std::unique_ptr<Program>(new Program(instructions, parameters));
 }
 
 Instruction* StandardReproduction::mutateInstruction(Instruction& instruction, TpgParameters& parameters)

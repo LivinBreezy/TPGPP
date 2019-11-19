@@ -1,7 +1,8 @@
 #include "tpg_learner.h"
 
-#include "tpg_utility.h"
+#include <memory>
 
+#include "tpg_utility.h"
 #include "tpg_action.h"
 #include "tpg_program.h"
 #include "tpg_team.h"
@@ -32,7 +33,7 @@ Learner::Learner(int64 id, int64 birthday, Team& team, int16 teamReferences,
 
 Learner::Learner(int64 action, TpgParameters& parameters)
 {
-    this->id = parameters.nextLearnerId++;
+    this->id = ++(parameters.nextLearnerId);
     this->birthday = parameters.generation;
     this->action = new Action(action);
     this->teamReferences = 0;
@@ -41,7 +42,7 @@ Learner::Learner(int64 action, TpgParameters& parameters)
 
 Learner::Learner(Team& team, TpgParameters& parameters)
 {
-    this->id = parameters.nextLearnerId++;
+    this->id = ++(parameters.nextLearnerId);
     this->birthday = parameters.generation;
     this->action = new Action(team);
     this->teamReferences = 0;
@@ -50,7 +51,13 @@ Learner::Learner(Team& team, TpgParameters& parameters)
 
 Learner::Learner(const Learner& other, TpgParameters& parameters)
 {
-    this->id = parameters.nextLearnerId++;
+    /*printf("Instructions Size %zd\n", other.program->getInstructions().size());
+    for (int i = 0; i < other.program->getInstructions().size(); ++i)
+    {
+        printf("%s\n", other.program->getInstructions()[i]->toString().c_str());
+    }*/
+    
+    this->id = ++(parameters.nextLearnerId);
     this->birthday = parameters.generation;
     this->action = new Action(*other.getActionObject());
     this->teamReferences = 0;
@@ -61,6 +68,8 @@ Learner::~Learner()
 {
     delete action;
     action = nullptr;
+
+    printf("\t\tLearner %llu Program Size %llu\n", this->getId(), this->program->getInstructions().size());
 
     delete program;
     program = nullptr;
@@ -86,9 +95,9 @@ int64 Learner::getId() const
     return id;
 }
 
-Program* Learner::getProgram(TpgParameters& parameters) const
+std::unique_ptr<Program> Learner::getProgram(TpgParameters& parameters) const
 {
-    return new Program(*program, parameters);
+    return std::unique_ptr<Program>(new Program(*program, parameters));
 }
 
 Action* Learner::getActionObject() const

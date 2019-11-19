@@ -196,6 +196,7 @@ int main()
         spdlog::debug("Move From {} to {}", i, i+1);
         printf("Next Generation %d\n", i);
         tpg.nextGeneration();
+        printf("New Generation %d\n", i+1);
     }
 
     return 0;

@@ -37,9 +37,9 @@
 class Program
 {
     /**A vector of Instruction objects which represent a complete TPG program.*/
-    std::vector<Instruction*> instructions;
-    /**A double array which acts as a set of general purpose registers.*/
-    std::vector<double> registers;
+    std::vector<Instruction*> *instructions;
+    /**A vector which acts as a set of general purpose registers.*/
+    std::vector<double> *registers;
 
   public:
     // constructors and destructor

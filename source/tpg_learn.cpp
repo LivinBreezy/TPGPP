@@ -239,6 +239,7 @@ void TpgLearn::executeReproduction()
     for(Team* team : rootTeamPopulation)
     {
         team->calculateFitness();
+        printf("Team %llu: %f\n", team->getId(), team->getFitness());
     }
 
     // The first step is to run selection on the root team population.
@@ -255,9 +256,18 @@ void TpgLearn::executeReproduction()
         printf("%llu ", T->getId());
     printf("\n");
 
+    printf("Last Learner ID = %llu\n", parameters.nextLearnerId);
+
     printf("REPRO: Selection Start\n");
     std::vector<Team*> rankedTeams = reproduction->teamSelection(
         rootTeamPopulation, this->parameters);
+
+    printf("REPRO: Ranked\n");
+    for (Team* team : rankedTeams)
+    {
+        team->calculateFitness();
+        printf("Team %llu: %f\n", team->getId(), team->getFitness());
+    }
 
     printf("Ranked: ");
     for (Team* T : rankedTeams)
@@ -314,6 +324,7 @@ void TpgLearn::cleanup()
         // we should remove it from the population and delete it.
         if(learner->getReferences() == 0)
         {
+            printf("\tAttempting to delete Learner %llu\n", learner->getId());
             // Find an iterator which points to the location in the
             // Learner population where this Learner is stored.
             auto position = std::find_if(

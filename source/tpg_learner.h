@@ -48,7 +48,7 @@ public:
     Action* getActionObject() const;
     int32 programLength() const;
     int64 getId() const;
-    Program* getProgram(TpgParameters&) const;
+    std::unique_ptr<Program> getProgram(TpgParameters&) const;
     std::string getActionType() const;
 
     int64 getBirthday() const;

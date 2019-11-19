@@ -24,15 +24,15 @@
 Program::Program(TpgParameters& parameters)
 {
     // generate new random instructions
-    this->instructions = *(new std::vector<Instruction*>());
+    this->instructions = new std::vector<Instruction*>();
     int64 numInstructions = parameters.rngInt64(1, parameters.maximumProgramSize);
     for (int64 i = 0; i < numInstructions; ++i)
     {
-        this->instructions.push_back(new Instruction(parameters));
+        this->instructions->push_back(new Instruction(parameters));
     }
 
     // initialize registers to 0
-    this->registers = *(new std::vector<double>(parameters.learnerRegisterSize, 0));
+    this->registers = new std::vector<double>(parameters.learnerRegisterSize, 0.0);
 }
 
 /**
@@ -45,11 +45,29 @@ Program::Program(TpgParameters& parameters)
  */
 Program::Program(const Program& other, TpgParameters& parameters)
 {
-    // copy instructions of other
-    this->instructions = *(new std::vector<Instruction*>(other.instructions));
+    // Create a new empty Instruction* vector
+    this->instructions = new std::vector<Instruction*>();
+    std::vector<Instruction*>& otherInstructions = *other.instructions;
+
+    // Copy Instructions into this object's Instructions vector.
+    for (Instruction* instruction : otherInstructions)
+    {
+        this->instructions->push_back(new Instruction(
+            instruction->getMode(),
+            instruction->getSource(),
+            instruction->getDestination(),
+            instruction->getOperation()
+        ));
+    }
 
     // initialize registers to other's registers
-    this->registers = other.registers;
+    this->registers = new std::vector<double>(*other.registers);
+
+    /*printf("Instructions Size %zd  Registers Size %zd\n", instructions->size(), registers->size());
+    for (int i = 0; i < instructions->size(); ++i)
+    {
+        printf("%s\n", (*instructions)[i]->toString().c_str());
+    }*/
 }
 
 /**
@@ -62,11 +80,22 @@ Program::Program(const Program& other, TpgParameters& parameters)
 Program::Program(const std::vector<Instruction*>& oldInstructions, 
     TpgParameters& parameters)
 {
+    // Create a new empty Instruction* vector
+    this->instructions = new std::vector<Instruction*>();
+    
     // Copy Instructions into this object's Instructions vector.
-    this->instructions = *(new std::vector<Instruction*>(oldInstructions));
+    for(Instruction* instruction : oldInstructions)
+    {
+        this->instructions->push_back(new Instruction(
+            instruction->getMode(),
+            instruction->getSource(),
+            instruction->getDestination(),
+            instruction->getOperation()
+        ));
+    }
     
     // Initialize registers to 0.
-    this->registers = *(new std::vector<double>(parameters.learnerRegisterSize, 0));
+    this->registers = new std::vector<double>(parameters.learnerRegisterSize, 0.0);
 }
 
 /**
@@ -76,9 +105,17 @@ Program::Program(const std::vector<Instruction*>& oldInstructions,
  *  @todo      Testing required.
  */
 Program::~Program()
-{
-    delete &instructions;
-    delete[] &registers;
+{   
+    for (Instruction* I : *instructions)
+        printf("%s\n", I->toString().c_str());
+
+    for (Instruction *instruction : *instructions)
+    {
+        delete instruction;
+    }
+
+    delete instructions;
+    delete registers;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -101,7 +138,7 @@ int64 Program::instructionCount(const std::string_view& operationName) const
 {
     int64 count = 0;
 
-    for (Instruction inst : instructions) {
+    for (Instruction inst : *instructions) {
         if (inst.getType().compare(operationName)) {
             // found an instruction of this type
             ++count;
@@ -145,7 +182,7 @@ std::unordered_map<std::string, int64> Program::allInstructionCounts(TpgParamete
     }
 
     // find counts
-    for (Instruction inst : instructions) 
+    for (Instruction inst : *instructions) 
     {
         for (std::string instType : instTypes) 
         {
@@ -163,7 +200,7 @@ std::unordered_map<std::string, int64> Program::allInstructionCounts(TpgParamete
 
 std::vector<Instruction*> Program::getInstructions() const
 {
-    return instructions;
+    return *instructions;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -183,36 +220,10 @@ std::vector<Instruction*> Program::getInstructions() const
  */
 double Program::execute(const std::vector<double>& inputFeatures, TpgParameters& parameters)
 {
-    spdlog::debug("EXECUTE_PROGRAM: Begin");
-    
-    std::string out1;
-    for (double D : inputFeatures)
+    for(Instruction inst : *instructions) 
     {
-        out1 += std::to_string(D) + ", ";
-    }    
-
-    spdlog::debug("EXECUTE_PROGRAM: Inputs     = {}", out1);
-    
-    for(Instruction inst : instructions) 
-    {
-        std::string out2;
-        for (double D : registers)
-        {
-            out2 += std::to_string(D) + ", ";
-        }
-        spdlog::debug("EXECUTE_PROGRAM: RegistersB = {}", out2);
-
-        inst.execute(inputFeatures, this->registers, parameters);
-        
-        std::string out3;
-        for (double D : registers)
-        {
-            out3 += std::to_string(D) + ", ";
-        }
-        spdlog::debug("EXECUTE_PROGRAM: RegistersA = {}", out3);
+        inst.execute(inputFeatures, *(this->registers), parameters);
     }
-  
-    //spdlog::debug("EXECUTE_PROGRAM: Output     = {}", registers[0]);
 
-    return registers[0];
+    return (*registers)[0];
 }

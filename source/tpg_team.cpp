@@ -173,12 +173,18 @@ int32 Team::getReferences() const
 
 double Team::calculateFitness()
 {
-    return -1.0;
+    fitness = 0;
+    for (auto pair : outcomes)
+    {
+        fitness += pair.second;
+    }
+
+    return this->getFitness();
 }
 
 double Team::getFitness() const
 {
-    return -1.0;
+    return this->fitness;
 }
 
 
