@@ -91,7 +91,7 @@ Team::~Team()
 {
     for (Learner* lrnr : learners)
     {
-        removeLearner(*lrnr, true);
+        removeLearner(lrnr, true);
     }
 }
 
@@ -257,18 +257,28 @@ bool Team::clearOutcomes()
  *  @return
  *  @todo
  */
-bool Team::addLearner(Learner& learner)
+bool Team::addLearner(Learner* learner)
 {
+    // Attempt to find the position of the Learner if it
+    // already exists in the Learner vector.
+    auto position = std::find_if(
+        learners.begin(),
+        learners.end(),
+        [learner](Learner* l) {return *l == *learner; }
+    );
+    
     // don't add if learner in learners
-    if (std::find(learners.begin(), learners.end(), &learner) != learners.end())
+    if(position != learners.end())
     {
         return false;
     }
     // learner is new to this team, add it
     else
     {
-        learners.push_back(&learner);
-        learner.increaseReferences();
+        printf("TEAM_ADD1: Learner %llu Refs %u\n", learner->getId(), learner->getReferences());
+        learners.push_back(learner);
+        learner->increaseReferences();
+        printf("\tTEAM_ADD2: Learner %llu Refs %u\n", learner->getId(), learner->getReferences());
         return true;
     }
 }
@@ -280,16 +290,20 @@ bool Team::addLearner(Learner& learner)
  *  @return
  *  @todo
  */
-bool Team::removeLearner(Learner& learner, bool force)
+bool Team::removeLearner(Learner* learner, bool force)
 {
     // find the learner in learners
-    auto lrn = std::find(learners.begin(), learners.end(), &learner);
+    auto position = std::find_if(
+        learners.begin(),
+        learners.end(),
+        [learner](Learner* l) {return *l == *learner; }
+    );
 
     // remove learner if in learners, and either force or not last atomic
-    if (lrn != learners.end() && (force || getAtomicActionCount() > 1))
+    if(position != learners.end() && (force || getAtomicActionCount() > 1))
     {
-        learners.erase(lrn);
-        learner.decreaseReferences();
+        learners.erase(position);
+        learner->decreaseReferences();
         return true;
     }
     

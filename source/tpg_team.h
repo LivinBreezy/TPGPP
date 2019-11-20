@@ -68,8 +68,8 @@ public:
     bool deleteOutcome(const std::string_view);
     bool clearOutcomes();
     
-    bool addLearner(Learner&);
-    bool removeLearner(Learner&, bool force = false);
+    bool addLearner(Learner*);
+    bool removeLearner(Learner*, bool force = false);
 
     // core functionality
     int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&, TpgParameters&);

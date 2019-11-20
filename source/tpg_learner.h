@@ -7,6 +7,7 @@
 class Action;
 class Program;
 class Team;
+class Instruction;
 
 /**
  *  @brief     Holds a Program and an Action, using both to act on environment.
@@ -48,7 +49,8 @@ public:
     Action* getActionObject() const;
     int32 programLength() const;
     int64 getId() const;
-    std::unique_ptr<Program> getProgram(TpgParameters&) const;
+    Program* getProgram(TpgParameters&) const;
+    std::vector<Instruction*>* getInstructions() const;
     std::string getActionType() const;
 
     int64 getBirthday() const;

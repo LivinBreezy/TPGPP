@@ -51,12 +51,6 @@ Learner::Learner(Team& team, TpgParameters& parameters)
 
 Learner::Learner(const Learner& other, TpgParameters& parameters)
 {
-    /*printf("Instructions Size %zd\n", other.program->getInstructions().size());
-    for (int i = 0; i < other.program->getInstructions().size(); ++i)
-    {
-        printf("%s\n", other.program->getInstructions()[i]->toString().c_str());
-    }*/
-    
     this->id = ++(parameters.nextLearnerId);
     this->birthday = parameters.generation;
     this->action = new Action(*other.getActionObject());
@@ -68,8 +62,6 @@ Learner::~Learner()
 {
     delete action;
     action = nullptr;
-
-    printf("\t\tLearner %llu Program Size %llu\n", this->getId(), this->program->getInstructions().size());
 
     delete program;
     program = nullptr;
@@ -87,7 +79,7 @@ Learner::~Learner()
  */
 int32 Learner::programLength() const
 {
-    return static_cast<int32>(program->getInstructions().size());
+    return static_cast<int32>(program->getInstructions()->size());
 }
 
 int64 Learner::getId() const
@@ -95,9 +87,14 @@ int64 Learner::getId() const
     return id;
 }
 
-std::unique_ptr<Program> Learner::getProgram(TpgParameters& parameters) const
+Program* Learner::getProgram(TpgParameters& parameters) const
 {
-    return std::unique_ptr<Program>(new Program(*program, parameters));
+    return new Program(*program, parameters);
+}
+
+std::vector<Instruction*>* Learner::getInstructions() const
+{
+    return program->getInstructions();
 }
 
 Action* Learner::getActionObject() const
@@ -149,6 +146,6 @@ std::string Learner::toString() const
  */
 double Learner::bid(const std::vector<double>& inputFeatures, TpgParameters& parameters)
 {
-    spdlog::debug("BID_LEARNER: Begin");
+    printf("Execute Learner %llu\n", this->id);
     return program->execute(inputFeatures, parameters);
 }

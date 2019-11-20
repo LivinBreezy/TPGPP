@@ -60,6 +60,9 @@ std::vector<Team*> StandardReproduction::teamSelection(std::vector<Team*>& teams
         --teamsToRemove;
     }
 
+    // Set the root teams to be the ranked teams.
+    parameters.rootTeamPopulation = rankedTeams;
+
     // Return the ranked vector of Teams.
     return rankedTeams;
 }
@@ -125,7 +128,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                     // Retrieve the learner to be deleted and store it.
                     learner = team->getLearners()[index];
                 } 
-                while(team->removeLearner(*learner) == false);
+                while(team->removeLearner(learner) == false);
 
                 // Update the cumulative probability.
                 cumulative *= parameters.probLearnerDelete;
@@ -163,7 +166,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                     // Retrieve the learner to be added and store it.
                     learner = learners[index];
                 } 
-                while(team->addLearner(*learner) == false);
+                while(team->addLearner(learner) == false);
 
                 // Update the cumulative probability.
                 cumulative *= parameters.probLearnerAdd;
@@ -176,20 +179,19 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
         // Iterate through all the original learners.
         for(Learner* learner : originalLearners)
         {           
-            printf("\tChecking Learner %llu\n", learner->getId());
             // If we hit our target probability for mutating a learner,
             // proceed through the Learner mutation algorithm.
             if(parameters.rngUniform() < 1.0)//parameters.probLearnerMutate)
             {
                 // Retrieve a copy of the original learner's program.
-                std::unique_ptr<Program> program = learner->getProgram(parameters);
+                std::vector<Instruction*>* instructions = learner->getInstructions();
                    
                 // Perform the Program mutation cycle on the new Learner
                 // and store it in a new variable.
-                std::unique_ptr<Program> newProgram = mutateProgram(*program, parameters);
+                Program* newProgram = mutateProgram(*instructions, parameters);
                
                 // Remove the original learner from the team.
-                team->removeLearner(*learner);
+                team->removeLearner(learner);
 
                 // Extract the action from the original learner.
                 Action* action = learner->getActionObject();
@@ -229,7 +231,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
                 }
                 
                 // Add the new learner to the team.
-                team->addLearner(*newLearner);
+                team->addLearner(newLearner);
 
                 // Add the new learner to the learner population
                 learners.push_back(newLearner);
@@ -241,10 +243,19 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
     return mutatedTeams;
 }
 
-std::unique_ptr<Program> StandardReproduction::mutateProgram(Program& program, TpgParameters& parameters)
+Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &originalInstructions, TpgParameters& parameters)
 {
     // Create a copy of the instruction set from the program object.
-    std::vector<Instruction*> instructions = *(new std::vector<Instruction*>(program.getInstructions()));
+    std::vector<Instruction*> instructions = std::vector<Instruction*>();
+    for (Instruction* instruction : originalInstructions)
+    {
+        instructions.push_back(new Instruction(
+            instruction->getMode(),
+            instruction->getSource(),
+            instruction->getDestination(),
+            instruction->getOperation()
+        ));
+    }
 
     // Create a variable for holding random index values.
     int64 index = 0;
@@ -340,7 +351,7 @@ std::unique_ptr<Program> StandardReproduction::mutateProgram(Program& program, T
     }
 
     // Return a copy of the new program with the mutated instructions
-    return std::unique_ptr<Program>(new Program(instructions, parameters));
+    return new Program(instructions, parameters);
 }
 
 Instruction* StandardReproduction::mutateInstruction(Instruction& instruction, TpgParameters& parameters)
@@ -486,8 +497,10 @@ Action StandardReproduction::mutateAction(Action& action, TpgParameters& paramet
             && foundTeam != rootTeams.end()
             || (!action.isAtomicAction() && action.getTeam()->getId() == newTeam->getId()));
 
-        // Once we find a valid team, create a new 
-        // Action object for holding it.
+        // Increase the team's references due to being referenced by an action.
+        newTeam->increaseReferences();
+
+        // Once we find a valid team, create a new Action object for holding it.
         newAction = new Action(*newTeam);
     }
     else

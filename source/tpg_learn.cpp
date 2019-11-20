@@ -122,7 +122,7 @@ bool TpgLearn::initializePopulations()
         learner = new Learner(action1, this->parameters);
 
         // Add the new Learner to the Team.
-        team->addLearner(*learner);
+        team->addLearner(learner);
 
         // Add the new Learner to the Learner population.
         learnerPopulation.push_back(learner);
@@ -131,7 +131,7 @@ bool TpgLearn::initializePopulations()
         learner = new Learner(action2, this->parameters);
 
         // Add the new Learner to the Team.
-        team->addLearner(*learner);
+        team->addLearner(learner);
 
         // Add the new Learner to the Learner population.
         learnerPopulation.push_back(learner);
@@ -150,7 +150,7 @@ bool TpgLearn::initializePopulations()
             learner = new Learner(action1, this->parameters);
 
             // Add the Learner to the Team and the Learner population
-            team->addLearner(*learner);
+            team->addLearner(learner);
             learnerPopulation.push_back(learner);
         }
 
@@ -167,7 +167,6 @@ int64 TpgLearn::participate(std::vector<double>& inputFeatures)
 {
     // If there are no Teams left to play, then this learning phase
     // is over. Return -1 to indicate end-of-play.
-    spdlog::debug("PARTICIPATE: RootPopSize = {}", this->parameters.teamQueue.size());
     if(this->parameters.teamQueue.empty())
     {
         return -1;
@@ -175,8 +174,6 @@ int64 TpgLearn::participate(std::vector<double>& inputFeatures)
     
     // If we have a team, we can get it from the front of the queue.
     Team* team = this->parameters.teamQueue.front();
-
-    spdlog::debug("PARTICIPATE: TeamID = {}", team->getId());
 
     // Provide the team with the input parameters and an empty unordered
     // set, then return the action it suggests.
@@ -235,78 +232,32 @@ void TpgLearn::executeReproduction()
     Reproduction* reproduction = this->parameters.reproduction;
 
     // Force every root team to calculate their current fitness.
-    printf("REPRO: Calculating Fitness\n");
-    for(Team* team : rootTeamPopulation)
+    for (Team* team : rootTeamPopulation)
     {
         team->calculateFitness();
-        printf("Team %llu: %f\n", team->getId(), team->getFitness());
     }
 
     // The first step is to run selection on the root team population.
     // This ranks the root teams by their current citness and then
     // removes the bottom half of the root team population. The original
     // root teams will still be intact, which could cause issues.
-    printf("Team Population:\n");
-    for (Team* T : teamPopulation)
-        printf("%llu ", T->getId());
-    printf("\n");
-
-    printf("Root Team Population:\n");
-    for (Team* T : rootTeamPopulation)
-        printf("%llu ", T->getId());
-    printf("\n");
-
-    printf("Last Learner ID = %llu\n", parameters.nextLearnerId);
-
-    printf("REPRO: Selection Start\n");
     std::vector<Team*> rankedTeams = reproduction->teamSelection(
         rootTeamPopulation, this->parameters);
 
-    printf("REPRO: Ranked\n");
-    for (Team* team : rankedTeams)
-    {
-        team->calculateFitness();
-        printf("Team %llu: %f\n", team->getId(), team->getFitness());
-    }
-
-    printf("Ranked: ");
-    for (Team* T : rankedTeams)
-        printf("%llu ", T->getId());
-    printf("\n");
-
     // Once the teams are ranked and the gap is removed, we then 
     // use those teams to reproduce to bring the population back up.
-    printf("REPRO: Reproduction Start\n");
     std::vector<Team*> childTeams = reproduction->teamReproduction(
         rankedTeams, this->parameters);
 
-    printf("Child: ");
-    for (Team* T : childTeams)
-        printf("%llu ", T->getId());
-    printf("\n");
-
     // Now that the child teams have been created, we can then mutate
     // each of them.
-    printf("REPRO: Mutation Start\n");
     std::vector<Team*> mutatedTeams = reproduction->teamMutation(
         childTeams, this->parameters);
-
-    printf("Mutate: ");
-    for (Team* T : mutatedTeams)
-        printf("%llu ", T->getId());
-    printf("\n");
 
     // The teamSelection(..) method has already removed the relevant
     // bottom half root teams from the applicable populations, so we
     // can now add the mutated children to the team population.
-    printf("REPRO: Unification Start\n");
     teamPopulation.insert(teamPopulation.end(), mutatedTeams.begin(), mutatedTeams.end());
-
-    printf("Unification Result:\n");
-    for (Team* T : teamPopulation)
-        printf("%llu ", T->getId());
-    printf("\n");
-
 }
 
 void TpgLearn::cleanup()
@@ -324,7 +275,7 @@ void TpgLearn::cleanup()
         // we should remove it from the population and delete it.
         if(learner->getReferences() == 0)
         {
-            printf("\tAttempting to delete Learner %llu\n", learner->getId());
+            printf("\tAttempting to delete Learner %llu (%u)\n", learner->getId(), learner->getReferences());
             // Find an iterator which points to the location in the
             // Learner population where this Learner is stored.
             auto position = std::find_if(

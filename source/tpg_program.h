@@ -51,7 +51,7 @@ class Program
     // getters and setters
     int64 instructionCount(const std::string_view&) const;
     std::unordered_map<std::string, int64> allInstructionCounts(TpgParameters&) const;
-    std::vector<Instruction*> getInstructions() const;
+    std::vector<Instruction*>* getInstructions() const;
 
     // core functionality
     double execute(const std::vector<double>&, TpgParameters&);

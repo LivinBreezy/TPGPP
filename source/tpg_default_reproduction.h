@@ -44,7 +44,7 @@ class StandardReproduction : public Reproduction
     std::vector<Team*> teamMutation(std::vector<Team*>&, TpgParameters&);
 
   private:
-    std::unique_ptr<Program> mutateProgram(Program&, TpgParameters&);
+    Program* mutateProgram(std::vector<Instruction*>&, TpgParameters&);
     Instruction* mutateInstruction(Instruction&, TpgParameters&);
     Action mutateAction(Action&, TpgParameters&);
 };

@@ -62,12 +62,6 @@ Program::Program(const Program& other, TpgParameters& parameters)
 
     // initialize registers to other's registers
     this->registers = new std::vector<double>(*other.registers);
-
-    /*printf("Instructions Size %zd  Registers Size %zd\n", instructions->size(), registers->size());
-    for (int i = 0; i < instructions->size(); ++i)
-    {
-        printf("%s\n", (*instructions)[i]->toString().c_str());
-    }*/
 }
 
 /**
@@ -106,9 +100,6 @@ Program::Program(const std::vector<Instruction*>& oldInstructions,
  */
 Program::~Program()
 {   
-    for (Instruction* I : *instructions)
-        printf("%s\n", I->toString().c_str());
-
     for (Instruction *instruction : *instructions)
     {
         delete instruction;
@@ -198,9 +189,9 @@ std::unordered_map<std::string, int64> Program::allInstructionCounts(TpgParamete
     return countMap;
 }
 
-std::vector<Instruction*> Program::getInstructions() const
+std::vector<Instruction*>* Program::getInstructions() const
 {
-    return *instructions;
+    return instructions;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
