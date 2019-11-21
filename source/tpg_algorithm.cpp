@@ -105,25 +105,16 @@ int main()
     spdlog::set_default_logger(file_logger);
 
     // Create the initial learning algorithm
-    spdlog::debug("Creating TpgLearn Object");
     TpgAlgorithm* algorithm = new TpgAlgorithm("parameters.arg", "learn");
-    spdlog::debug("TpgLearn Object Created");
 
     // Get the TpgLearn object
-    spdlog::debug("Retrieving TpgLearn Object");
     TpgLearn& tpg = *(dynamic_cast<TpgLearn*>(algorithm->getTpgEntity()));
-    spdlog::debug("Successfully Retrived TpgLearn");
-
-    
+       
     // Create a list of actions and give them to TpgLearn
-    spdlog::debug("Creating and setting actions.");
     tpg.setActions(*(new std::vector<int64>{ 0, 1, 2, 3, 4 }));
-    spdlog::debug("Actions set.");
 
     // Initialize TpgLearn object
-    spdlog::debug("Initializing TPG...");
     tpg.initializeEnvironment();
-    spdlog::debug("Initialization Complete.");
 
     // Create a variable for holding reward
     double reward = 0.0;
@@ -140,14 +131,11 @@ int main()
     // Main Learning Loop
     for (int i = 0; i < numberOfIterations; i++)
     {
-        spdlog::debug("Enter Loop {}", i);
         for (int j = 0; j < gamesToPlay; j++)
         {
             // Let every Team play the current game once
             while (tpg.getRemainingTeams() > 0)
             {
-                spdlog::debug("Start Play: Team {}", 36-tpg.getRemainingTeams());
-                
                 // For simulation only. See the big comment below.
                 int count = 10;
 
@@ -166,7 +154,6 @@ int main()
                     // then returns an action label, which is enacted on the environment. The environment
                     // then returns a reward which can be applied immediately or stored for later use,
                     // depending on what you want the algorithm to do.
-                    spdlog::debug("Get Reward {},{}", i, j);
                     reward += actOnEnvironment(tpg.participate(*inputFeatures));
 
                     // Counting down frames for testing purposes
@@ -178,23 +165,16 @@ int main()
                 // In single-game learning just make it static, but when you move on to
                 // playing multiple games, you'll need to make sure the labels are correct.
                 tpg.rewardCurrentTeam("game", reward);
-                spdlog::debug("Reward = {}", reward);
             }
         }
         
         // Print the current top 10 Team population outcomes and some simple environment values
-        spdlog::debug("Print Stats {}", i);
-        printf("Print Stats %d\n", i);
         tpg.printStats(10, "game");
 
         // Tell TPG to initiate a reproduction cycle
-        printf("Reproduce %d\n", i);
-        spdlog::debug("Reproduce {}", i);
         tpg.executeReproduction();
 
         // Reset TPG so it increases the generation count and finds the new Root Teams
-        spdlog::debug("Move From {} to {}", i, i+1);
-        printf("Next Generation %d\n", i);
         tpg.nextGeneration();
         printf("New Generation %d\n", i+1);
     }

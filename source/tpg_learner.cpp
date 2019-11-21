@@ -146,6 +146,5 @@ std::string Learner::toString() const
  */
 double Learner::bid(const std::vector<double>& inputFeatures, TpgParameters& parameters)
 {
-    printf("Execute Learner %llu\n", this->id);
     return program->execute(inputFeatures, parameters);
 }

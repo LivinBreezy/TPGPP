@@ -80,6 +80,11 @@ Team::Team(const Team& other, TpgParameters& parameters)
     this->outcomes = {};
     this->learnerReferences = 0;
     this->fitness = 0.0;
+
+    for (Learner* learner : learners)
+    {
+        learner->increaseReferences();
+    }
 }
 
 /**
@@ -275,10 +280,8 @@ bool Team::addLearner(Learner* learner)
     // learner is new to this team, add it
     else
     {
-        printf("TEAM_ADD1: Learner %llu Refs %u\n", learner->getId(), learner->getReferences());
         learners.push_back(learner);
         learner->increaseReferences();
-        printf("\tTEAM_ADD2: Learner %llu Refs %u\n", learner->getId(), learner->getReferences());
         return true;
     }
 }
@@ -296,7 +299,7 @@ bool Team::removeLearner(Learner* learner, bool force)
     auto position = std::find_if(
         learners.begin(),
         learners.end(),
-        [learner](Learner* l) {return *l == *learner; }
+        [learner](Learner* l) {return *l == *learner;}
     );
 
     // remove learner if in learners, and either force or not last atomic
@@ -360,14 +363,10 @@ int64 Team::getAction(std::unordered_set<Team*>& visited,
     // to ensure no re-visits of teams
     visited.emplace(this);
 
-    spdlog::debug("GET_ACTION_TEAM: Begin = {}", inputFeatures[0]);
-
     // find best learner based on highest bid
     Learner* bestLearner = *learners.begin();
     double bestBid = bestLearner->bid(inputFeatures, parameters);
     double curBid;
-
-    spdlog::debug("GET_ACTION_TEAM: Starting Bid = {}", bestBid);
 
     for (auto lrnrIt = learners.begin() + 1; lrnrIt != learners.end(); ++lrnrIt)
     {

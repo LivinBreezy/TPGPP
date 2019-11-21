@@ -17,9 +17,11 @@
  *  This includes generating all the Instruction objects up to the maximum
  *  program size and initializing the general purpose registers.
  *  @param parameters A struct held by the main TPG algorithm objects
- *  (TpgLearn or TpgPlay) and stores all of the current parameter values 
+ *  (TpgLearn or TpgPlay) and stores all of the current paramvalues 
  *  for the current environment.
  *  @todo      Implementation and full commenting required.
+ *  @todo      It's possible for Programs to be mutated to have 0 Instructions.
+               This should be fixed, possibly with a minimum program size.
  */
 Program::Program(TpgParameters& parameters)
 {

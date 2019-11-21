@@ -17,8 +17,6 @@ TpgLearn::TpgLearn(std::unordered_map<std::string, double>& arguments)
     // Move the input argument values to the TpgParameters class.
     mergeParameters(params, arguments);
 
-    spdlog::debug("Finished merging the arguments");
-    
     // Create a new random number generator using the seed parameter.
     if(params.randomSeed >= 0)
     {
@@ -275,7 +273,6 @@ void TpgLearn::cleanup()
         // we should remove it from the population and delete it.
         if(learner->getReferences() == 0)
         {
-            printf("\tAttempting to delete Learner %llu (%u)\n", learner->getId(), learner->getReferences());
             // Find an iterator which points to the location in the
             // Learner population where this Learner is stored.
             auto position = std::find_if(
@@ -353,7 +350,7 @@ void TpgLearn::printStats(int32 count, std::string_view label)
 {
     std::vector<Team*>& rootTeams = this->parameters.rootTeamPopulation;
     
-    int32 limit = count > rootTeams.size() ? count : static_cast<int32>(rootTeams.size());
+    int32 limit = count < rootTeams.size() ? count : static_cast<int32>(rootTeams.size());
 
     for(int i = 0; i < limit; i++)
     {
@@ -361,7 +358,8 @@ void TpgLearn::printStats(int32 count, std::string_view label)
             this->parameters.generation,
             i + 1,
             rootTeams[i]->getId(),
-            rootTeams[i]->getOutcome(label.data()));
+            rootTeams[i]->getOutcome(label.data())
+        );
     }
 }
 

@@ -1,10 +1,10 @@
 randomSeed=-1
-teamPopulationSize=36
+teamPopulationSize=360
 teamGap=0.5
-maximumTeamSize=25
+maximumTeamSize=12
 minimumTeamSize=2
 minimumRootTeams=6
-maximumProgramSize=12
+maximumProgramSize=64
 numberOfOperations=9
 probLearnerMutate=0.2
 probLearnerAdd=0.7

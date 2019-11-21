@@ -101,7 +101,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
     {
         // If we hit our target probability for deleting learners from
         // teams, run the learner deletion cycle.        
-        if(parameters.rngUniform() < 1.0)//parameters.probLearnerDelete)
+        if(parameters.rngUniform() < parameters.probLearnerDelete)
         {
             // Create a double for holding the cumulative probability.
             double cumulative = 1.0;
@@ -113,7 +113,8 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
             // safely lose one and the cumulative probability is hit,
             // randomly remove a learner.
             while(team->numberOfLearners() > parameters.minimumTeamSize
-                && parameters.rngUniform() < cumulative)
+                && parameters.rngUniform() < cumulative
+                && team->getAtomicActionCount() > 1)
             {
                 // Create a variable for holding a learner pointer.
                 Learner* learner = nullptr;
@@ -137,7 +138,7 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
 
         // If we hit our target probability for adding learners to teams, run 
         // the learner add cycle.
-        if (parameters.rngUniform() < 1.0)// parameters.probLearnerAdd)
+        if (parameters.rngUniform() < parameters.probLearnerAdd)
         {
             // Create a double for holding the cumulative probability.
             double cumulative = 1.0;
@@ -181,60 +182,61 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
         {           
             // If we hit our target probability for mutating a learner,
             // proceed through the Learner mutation algorithm.
-            if(parameters.rngUniform() < 1.0)//parameters.probLearnerMutate)
+            if(parameters.rngUniform() < parameters.probLearnerMutate)
             {
-                // Retrieve a copy of the original learner's program.
-                std::vector<Instruction*>* instructions = learner->getInstructions();
-                   
-                // Perform the Program mutation cycle on the new Learner
-                // and store it in a new variable.
-                Program* newProgram = mutateProgram(*instructions, parameters);
-               
-                // Remove the original learner from the team.
-                team->removeLearner(learner);
-
-                // Extract the action from the original learner.
-                Action* action = learner->getActionObject();
-
-                // If we hit the target probability for mutating a learner's
-                // action, we proceed through the algorithm.
-                if(parameters.rngUniform() < 1.0)//parameters.probMutateAction)
+                // As long as it's valid to remove the original learner from the team:
+                if (team->removeLearner(learner))
                 {
-                    action = &(mutateAction(*action, parameters));
-                }
+                    // Retrieve a copy of the original learner's program.
+                    std::vector<Instruction*>* instructions = learner->getInstructions();
 
-                // Create a pointer for holding a new learner.
-                Learner* newLearner = nullptr;
+                    // Perform the Program mutation cycle on the new Learner
+                    // and store it in a new variable.
+                    Program* newProgram = mutateProgram(*instructions, parameters);
 
-                // Create the new learner and store it based on its action type.
-                if(action->isAtomicAction())
-                {
-                    // The learner is created with an atomic action.
-                    newLearner = new Learner(
-                        parameters.nextLearnerId++,
-                        parameters.generation,
-                        action->getAtomic(),
-                        0,
-                        *newProgram
-                    );
-                }
-                else
-                {
-                    // The learner is created with a team reference action.
-                    newLearner = new Learner(
-                        parameters.nextLearnerId++,
-                        parameters.generation,
-                        *(action->getTeam()),
-                        0,
-                        *newProgram
-                    );
-                }
-                
-                // Add the new learner to the team.
-                team->addLearner(newLearner);
+                    // Extract the action from the original learner.
+                    Action* action = learner->getActionObject();
 
-                // Add the new learner to the learner population
-                learners.push_back(newLearner);
+                    // If we hit the target probability for mutating a learner's
+                    // action, we proceed through the algorithm.
+                    if (parameters.rngUniform() < 1.0)//parameters.probMutateAction)
+                    {
+                        action = &(mutateAction(*action, parameters));
+                    }
+
+                    // Create a pointer for holding a new learner.
+                    Learner* newLearner = nullptr;
+
+                    // Create the new learner and store it based on its action type.
+                    if (action->isAtomicAction())
+                    {
+                        // The learner is created with an atomic action.
+                        newLearner = new Learner(
+                            parameters.nextLearnerId++,
+                            parameters.generation,
+                            action->getAtomic(),
+                            0,
+                            *newProgram
+                        );
+                    }
+                    else
+                    {
+                        // The learner is created with a team reference action.
+                        newLearner = new Learner(
+                            parameters.nextLearnerId++,
+                            parameters.generation,
+                            *(action->getTeam()),
+                            0,
+                            *newProgram
+                        );
+                    }
+
+                    // Add the new learner to the team.
+                    team->addLearner(newLearner);
+
+                    // Add the new learner to the learner population
+                    learners.push_back(newLearner);
+                }
             }
         }
     }
@@ -267,7 +269,8 @@ Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &original
     while (!mutated)
     {
         // Attempt to remove a random instruction by probability.
-        if (parameters.rngUniform() < 1.0)//parameters.probInstructionDelete)
+        if (parameters.rngUniform() < parameters.probInstructionDelete
+            && instructions.size() > 1)
         {             
             // Generate a random index for the instruction vector.
             index = parameters.rngInt64(0, instructions.size());
@@ -286,7 +289,7 @@ Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &original
 
         // Attempt to insert a random instruction at a random location
         // by probability.
-        if (parameters.rngUniform() < 1.0)//parameters.probInstructionAdd)
+        if (parameters.rngUniform() < parameters.probInstructionAdd)
         {
             // Create a new random instruction.
             Instruction* instruction = new Instruction(parameters);
@@ -302,7 +305,7 @@ Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &original
         }
 
         // Mutate a random instruction.
-        if (parameters.rngUniform() < 1.0)//parameters.probInstructionMutate)
+        if (parameters.rngUniform() < parameters.probInstructionMutate)
         {
             // Generate a random index for the instruction vector.
             index = parameters.rngInt64(0, instructions.size());
