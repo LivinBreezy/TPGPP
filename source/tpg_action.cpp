@@ -61,7 +61,8 @@ Team* Action::getTeam() const
  */
 bool Action::isAtomicAction() const
 {
-    return !team;
+    return action >= 0;
+    //return !team;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

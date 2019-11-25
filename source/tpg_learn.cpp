@@ -42,6 +42,17 @@ TpgLearn::TpgLearn(std::unordered_map<std::string, double>& arguments)
     params.nextTeamId = 0;
     params.nextLearnerId = 0;
     params.generation = -1;
+
+    Program* learner = new Program(params);
+    std::vector<double> *inputFeatures = new std::vector<double>{ 1.0, 2.1, 3.2, 4.3, 5.4 };
+    time_t start = time(nullptr);
+    for (int i = 0; i < 6000; ++i)
+    {
+        if(i%500==0)
+            printf("%d ", i);
+        learner->execute(*inputFeatures, params);
+    }
+    printf("Time Taken: %f\n", difftime(time(nullptr), start));
 }
 
 TpgLearn::~TpgLearn()
@@ -175,8 +186,11 @@ int64 TpgLearn::participate(std::vector<double>& inputFeatures)
 
     // Provide the team with the input parameters and an empty unordered
     // set, then return the action it suggests.
-    return team->getAction(*(new std::unordered_set<Team*>()), 
+    std::unordered_set<Team*>* visited = new std::unordered_set<Team*>();
+    int64 action = team->getAction(*(new std::unordered_set<Team*>()),
         inputFeatures, this->parameters);
+    delete visited;
+    return action;
 }
 
 int64 TpgLearn::participate(std::vector<double>& inputFeatures, 

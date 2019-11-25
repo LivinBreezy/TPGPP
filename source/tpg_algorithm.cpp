@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
+#include <time.h>
+#include <limits>
 
 #include <vector>
 #include <unordered_map>
@@ -116,6 +118,8 @@ int main()
     // Initialize TpgLearn object
     tpg.initializeEnvironment();
 
+    printf("Initialization Complete\n");
+
     // Create a variable for holding reward
     double reward = 0.0;
 
@@ -128,9 +132,12 @@ int main()
     // Keep a count of the number of games to play (learning dimensions)
     int gamesToPlay = 1;
 
+    time_t startTime;
+
     // Main Learning Loop
     for (int i = 0; i < numberOfIterations; i++)
     {
+        startTime = time(nullptr);
         for (int j = 0; j < gamesToPlay; j++)
         {
             // Let every Team play the current game once
@@ -176,7 +183,7 @@ int main()
 
         // Reset TPG so it increases the generation count and finds the new Root Teams
         tpg.nextGeneration();
-        printf("New Generation %d\n", i+1);
+        printf("New Generation %d: %f seconds\n", i+1, difftime(time(nullptr), startTime));
     }
 
     return 0;

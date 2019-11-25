@@ -248,10 +248,10 @@ std::vector<Team*> StandardReproduction::teamMutation(std::vector<Team*>& childT
 Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &originalInstructions, TpgParameters& parameters)
 {
     // Create a copy of the instruction set from the program object.
-    std::vector<Instruction*> instructions = std::vector<Instruction*>();
+    std::vector<Instruction*> *instructions = new std::vector<Instruction*>();
     for (Instruction* instruction : originalInstructions)
     {
-        instructions.push_back(new Instruction(
+        instructions->push_back(new Instruction(
             instruction->getMode(),
             instruction->getSource(),
             instruction->getDestination(),
@@ -270,16 +270,16 @@ Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &original
     {
         // Attempt to remove a random instruction by probability.
         if (parameters.rngUniform() < parameters.probInstructionDelete
-            && instructions.size() > 1)
+            && instructions->size() > 1)
         {             
             // Generate a random index for the instruction vector.
-            index = parameters.rngInt64(0, instructions.size());
+            index = parameters.rngInt64(0, instructions->size());
 
             // Temporarily store the Instruction to be deleted
-            Instruction* temp = instructions[index];
+            Instruction* temp = (*instructions)[index];
 
             // Remove the instruction from the random index.
-            instructions.erase(instructions.begin() + index);
+            instructions->erase(instructions->begin() + index);
 
             // Delete the old instruction
             delete temp;
@@ -295,10 +295,10 @@ Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &original
             Instruction* instruction = new Instruction(parameters);
 
             // Generate a random index for the instruction vector.
-            index = parameters.rngInt64(0, instructions.size());
+            index = parameters.rngInt64(0, instructions->size());
 
             // Insert the new instruction at the random location.
-            instructions.insert(instructions.begin() + index, instruction);
+            instructions->insert(instructions->begin() + index, instruction);
 
             // If this change was successful, then we've mutated.
             mutated = true;
@@ -308,16 +308,16 @@ Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &original
         if (parameters.rngUniform() < parameters.probInstructionMutate)
         {
             // Generate a random index for the instruction vector.
-            index = parameters.rngInt64(0, instructions.size());
+            index = parameters.rngInt64(0, instructions->size());
 
             // Temporarily store the Instruction to be mutated
-            Instruction* temp = instructions[index];
+            Instruction* temp = (*instructions)[index];
 
             // Mutate a new instruction from the old one at the random index.
             Instruction* instruction = mutateInstruction(*temp, parameters);
 
             // Remove the old instruction and replace it with the new one.
-            instructions[index] = instruction;
+            (*instructions)[index] = instruction;
 
             // Delete the old instruction
             delete temp;
@@ -331,30 +331,41 @@ Program* StandardReproduction::mutateProgram(std::vector<Instruction*> &original
         {
             // Create a variable and generate a random index for the
             // instruction vector.
-            int64 other = parameters.rngInt64(0, instructions.size());
+            int64 other = parameters.rngInt64(0, instructions->size());
 
             // Generate a random index which is different from our first
             // random index.
             do
             {
-                index = parameters.rngInt32(0, instructions.size());
+                index = parameters.rngInt32(0, instructions->size());
             } while (index != other);
 
             // Create a variable for holding an Instruction temporarily.
             Instruction* temp = nullptr;
 
             // Swap the instructions with a three-point replacement.
-            temp = instructions[index];
-            instructions[index] = instructions[other];
-            instructions[other] = temp;
+            temp = (*instructions)[index];
+            (*instructions)[index] = (*instructions)[other];
+            (*instructions)[other] = temp;
 
             // If this change was successful, then we've mutated.
             mutated = true;
         }
     }
 
+    // Create a new program based on the mutated instructions
+    Program *program = new Program(*instructions, parameters);
+
+    // Delete the mutated instruction vector
+    for (Instruction* instruction : *instructions)
+    {
+        delete instruction;
+    }
+
+    delete instructions;
+
     // Return a copy of the new program with the mutated instructions
-    return new Program(instructions, parameters);
+    return program;
 }
 
 Instruction* StandardReproduction::mutateInstruction(Instruction& instruction, TpgParameters& parameters)

@@ -359,26 +359,33 @@ int32 Team::decreaseReferences()
 int64 Team::getAction(std::unordered_set<Team*>& visited, 
     const std::vector<double>& inputFeatures, 
     TpgParameters& parameters)
-{
+{    
     // to ensure no re-visits of teams
     visited.emplace(this);
 
-    // find best learner based on highest bid
-    Learner* bestLearner = *learners.begin();
-    double bestBid = bestLearner->bid(inputFeatures, parameters);
-    double curBid;
+    Learner* bestLearner = nullptr;
+    double bestBid = -std::numeric_limits<double>::infinity();
+    double curBid = 0;
 
-    for (auto lrnrIt = learners.begin() + 1; lrnrIt != learners.end(); ++lrnrIt)
+    // Get the first bid from the Learners based on their Action object
+    for(Learner* learner : learners)
     {
-        // only consider learners already visited
-        if (std::find(visited.begin(), visited.end(), this) == visited.end())
+        // If this Learner's Action is a Team and we've visited that Team before, skip this Learner
+        if (!learner->getActionObject()->isAtomicAction() 
+            && visited.count(learner->getActionObject()->getTeam()))
+            continue;
+
+        // Get the current learner's bid
+        curBid = learner->bid(inputFeatures, parameters);
+
+        // If it's better than the current best bid:
+        if(curBid > bestBid)
         {
-            // replace best learner and bid with current if higher
-            curBid = (*lrnrIt)->bid(inputFeatures, parameters);
-            if (curBid > bestBid) {
-                bestLearner = *lrnrIt;
-                bestBid = curBid;
-            }
+            // Save the learner as the best learner
+            bestLearner = learner;
+
+            // Save the learner's bid as the new best
+            bestBid = curBid;
         }
     }
 

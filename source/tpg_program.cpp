@@ -27,7 +27,8 @@ Program::Program(TpgParameters& parameters)
 {
     // generate new random instructions
     this->instructions = new std::vector<Instruction*>();
-    int64 numInstructions = parameters.rngInt64(1, parameters.maximumProgramSize);
+    //int64 numInstructions = parameters.rngInt64(1, parameters.maximumProgramSize);
+    int64 numInstructions = 1024;
     for (int64 i = 0; i < numInstructions; ++i)
     {
         this->instructions->push_back(new Instruction(parameters));
