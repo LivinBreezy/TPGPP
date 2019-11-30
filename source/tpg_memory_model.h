@@ -1,6 +1,7 @@
 #ifndef TPG_UNIVERSAL_TPGMEMORYMODEL_H_
 #define TPG_UNIVERSAL_TPGMEMORYMODEL_H_
 
+#include <boost/serialization/split_member.hpp>
 #include "tpg_utility.h"
 
 #include <string>
@@ -26,6 +27,22 @@
  */
 class MemoryModel
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
     int32 rows;
     int32 columns;
     double** memory;

@@ -8,6 +8,7 @@
 #include <string_view>
 #include <vector>
 
+#include <boost/serialization/split_member.hpp>
 #include "tpg_instruction.h"
 
 /**
@@ -36,6 +37,22 @@
  */
 class Program
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
     /**A vector of Instruction objects which represent a complete TPG program.*/
     std::vector<Instruction*> *instructions;
     /**A vector which acts as a set of general purpose registers.*/

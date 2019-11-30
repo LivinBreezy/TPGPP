@@ -9,6 +9,7 @@
 #include <unordered_set>
 #include <vector>
 
+#include <boost/serialization/split_member.hpp>
 #include "tpg_learner.h"
 
 // Dependent class forward declarations
@@ -33,6 +34,22 @@ class Action;
  */
 class Team
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
     int64 id;
     int64 birthday;
     int32 learnerReferences;

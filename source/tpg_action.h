@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 
+#include <boost/serialization/split_member.hpp>
 #include "tpg_utility.h"
 
 // Dependent class forward declarations
@@ -33,24 +34,43 @@ class Team;
  */
 class Action
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+        ar & action;
+        //ar & team;
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+        ar & action;
+        //ar & team;
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
     int64 action;
     Team* team;
    
 public:
     // constructors and destructor
+    Action();
     Action(int64);
     Action(Team&);
     Action(const Action&);
     ~Action();
 
     // getters and setters
-    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&, TpgParameters&) const;
     int64 getAtomic() const;
     Team* getTeam() const;
     bool isAtomicAction() const;
 
     // core functionality
-    int64 getAction(std::unordered_set<Team*>&, const double*, TpgParameters& parameters) const;
+    int64 getAction(std::unordered_set<Team*>&, const std::vector<double>&, TpgParameters&) const;
     
     // utility
     bool operator==(const Action&) const;

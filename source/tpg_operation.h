@@ -1,6 +1,7 @@
 #ifndef TPG_UNIVERSAL_TPGOPERATION_H_
 #define TPG_UNIVERSAL_TPGOPERATION_H_
 
+#include <boost/serialization/split_member.hpp>
 #include "tpg_utility.h"
 
 /**
@@ -20,6 +21,22 @@
  */
 class Operation
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
 public:
     virtual bool execute(int8, 
         int32, 

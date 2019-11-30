@@ -7,6 +7,10 @@
 // CONSTRUCTORS AND DESTRUCTOR
 ///////////////////////////////////////////////////////////////////////////////
 
+Action::Action()
+{
+}
+
 Action::Action(int64 action)
 {
     this->action = action;

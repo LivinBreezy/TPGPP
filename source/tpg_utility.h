@@ -12,6 +12,7 @@
 #include <unordered_set>
 #include <stdio.h>
 
+#include <boost/serialization/split_member.hpp>
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
@@ -54,6 +55,22 @@ enum class Operations {
 // because the OperationFunction would make a struct self-referential. 
 class TpgParameters
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
 public:
     // Input Parameters
     int64 randomSeed;

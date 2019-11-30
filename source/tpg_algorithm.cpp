@@ -10,12 +10,19 @@
 #include <vector>
 #include <unordered_map>
 
+#include <boost/serialization/split_member.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 #include "tpg_utility.h"
 #include "tpg_learn.h"
 #include "tpg_test.h"
 
 #include "tpg_learner.h"
 #include "tpg_team.h"
+
+//remove
+#include "tpg_action.h"
 
 
 TpgAlgorithm::TpgAlgorithm(std::string_view inputFile, 
@@ -97,8 +104,43 @@ double actOnEnvironment(int64 action)
     return static_cast<double>(action * pow(100,2));
 }
 
+class Test
+{
+private:
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+        ar & a;
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+        ar & a;
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
+    bool a;
+
+public:
+    Test() { a = true; };
+};
+
 int main()
 {
+    //Action* act = new Action(55);
+    //std::ofstream ofs("tmp.dat");
+    //boost::archive::text_oarchive ar(ofs);
+    //ar & act;
+
+    Test* test = new Test();
+    std::ofstream ofs("tmp.dat");
+    boost::archive::text_oarchive ar(ofs);
+    ar & test;
+
     // Set the current log level to DEBUG
     spdlog::set_level(spdlog::level::debug);
 

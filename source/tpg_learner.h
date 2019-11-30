@@ -1,6 +1,7 @@
 #ifndef TPG_UNIVERSAL_TPGLEARNER_H_
 #define TPG_UNIVERSAL_TPGLEARNER_H_
 
+#include <boost/serialization/split_member.hpp>
 #include "tpg_utility.h"
 
 // Dependant class forward declarations
@@ -29,6 +30,22 @@ class Instruction;
  */
 class Learner
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
     int64 id;
     int64 birthday;
     int32 teamReferences;

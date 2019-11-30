@@ -5,6 +5,7 @@
 
 #include <string>
 
+#include <boost/serialization/split_member.hpp>
 #include "tpg_operation.h"
 
 /**
@@ -27,6 +28,22 @@
  */
 class Instruction
 {
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void save(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    template<class Archive>
+    void load(Archive& ar, const unsigned int version)
+    {
+
+    }
+
+    BOOST_SERIALIZATION_SPLIT_MEMBER()
+
 public:
     Instruction(TpgParameters&);
     Instruction(int8, int32, int8, Operation*);
