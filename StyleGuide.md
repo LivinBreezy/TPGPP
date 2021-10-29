@@ -88,7 +88,7 @@ Don't ever use one class implicitly where another class is explicitly expected, 
 Use a struct only for passive objects that carry data; everything else is a class.
 
 ## Structs vs. Pairs and Tuples
-Prefer to use a structu in all cases, especially when the values contained can have meaningful names.
+Prefer to use a struct in all cases, especially when the values contained can have meaningful names.
 
 ## Inheritance
 Interface inheritance should be used almost exclusively, either through fully abstract classes and methods or via the use of templates. Implementation inheritance should be avoided as much as possible.
