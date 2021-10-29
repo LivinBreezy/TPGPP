@@ -152,8 +152,8 @@ Whenever possible, use sizeof(variableName) not sizeof(typeName).
 ## Type Deduction
 Avoid as much as possible. Use type deducation (T cast and auto types) when it would benefit the reader or there is a large variety of incoming data types.
 	
-## Lamba Expressions
-Use common sense when implementing lamba functions. Don't place them everywhere throughout your code. Instead, use them in convenient ad-hoc situations where defining a full function would be wasteful or reduce readability, such as defining comparison conditions for sort functions.
+## Lambda Expressions
+Use common sense when implementing lambda functions. Don't place them everywhere throughout your code. Instead, use them in convenient ad-hoc situations where defining a full function would be wasteful or reduce readability, such as defining comparison conditions for sort functions.
 	
 ## Template Metaprogramming
 In general, avoid template metaprogramming. If this becomes an issue for your software, we can generate exceptions on a needed basis.
