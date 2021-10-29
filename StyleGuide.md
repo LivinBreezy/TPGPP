@@ -97,7 +97,7 @@ Interface inheritance should be used almost exclusively, either through fully ab
 Overload operators with good judgment and common sense. When overloading operators, try to stay	as close to the given operator's original functionality as possible. In the case where the intent of the overload is not immediately obvious, ensure a comment is added to any relevant statement with a reference to the overloaded operator in question.
 	
 ## Access Control
-Make clases' data members private, unless they are constants.
+Make classes' data members private, unless they are constants.
 	
 ## Declaration Order
 A class definition should start with public, followed by protected, followed by private. Empty sections should be excluded.
