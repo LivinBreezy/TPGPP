@@ -362,7 +362,7 @@ Since our projects all use warning level 4 (one step before Wall), we will exclu
 int x = 3;
 std:string name = "Some Name";
 ```
-## Class Format:
+## Class Format
 Sections in public, protected, and private order, each indented two spaces.
 	
 ## Constructor Initialization Lists
